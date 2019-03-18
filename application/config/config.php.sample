@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author Amin Mahmoudi (MasterkinG)
+ * @copyright	Copyright (c) 2019 - 2022, MsaterkinG32 Team, Inc. (https://masterking32.com)
+ * @link	https://masterking32.com
+ * @Description : It's not masterking32 framework !
+ **/
+ 
+// base config
+$config['baseurl'] 						 = "http://localhost"; // Site URL
+$config['page_title'] 					 = "Simple Register"; // Site Title
+
+$config['db_auth_host'] = '127.0.0.1';		        // Auth Database Host
+$config['db_auth_port'] = '3306';			        // Auth Database Port
+$config['db_auth_user'] = 'root'; 			        // Auth Database Username
+$config['db_auth_pass'] = 'root';			        // Auth Database Password
+$config['db_auth_dbname'] = 'realmd';				// Auth Database DBName
+$config['realmlist'] = 'logon.myserver.com';		// Server Realmlist
+$config['expansion'] = '2';		                    // 1 = TBC, 2 = Lichking
+
+$config['realmlists'] = array( // Add your realmlist here
+	"1" => array(
+		'realmid' => 1,
+		'realmname' => "Realm 1",
+		'db_host' => "127.0.0.1",
+		'db_port' => "3306",
+		'db_user' => "root",
+		'db_pass' => "root",
+		'db_name' => "rm1_chars"
+	),
+	"2" => array(
+		'realmid' => 2,
+		'realmname' => "Realm 2",
+		'db_host' => "127.0.0.1",
+		'db_port' => "3306",
+		'db_user' => "root",
+		'db_pass' => "root",
+		'db_name' => "rm2_chars"
+	)
+);
+
+?>
