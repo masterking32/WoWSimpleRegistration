@@ -22,8 +22,8 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 ![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/1.jpg)
 ![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/2.jpg)
-![How to Connect Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/3.jpg)
-![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/4.jpg)
+![How to Connect Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/4.jpg)
+![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/5.jpg)
 
 ## Programmers
 
