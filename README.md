@@ -1,6 +1,6 @@
 ﻿# Simple Register Page for TrinityCore/AzerothCore
 
-With this system you can make a website for your game server.
+With this script you can make a website for your game server.
 
 Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://TrinityCore.org).
 
