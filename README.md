@@ -27,6 +27,6 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 ## Programmers
 
-Author by [Amin.MasterkinG](https://masterking32.com)
+Author : [Amin.MasterkinG](https://masterking32.com)
 
 
