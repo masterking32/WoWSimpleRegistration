@@ -9,7 +9,7 @@ require_once 'header.php'; ?>
 <div class="row">
     <div class="main-box">
         <form action="" method="post">
-            <img src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/images/wow-logo.png">
+            <img src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/images/wow-logo.png">
             <div class="col-xs-12" style="margin-top: 20px;">
                 <nav>
                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -53,7 +53,7 @@ require_once 'header.php'; ?>
                             </div>
                             <div class="col-md-6">
                                 <div style="padding: 10px;text-align: left">
-                                    <?php require_once base_path.'template/tpl/rules.php'; ?>
+                                    <?php require_once base_path.'template/'.get_config('template').'/tpl/rules.php'; ?>
                                 </div>
                             </div>
                         </div>
@@ -80,10 +80,10 @@ require_once 'header.php'; ?>
                         ?>
                     </div>
                     <div class="tab-pane fade" id="nav-howtoconnect" role="tabpanel" aria-labelledby="nav-howtoconnect-tab">
-                        <?php require_once base_path.'template/tpl/howtoconnect.php'; ?>
+                        <?php require_once base_path.'template/'.get_config('template').'/tpl/howtoconnect.php'; ?>
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <?php require_once base_path.'template/tpl/contactus.php'; ?>
+                        <?php require_once base_path.'template/'.get_config('template').'/tpl/contactus.php'; ?>
                     </div>
                 </div>
             </div>

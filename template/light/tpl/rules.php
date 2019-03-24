@@ -17,5 +17,5 @@
     <li>Rule 4.</li>
     <li>Rule 5.</li>
     <li>Rule 6.</li>
-    <li>Edit rules on <b>"/template/tpl/rules.php"</b>.</li>
+    <li>Edit rules on <b>"/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/rules.php"</b>.</li>
 </ul>

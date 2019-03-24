@@ -8,4 +8,4 @@
 
 require_once './application/loader.php';
 user::register();
-require_once base_path.'template/tpl/main.php';
+require_once base_path.'template/'.get_config('template').'/tpl/main.php';
