@@ -20,10 +20,19 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 ## Screenshots
 
+## Light Template
+
 ![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/1.jpg)
 ![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/2.jpg)
 ![How to Connect Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/4.jpg)
 ![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/5.jpg)
+
+## IceCrown Template
+
+![Home Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i1.jpg)
+![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i2.jpg)
+![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i3.jpg)
+![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i4.jpg)
 
 ## Programmers
 

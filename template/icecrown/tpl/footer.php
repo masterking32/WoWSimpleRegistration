@@ -7,9 +7,12 @@
  **/
 use SebastianBergmann\Timer\Timer;
 ?>
+                <div class="row">
+                    <div class="text-center box1">
+                        Developed by <a href="http://masterking32.com">MasterkinG32.CoM</a> - <?php echo "Load ".Timer::resourceUsage();?>
+                    </div>
+                </div>
+            </div>
         </div>
-<footer class="text-center">
-    Developed by <a href="http://masterking32.com">MasterkinG32.CoM</a> - <?php echo "Load ".Timer::resourceUsage();?>
-</footer>
     </body>
 </html>
