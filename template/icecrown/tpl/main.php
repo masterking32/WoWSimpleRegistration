@@ -33,6 +33,7 @@ require_once 'header.php'; ?>
                 <div class="box1" style="margin-top: 10px;">
                     <ul class="nav nav-tabs" style="display: none;">
                         <li><a data-toggle="tab" href="#pills-register" id="register">Register</a></li>
+                        <li><a data-toggle="tab" href="#pills-howtoconnect" id="howtoconnect">How to Connect</a></li>
                         <li><a data-toggle="tab" href="#pills-serverstatus" id="serverstatus">Server Status</a></li>
                         <li><a data-toggle="tab" href="#pills-contact" id="contact">Contact us</a></li>
                     </ul>
@@ -79,6 +80,15 @@ require_once 'header.php'; ?>
                                 <div class="col-md-6">
                                     <div style="padding: 10px;text-align: left">
                                         <?php require_once base_path.'template/'.$antiXss->xss_clean(get_config("template")).'/tpl/rules.php'; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in" id="pills-howtoconnect">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="padding: 10px;text-align: left">
+                                        <?php require_once base_path.'template/'.$antiXss->xss_clean(get_config("template")).'/tpl/howtoconnect.php'; ?>
                                     </div>
                                 </div>
                             </div>
