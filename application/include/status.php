@@ -81,4 +81,14 @@ class status{
         }
         return false;
     }
+
+    public static function get_top_guild_by_member($realmID)
+    {
+        $datas = database::$chars[$realmID]->query("SELECT guildid,name,leaderguid FROM guild WHERE guildid IN (SELECT guildid from guild_member GROUP by guildid ORDER by COUNT(*) DESC) LIMIT 10;")->fetchAll();
+        if(!empty($datas[0]["name"]))
+        {
+            return $datas;
+        }
+        return false;
+    }
 }
