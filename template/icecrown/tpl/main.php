@@ -120,6 +120,7 @@ require_once 'header.php'; ?>
                             foreach(get_config('realmlists') as $onerealm_key => $onerealm)
                             {
                                 echo "<h1 style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</h1><hr>";
+
                                 $data2show = status::get_top_playtime($onerealm['realmid']);
                                 echo "<h4>TOP PLAYERS - Play Time:</h4>";
                                 if(!is_array($data2show))
@@ -133,6 +134,7 @@ require_once 'header.php'; ?>
                                     }
                                     echo '</table>';
                                 }
+
                                 $data2show = status::get_top_killers($onerealm['realmid']);
                                 echo "<h4>TOP PLAYERS - Kills:</h4>";
                                 if(!is_array($data2show))
@@ -146,6 +148,7 @@ require_once 'header.php'; ?>
                                     }
                                     echo '</table>';
                                 }
+
                                 $data2show = status::get_top_honorpoints($onerealm['realmid']);
                                 echo "<h4>TOP PLAYERS - Honor Point:</h4>";
                                 if(!is_array($data2show))
@@ -159,6 +162,7 @@ require_once 'header.php'; ?>
                                     }
                                     echo '</table>';
                                 }
+
                                 $data2show = status::get_top_arenapoints($onerealm['realmid']);
                                 echo "<h4>TOP PLAYERS - Arena Point:</h4>";
                                 if(!is_array($data2show))
@@ -169,6 +173,21 @@ require_once 'header.php'; ?>
                                     foreach($data2show as $one_char)
                                     {
                                         echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['arenaPoints']).'</td></tr>';
+                                    }
+                                    echo '</table>';
+                                }
+
+                                $data2show = status::get_top_arenateams($onerealm['realmid']);
+                                echo "<h4>TOP PLAYERS - Arena Team:</h4>";
+                                if(!is_array($data2show))
+                                {
+                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                }else{
+                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Captain Name</th></tr></thead><tbody>';
+                                    foreach($data2show as $one_char)
+                                    {
+                                        $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['captainGuid']);
+                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.$antiXss->xss_clean($one_char['rating']).'</td><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
                                     }
                                     echo '</table>';
                                 }
