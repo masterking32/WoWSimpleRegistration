@@ -98,3 +98,8 @@ function GetClassID($class)
             exit( "<br>YOUR CHARACTER CLASS IS NOT BLIZZLIKE FOR 3.3.5a<br>" );
     }
 }
+function get_human_time_from_sec($seconds){
+    $interval = new DateInterval("PT{$seconds}S");
+    $now = new DateTimeImmutable('now', new DateTimeZone('utc'));
+    return $now->diff($now->add($interval))->format('%a:%h:%i');
+}
