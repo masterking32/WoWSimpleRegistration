@@ -41,4 +41,13 @@ class status{
         }
         return false;
     }
+    public static function get_top_killers($realmID)
+    {
+        $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level","totalKills"),['LIMIT' => 10,"ORDER" => ["totalKills" => "DESC"]]);
+        if(!empty($datas[0]["name"]))
+        {
+            return $datas;
+        }
+        return false;
+    }
 }
