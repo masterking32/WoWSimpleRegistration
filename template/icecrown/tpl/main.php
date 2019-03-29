@@ -119,8 +119,9 @@ require_once 'header.php'; ?>
                             <?php
                             foreach(get_config('realmlists') as $onerealm_key => $onerealm)
                             {
-                                echo "<p  style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</p><hr>";
+                                echo "<h1 style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</h1><hr>";
                                 $data2show = status::get_top_playtime($onerealm['realmid']);
+                                echo "<h4>TOP PLAYERS - Play Time:</h4>";
                                 if(!is_array($data2show))
                                 {
                                     echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
@@ -132,6 +133,20 @@ require_once 'header.php'; ?>
                                     }
                                     echo '</table>';
                                 }
+                                $data2show = status::get_top_killers($onerealm['realmid']);
+                                echo "<h4>TOP PLAYERS - Kills:</h4>";
+                                if(!is_array($data2show))
+                                {
+                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                }else{
+                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Kills</th></tr></thead><tbody>';
+                                    foreach($data2show as $one_char)
+                                    {
+                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalKills']).'</td></tr>';
+                                    }
+                                    echo '</table>';
+                                }
+
                                 echo "<hr>";
                             }
                             ?>
