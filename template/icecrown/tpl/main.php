@@ -96,138 +96,138 @@ require_once 'header.php'; ?>
                         </div>
                         <div class="tab-pane fade in" id="pills-serverstatus">
                             <?php
-                            foreach(get_config('realmlists') as $onerealm_key => $onerealm)
-                            {
-                                echo "<p><span style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player)</span></p><hr>";
-                                $online_chars = user::get_online_players($onerealm['realmid']);
-                                if(!is_array($online_chars))
+                                foreach(get_config('realmlists') as $onerealm_key => $onerealm)
                                 {
-                                    echo "<span style='color: #0d99e5;'>No have Online player.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th></tr></thead><tbody>';
-                                    foreach($online_chars as $one_char)
+                                    echo "<p><span style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player)</span></p><hr>";
+                                    $online_chars = user::get_online_players($onerealm['realmid']);
+                                    if(!is_array($online_chars))
                                     {
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td></tr>';
+                                        echo "<span style='color: #0d99e5;'>No have Online player.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th></tr></thead><tbody>';
+                                        foreach($online_chars as $one_char)
+                                        {
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
+                                    echo "<hr>";
                                 }
-                                echo "<hr>";
-                            }
                             ?>
                         </div>
                         <div class="tab-pane fade in" id="pills-topplayers">
                             <?php
-                            foreach(get_config('realmlists') as $onerealm_key => $onerealm)
-                            {
-                                echo "<h1 style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</h1><hr>";
-
-                                $data2show = status::get_top_playtime($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Play Time:</h4>";
-                                if(!is_array($data2show))
+                                foreach(get_config('realmlists') as $onerealm_key => $onerealm)
                                 {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Play Time</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
-                                    {
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean(get_human_time_from_sec($one_char['totaltime'])).'</td></tr>';
-                                    }
-                                    echo '</table>';
-                                }
+                                    echo "<h1 style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</h1><hr>";
 
-                                $data2show = status::get_top_achievements($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Achievements:</h4>";
-                                if(!is_array($data2show))
-                                {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Achievements</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
+                                    $data2show = status::get_top_playtime($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Play Time:</h4>";
+                                    if(!is_array($data2show))
                                     {
-                                        $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['guid']);
-                                        if(empty($character_data['name']))
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Play Time</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
                                         {
-                                            continue;
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean(get_human_time_from_sec($one_char['totaltime'])).'</td></tr>';
                                         }
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($character_data['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($character_data["race"]).'-'.$antiXss->xss_clean($character_data["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($character_data["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($character_data['level']).'</td><td>'.$antiXss->xss_clean($one_char['total']).'</td></tr>';
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
-                                }
 
-                                $data2show = status::get_top_killers($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Kills:</h4>";
-                                if(!is_array($data2show))
-                                {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Kills</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
+                                    $data2show = status::get_top_achievements($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Achievements:</h4>";
+                                    if(!is_array($data2show))
                                     {
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalKills']).'</td></tr>';
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Achievements</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
+                                        {
+                                            $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['guid']);
+                                            if(empty($character_data['name']))
+                                            {
+                                                continue;
+                                            }
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($character_data['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($character_data["race"]).'-'.$antiXss->xss_clean($character_data["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($character_data["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($character_data['level']).'</td><td>'.$antiXss->xss_clean($one_char['total']).'</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
-                                }
 
-                                $data2show = status::get_top_honorpoints($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Honor Point:</h4>";
-                                if(!is_array($data2show))
-                                {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Honor Points</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
+                                    $data2show = status::get_top_killers($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Kills:</h4>";
+                                    if(!is_array($data2show))
                                     {
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalHonorPoints']).'</td></tr>';
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Kills</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
+                                        {
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalKills']).'</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
-                                }
 
-                                $data2show = status::get_top_arenapoints($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Arena Point:</h4>";
-                                if(!is_array($data2show))
-                                {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Arena Points</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
+                                    $data2show = status::get_top_honorpoints($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Honor Point:</h4>";
+                                    if(!is_array($data2show))
                                     {
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['arenaPoints']).'</td></tr>';
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Honor Points</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
+                                        {
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalHonorPoints']).'</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
-                                }
 
-                                $data2show = status::get_top_arenateams($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Arena Team:</h4>";
-                                if(!is_array($data2show))
-                                {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Captain Name</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
+                                    $data2show = status::get_top_arenapoints($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Arena Point:</h4>";
+                                    if(!is_array($data2show))
                                     {
-                                        $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['captainGuid']);
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.$antiXss->xss_clean($one_char['rating']).'</td><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Arena Points</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
+                                        {
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['arenaPoints']).'</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
-                                }
 
-                                $data2show = status::get_top_guild_by_member($onerealm['realmid']);
-                                echo "<h4>TOP PLAYERS - Guilds by member count:</h4>";
-                                if(!is_array($data2show))
-                                {
-                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                                }else{
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
-                                    foreach($data2show as $one_char)
+                                    $data2show = status::get_top_arenateams($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Arena Team:</h4>";
+                                    if(!is_array($data2show))
                                     {
-                                        $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['leaderguid']);
-                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Captain Name</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
+                                        {
+                                            $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['captainGuid']);
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.$antiXss->xss_clean($one_char['rating']).'</td><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
-                                }
 
-                                echo "<hr>";
-                            }
+                                    $data2show = status::get_top_guild_by_member($onerealm['realmid']);
+                                    echo "<h4>TOP PLAYERS - Guilds by member count:</h4>";
+                                    if(!is_array($data2show))
+                                    {
+                                        echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                    }else{
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
+                                        foreach($data2show as $one_char)
+                                        {
+                                            $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['leaderguid']);
+                                            echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                        }
+                                        echo '</table>';
+                                    }
+
+                                    echo "<hr>";
+                                }
                             ?>
                         </div>
                         <div class="tab-pane fade in" id="pills-contact">
