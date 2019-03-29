@@ -66,6 +66,7 @@ class user{
         self::$captcha->build();
         $_SESSION['captcha'] = self::$captcha->getPhrase();
     }
+    
     public static function check_email_exists($email)
     {
         if(!empty($email))
@@ -78,6 +79,7 @@ class user{
         }
         return false;
     }
+
     public static function check_username_exists($username)
     {
         if(!empty($username))
@@ -90,6 +92,7 @@ class user{
         }
         return false;
     }
+
     public static function get_online_players($realmID)
     {
         $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level"),['LIMIT' => 49,"ORDER" => ["level" => "DESC"],"online[=]" => 1]);

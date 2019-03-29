@@ -71,4 +71,14 @@ class status{
         }
         return false;
     }
+
+    public static function get_top_playtime($realmID)
+    {
+        $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level","totaltime"),['LIMIT' => 10,"ORDER" => ["totaltime" => "DESC"]]);
+        if(!empty($datas[0]["name"]))
+        {
+            return $datas;
+        }
+        return false;
+    }
 }
