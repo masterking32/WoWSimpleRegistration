@@ -50,4 +50,13 @@ class status{
         }
         return false;
     }
+    public static function get_top_arenapoints($realmID)
+    {
+        $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level","arenaPoints"),['LIMIT' => 10,"ORDER" => ["arenaPoints" => "DESC"]]);
+        if(!empty($datas[0]["name"]))
+        {
+            return $datas;
+        }
+        return false;
+    }
 }
