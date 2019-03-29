@@ -15,7 +15,7 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
  1. Register Page.
  2. Online Players Status (Multi-Realm support).
- 3. Show TOPs by Play time, Achievements, Kills, Honor Point, Arena Point, Arena Team, Guilds by member count (Multi-Realm support).
+ 3. Show TOPs by Playtime, Achievements, Kills, Honor Point, Arena Point, Arena Team, Guilds by member count (Multi-Realm support).
  4. How to connect Page.
  5. Contact us page.
 
