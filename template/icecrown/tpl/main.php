@@ -192,6 +192,21 @@ require_once 'header.php'; ?>
                                     echo '</table>';
                                 }
 
+                                $data2show = status::get_top_guild_by_member($onerealm['realmid']);
+                                echo "<h4>TOP PLAYERS - Guilds by member count:</h4>";
+                                if(!is_array($data2show))
+                                {
+                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                }else{
+                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
+                                    foreach($data2show as $one_char)
+                                    {
+                                        $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['leaderguid']);
+                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                    }
+                                    echo '</table>';
+                                }
+
                                 echo "<hr>";
                             }
                             ?>
