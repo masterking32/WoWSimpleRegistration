@@ -9,6 +9,19 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Medoo\Medoo;
 
 class status{
+    public static function get_character_by_guid($realmID,$guid)
+    {
+        if(!empty($guid))
+        {
+            $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level"),["guid[=]" => $guid]);
+            if(!empty($datas[0]["name"]))
+            {
+                return $datas[0];
+            }
+        }
+        return false;
+    }
+
     public static function get_top_achievements($realmID)
     {
         $datas = database::$chars[$realmID]->query("SELECT guid, COUNT(*) as total FROM character_achievement GROUP BY guid ORDER BY total DESC LIMIT 10;")->fetchAll();
@@ -19,15 +32,12 @@ class status{
         return false;
     }
 
-    public static function get_character_by_guid($realmID,$guid)
+    public static function get_top_arenateams($realmID)
     {
-        if(!empty($guid))
+        $datas = database::$chars[$realmID]->select("arena_team", array("arenaTeamId","name","captainGuid","rating"),['LIMIT' => 10,"ORDER" => ["rating" => "DESC"]]);
+        if(!empty($datas[0]["name"]))
         {
-            $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level"),["guid[=]" => $guid]);
-            if(!empty($datas[0]["name"]))
-            {
-                return $datas[0];
-            }
+            return $datas;
         }
         return false;
     }
