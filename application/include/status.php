@@ -41,6 +41,7 @@ class status{
         }
         return false;
     }
+
     public static function get_top_killers($realmID)
     {
         $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level","totalKills"),['LIMIT' => 10,"ORDER" => ["totalKills" => "DESC"]]);
@@ -50,9 +51,20 @@ class status{
         }
         return false;
     }
+
     public static function get_top_arenapoints($realmID)
     {
         $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level","arenaPoints"),['LIMIT' => 10,"ORDER" => ["arenaPoints" => "DESC"]]);
+        if(!empty($datas[0]["name"]))
+        {
+            return $datas;
+        }
+        return false;
+    }
+
+    public static function get_top_honorpoints($realmID)
+    {
+        $datas = database::$chars[$realmID]->select("characters", array("name","race","class","gender","level","totalHonorPoints"),['LIMIT' => 10,"ORDER" => ["totalHonorPoints" => "DESC"]]);
         if(!empty($datas[0]["name"]))
         {
             return $datas;
