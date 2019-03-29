@@ -35,6 +35,7 @@ require_once 'header.php'; ?>
                         <li><a data-toggle="tab" href="#pills-register" id="register">Register</a></li>
                         <li><a data-toggle="tab" href="#pills-howtoconnect" id="howtoconnect">How to Connect</a></li>
                         <li><a data-toggle="tab" href="#pills-serverstatus" id="serverstatus">Server Status</a></li>
+                        <li><a data-toggle="tab" href="#pills-topplayers" id="topplayers">Top Players</a></li>
                         <li><a data-toggle="tab" href="#pills-contact" id="contact">Contact us</a></li>
                     </ul>
                     <div class="tab-content" id="nav-tabContent">
@@ -107,6 +108,27 @@ require_once 'header.php'; ?>
                                     foreach($online_chars as $one_char)
                                     {
                                         echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td></tr>';
+                                    }
+                                    echo '</table>';
+                                }
+                                echo "<hr>";
+                            }
+                            ?>
+                        </div>
+                        <div class="tab-pane fade in" id="pills-topplayers">
+                            <?php
+                            foreach(get_config('realmlists') as $onerealm_key => $onerealm)
+                            {
+                                echo "<p  style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</p><hr>";
+                                $data2show = status::get_top_playtime($onerealm['realmid']);
+                                if(!is_array($data2show))
+                                {
+                                    echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+                                }else{
+                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Play Time</th></tr></thead><tbody>';
+                                    foreach($data2show as $one_char)
+                                    {
+                                        echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean(get_human_time_from_sec($one_char['totaltime'])).'</td></tr>';
                                     }
                                     echo '</table>';
                                 }
