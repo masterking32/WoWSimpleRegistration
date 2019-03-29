@@ -40,5 +40,6 @@ require_once app_path.'config/config.php';
 require_once app_path.'include/functions.php';
 require_once app_path.'include/database.php';
 require_once app_path.'include/user.php';
+require_once app_path.'include/status.php';
 $antiXss = new AntiXSS();
 database::db_connect();
