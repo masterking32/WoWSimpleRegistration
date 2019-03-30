@@ -21,6 +21,8 @@ $config['game_version'] = '3.3.5a (12340)';						// Your game version
 $config['expansion'] = '2';		                   				// 1 = TBC, 2 = Lichking
 $config['template'] = 'light';		                   		    // Change template name ( 'light' or 'icecrown' or 'kaelthas' )
 
+$config['debug_mode'] = 'false';		                   		// Enable debug mode to display system errors.
+
 $config['realmlists'] = array( // Add your realmlist here
 	"1" => array(
 		'realmid' => 1,
