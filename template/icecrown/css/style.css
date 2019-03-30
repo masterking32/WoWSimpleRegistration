@@ -27,7 +27,15 @@ html,body {
     padding:0;
     overflow-x: hidden;
 }
-
+.modal-backdrop {
+    z-index: 2;
+}
+.modal-content{
+    color: #000;
+}
+#pills-topplayers button{
+    margin: 5px;
+}
 body {
     position: relative;
     font-size:14px;
