@@ -44,6 +44,15 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 ![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i4.jpg)
 ![TOP](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i5.jpg)
 
+## Kael'thas Template
+
+![Home Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k1.jpg)
+![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k2.jpg)
+![How to Connect Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k3.jpg)
+![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k4.jpg)
+![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k5.jpg)
+![TOP](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k6.jpg)
+
 ## Programmers
 
 Author : [Amin.MasterkinG](https://masterking32.com)
