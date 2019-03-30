@@ -19,9 +19,9 @@ $config['realmlist'] = 'logon.myserver.com';					// Server Realmlist
 $config['patch_location'] = 'http://mypatch.com/patch.mpq';		// If have patch set URL to download our patch here or make that empty
 $config['game_version'] = '3.3.5a (12340)';						// Your game version
 $config['expansion'] = '2';		                   				// 1 = TBC, 2 = Lichking
-$config['template'] = 'light';		                   		    // Change template name ( 'light' or 'icecrown' or 'kaelthas' )
 
 $config['debug_mode'] = 'false';		                   		// Enable debug mode to display system errors.
+$config['template'] = 'light';		                   		    // Change template name ( 'light' or 'icecrown' or 'kaelthas' )
 
 $config['realmlists'] = array( // Add your realmlist here
 	"1" => array(
@@ -43,5 +43,26 @@ $config['realmlists'] = array( // Add your realmlist here
 		'db_name' => "rm2_chars"
 	)
 );
+
+/* 
+
+ ************************
+ * EXMAPLE OF ONE REALM *
+ ************************
+ 
+$config['realmlists'] = array(
+	"1" => array(
+		'realmid' => 1,
+		'realmname' => "Realm 1",
+		'db_host' => "127.0.0.1",
+		'db_port' => "3306",
+		'db_user' => "root",
+		'db_pass' => "root",
+		'db_name' => "rm1_chars"
+	)
+);
+
+*/
+
 $config['script_version'] = '1.6';
 ?>
