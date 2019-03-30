@@ -27,6 +27,15 @@ nav.navbar.bootsnav div.in ul.nav > li > a {
 .input-group{
     width: 100%;
 }
+.modal-backdrop {
+    z-index: 2;
+}
+.modal-content{
+    color: #000;
+}
+#pills-topplayers button{
+    margin: 5px;
+}
 .carousel-inner>.item>a>img, .carousel-inner>.item>img {
     line-height: 1;
     opacity: 0.9;
