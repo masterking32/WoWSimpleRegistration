@@ -42,4 +42,11 @@ require_once app_path.'include/database.php';
 require_once app_path.'include/user.php';
 require_once app_path.'include/status.php';
 $antiXss = new AntiXSS();
+if(!empty(get_config('script_version')))
+{
+    /* @TODO New Version Checker */
+}else{
+    echo "Use last version of config.php file.";
+    exit();
+}
 database::db_connect();
