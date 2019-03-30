@@ -20,7 +20,7 @@ $config['patch_location'] = 'http://mypatch.com/patch.mpq';		// If have patch se
 $config['game_version'] = '3.3.5a (12340)';						// Your game version
 $config['expansion'] = '2';		                   				// 1 = TBC, 2 = Lichking
 
-$config['debug_mode'] = 'false';		                   		// Enable debug mode to display system errors.
+$config['debug_mode'] = false;		                   			// Enable debug mode to display system errors.
 $config['template'] = 'light';		                   		    // Change template name ( 'light' or 'icecrown' or 'kaelthas' )
 
 $config['realmlists'] = array( // Add your realmlist here
