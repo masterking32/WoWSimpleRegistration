@@ -7,8 +7,8 @@
  **/
  
 // base config
-$config['baseurl'] 						 = "http://localhost"; // Site URL
-$config['page_title'] 					 = "Simple Register"; // Site Title
+$config['baseurl'] 		= "http://localhost";                   // Site URL
+$config['page_title'] 	= "Simple Register";                    // Site Title
 
 $config['db_auth_host'] = '127.0.0.1';		        			// Auth Database Host
 $config['db_auth_port'] = '3306';			        			// Auth Database Port
