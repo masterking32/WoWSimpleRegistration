@@ -26,6 +26,9 @@ nav > div a.nav-item.nav-link.active
     border-bottom:5px solid #e74c3c;
     padding:30px 25px;
 }
+#nav-topplayers button{
+    margin: 5px;
+}
 nav > div a.nav-item.nav-link:hover,
 nav > div a.nav-item.nav-link:focus
 {
