@@ -13,11 +13,6 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 ## Requirement : PHP >= 7.0
 
-## Enable Debug mode and display PHP Errors
-
- - Go to [line 13 of loader.php file](https://github.com/masterking32/WoWSimpleRegistration/blob/master/application/loader.php#L13).
- - Change `production` to `development`.
-
 ## Features
 
  1. Register Page.
