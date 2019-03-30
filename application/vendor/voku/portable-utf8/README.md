@@ -2,15 +2,14 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/gnejjnk7qplr7f5t/branch/master?svg=true)](https://ci.appveyor.com/project/voku/portable-utf8/branch/master)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvoku%2Fportable-utf8.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvoku%2Fportable-utf8?ref=badge_shield)
 [![Coverage Status](https://coveralls.io/repos/voku/portable-utf8/badge.svg?branch=master&service=github)](https://coveralls.io/github/voku/portable-utf8?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/voku/portable-utf8/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/voku/portable-utf8/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/997c9bb10d1c4791967bdf2e42013e8e)](https://www.codacy.com/app/voku/portable-utf8)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/be5bf087-366c-463e-ac9f-c184db6347ba/mini.png)](https://insight.sensiolabs.com/projects/be5bf087-366c-463e-ac9f-c184db6347ba)
 [![Latest Stable Version](https://poser.pugx.org/voku/portable-utf8/v/stable)](https://packagist.org/packages/voku/portable-utf8) 
-[![Total Downloads](https://poser.pugx.org/voku/portable-utf8/downloads)](https://packagist.org/packages/voku/portable-utf8) 
-[![Latest Unstable Version](https://poser.pugx.org/voku/portable-utf8/v/unstable)](https://packagist.org/packages/voku/portable-utf8)
+[![Total Downloads](https://poser.pugx.org/voku/portable-utf8/downloads)](https://packagist.org/packages/voku/portable-utf8)
 [![License](https://poser.pugx.org/voku/portable-utf8/license)](https://packagist.org/packages/voku/portable-utf8)
+[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/moelleken)
+[![Donate to this project using Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/voku)
 
-# Portable UTF-8
+# 🉑 Portable UTF-8
 
 ## Description
 
@@ -53,7 +52,7 @@ The project based on ...
     * [cleanup](#cleanupstring-str--string)
     * [codepoints](#codepointsmixed-arg-bool-u_style--false--array)
     * [count_chars](#count_charsstring-str-bool-cleanutf8--false--array)
-    * [encode](#encodestring-encoding-string-str-bool-force--true--string)
+    * [encode](#encodestring-encoding-string-str-bool-autodetectfromencoding--true-string-fromencoding----string)
     * [file_get_contents](#file_get_contentsstring-filename-intnull-flags--null-resourcenull-context--null-intnull-offset--null-intnull-maxlen--null-int-timeout--10-bool-converttoutf8--true--string) 
     * [file_has_bom](#file_has_bomstring-file_path--bool)
     * [filter](#filtermixed-var-int-normalization_form--4-string-leading_combining----mixed)
@@ -188,6 +187,19 @@ $stringy->length();         // '6'
 composer require voku/portable-utf8
 ```
 
+If your project do not need some of the Symfony polyfills please use the `replace` section of your `composer.json`. 
+This removes any overhead from these polyfills as they are no longer part of your project. e.g.:
+```json
+{
+  "replace": {
+    "symfony/polyfill-php72": "1.99",
+    "symfony/polyfill-iconv": "1.99",
+    "symfony/polyfill-intl-grapheme": "1.99",
+    "symfony/polyfill-intl-normalizer": "1.99",
+    "symfony/polyfill-mbstring": "1.99"
+  }
+}
+```
 
 ##  Why Portable UTF-8?[]()
 PHP 5 and earlier versions have no native Unicode support. To bridge the gap, there exist several extensions like "mbstring", "iconv" and "intl".
@@ -403,6 +415,26 @@ alias: UTF8::int_to_chr()
 
 ```php
 UTF8::decimal_to_chr(931); // 'Σ'
+```
+
+##### emoji_decode(string $str, bool $useReversibleStringMapping = false) : string
+
+Decodes a string which was encoded by "UTF8::emoji_encode()".
+
+```php
+UTF8::emoji_decode('foo CHARACTER_OGRE', false); // 'foo 👹'
+//
+UTF8::emoji_encode('foo _-_PORTABLE_UTF8_-_308095726_-_627590803_-_8FTU_ELBATROP_-_', true); // 'foo 👹'
+```
+
+##### emoji_encode(string $str, bool $useReversibleStringMapping = false) : string
+
+Encode a string with emoji chars into a non-emoji string.
+
+```php
+UTF8::emoji_encode('foo 👹', false); // 'foo CHARACTER_OGRE'
+//
+UTF8::emoji_encode('foo 👹', true); // 'foo _-_PORTABLE_UTF8_-_308095726_-_627590803_-_8FTU_ELBATROP_-_'
 ```
 
 ##### encode(string $encoding, string $str, bool $autodetectFromEncoding = true, string $fromEncoding = '') : string
@@ -1488,6 +1520,22 @@ composer install
 ```bash
 ./vendor/bin/phpunit
 ```
+
+### Support
+
+For support and donations please visit [Github](https://github.com/voku/portable-utf8/) | [Issues](https://github.com/voku/portable-utf8/issues) | [PayPal](https://paypal.me/moelleken) | [Patreon](https://www.patreon.com/voku).
+
+For status updates and release announcements please visit [Releases](https://github.com/voku/portable-utf8/releases) | [Twitter](https://twitter.com/suckup_de) | [Patreon](https://www.patreon.com/voku/posts).
+
+For professional support please contact [me](https://about.me/voku).
+
+### Thanks
+
+- Thanks to [GitHub](https://github.com) (Microsoft) for hosting the code and a good infrastructure including Issues-Managment, etc.
+- Thanks to [IntelliJ](https://www.jetbrains.com) as they make the best IDEs for PHP and they gave me an open source license for PhpStorm!
+- Thanks to [Travis CI](https://travis-ci.com/) for being the most awesome, easiest continous integration tool out there!
+- Thanks to [StyleCI](https://styleci.io/) for the simple but powerfull code style check.
+- Thanks to [PHPStan](https://github.com/phpstan/phpstan) && [Psalm](https://github.com/vimeo/psalm) for relly great Static analysis tools and for discover bugs in the code!
 
 ### License and Copyright
 

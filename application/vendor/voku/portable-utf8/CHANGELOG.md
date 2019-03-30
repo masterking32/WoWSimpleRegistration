@@ -1,5 +1,73 @@
 # Changelog
 
+### 5.4.3 (2019-03-05)
+
+- optimize "UTF8::strrev()" with support for emoji chars
+- added "UTF8::emoji_encode()" + "UTF8::emoji_decode()"
+
+### 5.4.2 (2019-02-11)
+
+- optimize html-encoding for unicode surrogate pairs (e.g. UTF-16)
+
+### 5.4.1 (2019-02-10)
+
+- optimize some RegEx
+- fix html-encoding for unicode surrogate pairs (e.g. UTF-16)
+
+### 5.4.0 (2019-01-22)
+- optimize performance | thx @fe3dback
+  -> e.g. use "\mb_"-functions without encoding parameter
+  -> e.g. simplify logic of "UTF8::str_pad()"
+- no more 100% support for "mbstring_func_overload", it's already deprecated in php
+- move "UTF8::checkForSupport()" into "bootstrap.php"
+- fix output from "UTF8::str_pad()" + empty input string
+- add more "encoding" parameter e.g. for "UTF8::str_shuffle()"
+- remove really old fallback for breaking-changes
+- do not use aliases for internal processing
+
+### 5.3.3 (2019-01-11)
+- update "UTF8::is_json()" + tests
+
+### 5.3.2 (2019-01-11)
+- update "UTF8::is_base64()" + tests
+
+### 5.3.1 (2019-01-11)
+- update "UTF8::str_truncate_safe()" + tests
+
+### 5.3.0 (2019-01-10)
+- use autoloader + namespace for "tests/"
+- fixes suggested by "phpstan" level 7
+- fixes suggested by "psalm" 
+- use variable references whenever possible
+- use types for callback functions
+- sync "UTF8::strcspn()" with native "strcspn()"
+- sync "UTF8::strtr()" with native "strtr()"
+
+### 5.2.16 (2019-01-02)
+- update phpcs fixer config
+- optimizing via "rector/rector"
+
+### 5.2.15 (2018-12-18)
+- optimize "getData()"
+- use phpcs fixer
+
+### 5.2.14 (2018-12-07)
+- optimize "UTF8::str_replace_beginning()" && "UTF8::str_replace_ending()"
+- added "UTF8::str_ireplace_beginning()" && "UTF8::str_ireplace_ending()"
+
+### 5.2.13 (2018-11-29)
+- "UTF8::get_file_type()" is now public + tested
+
+### 5.2.12 (2018-11-29)
+- optimize "UTF8::ord()" performance
+
+### 5.2.11 (2018-10-19)
+- merge UTF8::titlecase() && UTF8::str_titleize()
+- add new langage + keep-string-length arguments for string functions
+
+### 5.2.10 (2018-10-19)
+- test with PHP 7.3
+
 ### 5.2.9 (2018-10-01)
 - fix binary check for UTF16 / UTF32
 
