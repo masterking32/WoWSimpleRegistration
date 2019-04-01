@@ -48,9 +48,15 @@ require_once 'header.php'; ?>
                                     <div class="box1" style="margin-top: 10px;padding: 10px;">
                                         <?php error_msg(); success_msg(); //Display message. ?>
                                         <div class="input-group">
-                                            <span class="input-group" >Username</span>
-                                            <input type="text" class="form-control" placeholder="Username" name="username">
+                                            <span class="input-group" >Email</span>
+                                            <input type="email" class="form-control" placeholder="Email" name="email">
                                         </div>
+                                        <?php if(!get_config('battlenet_register')) { ?>
+                                            <div class="input-group">
+                                                <span class="input-group" >Username</span>
+                                                <input type="text" class="form-control" placeholder="Username" name="username">
+                                            </div>
+                                        <?php } ?>
                                         <div class="input-group">
                                             <span class="input-group" >Password</span>
                                             <input type="password" class="form-control" placeholder="Password" name="password">
@@ -60,17 +66,13 @@ require_once 'header.php'; ?>
                                             <input type="password" class="form-control" placeholder="Re-Password" name="repassword">
                                         </div>
                                         <div class="input-group">
-                                            <span class="input-group" >Email</span>
-                                            <input type="email" class="form-control" placeholder="Email" name="email">
-                                        </div>
-                                        <div class="input-group">
                                             <span class="input-group" >Captcha</span>
                                             <input type="text" class="form-control" placeholder="Captcha" name="captcha">
                                         </div>
                                         <p style="text-align: center;margin-top: 10px;">
                                             <img src="<?php echo user::$captcha->inline(); ?>" style="border-radius: 5px;"/>
                                         </p>
-                                        <div class="text-center" style="margin-top: 10px;"><input type="submit" class="btn btn-success" value="Login"></div>
+                                        <div class="text-center" style="margin-top: 10px;"><input type="submit" class="btn btn-success" value="Register"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

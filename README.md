@@ -15,7 +15,7 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 ## Features
 
- 1. Register Page.
+ 1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
  2. Online Players Status (Multi-Realm support).
  3. Show TOPs by Playtime, Achievements, Kills, Honor Point, Arena Point, Arena Team, Guilds by member count (Multi-Realm support).
  4. How to connect Page.
