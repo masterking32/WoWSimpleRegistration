@@ -37,7 +37,7 @@ class user{
                             {
                                 if(self::check_email_exists(strtoupper($_POST["email"])))
                                 {
-                                    $bnet_hashed_pass = bin2hex(strrev(hex2bin(strtoupper(hash("sha256",strtoupper(hash("sha256", strtoupper($_POST["email"])).":".strtoupper($_POST["password"])))))));
+									$bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash("sha256",strtoupper(hash("sha256", strtoupper($_POST["email"])).":".strtoupper($_POST["password"]))))))));
                                     database::$auth->insert("battlenet_accounts", [
                                         "email" => $antiXss->xss_clean(strtoupper($_POST["email"])),
                                         "sha_pass_hash" => $antiXss->xss_clean($bnet_hashed_pass)
