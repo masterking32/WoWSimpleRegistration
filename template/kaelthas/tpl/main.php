@@ -120,20 +120,21 @@ require_once 'header.php'; ?>
                                     $i = 1;
                                     foreach(get_config('realmlists') as $onerealm_key => $onerealm)
                                     {
-                                        echo "<h1 style='color: #F1A40F;font-weight: bold;'>{$onerealm['realmname']}</h1><hr>";
+                                        echo "<h1 style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</h1><hr>";
 
                                         $data2show = status::get_top_playtime($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Time</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Play Time</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Time</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Play Time</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
 
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Play Time</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Play Time</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean(get_human_time_from_sec($one_char['totaltime'])).'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean(get_human_time_from_sec($one_char['totaltime'])).'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
@@ -141,13 +142,14 @@ require_once 'header.php'; ?>
                                         $i++;
 
                                         $data2show = status::get_top_achievements($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Achievements</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Achievements</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Achievements</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Achievements</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Achievements</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Achievements</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
                                                 $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['guid']);
@@ -155,7 +157,7 @@ require_once 'header.php'; ?>
                                                 {
                                                     continue;
                                                 }
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($character_data['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($character_data["race"]).'-'.$antiXss->xss_clean($character_data["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($character_data["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($character_data['level']).'</td><td>'.$antiXss->xss_clean($one_char['total']).'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($character_data['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($character_data["race"]).'-'.$antiXss->xss_clean($character_data["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($character_data["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($character_data['level']).'</td><td>'.$antiXss->xss_clean($one_char['total']).'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
@@ -163,16 +165,17 @@ require_once 'header.php'; ?>
                                         $i++;
 
                                         $data2show = status::get_top_killers($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Killers</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Kills</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Killers</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Kills</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Kills</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Kills</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalKills']).'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalKills']).'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
@@ -180,16 +183,17 @@ require_once 'header.php'; ?>
                                         $i++;
 
                                         $data2show = status::get_top_honorpoints($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Honor Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Honor Point</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Honor Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Honor Point</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Honor Points</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Honor Points</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalHonorPoints']).'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['totalHonorPoints']).'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
@@ -197,16 +201,17 @@ require_once 'header.php'; ?>
                                         $i++;
 
                                         $data2show = status::get_top_arenapoints($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Arena Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Arena Point:</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Arena Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Arena Point:</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Arena Points</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Arena Points</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['arenaPoints']).'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/race/'.$antiXss->xss_clean($one_char["race"]).'-'.$antiXss->xss_clean($one_char["gender"]).'.gif\'></td><td><img src=\''.get_config("baseurl").'/template/'.$antiXss->xss_clean(get_config("template")).'/images/class/'.$antiXss->xss_clean($one_char["class"]).'.gif\'></td><td>'.$antiXss->xss_clean($one_char['level']).'</td><td>'.$antiXss->xss_clean($one_char['arenaPoints']).'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
@@ -214,17 +219,18 @@ require_once 'header.php'; ?>
                                         $i++;
 
                                         $data2show = status::get_top_arenateams($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Arena Team</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Arena Team</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Arena Team</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Arena Team</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Captain Name</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Captain Name</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
                                                 $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['captainGuid']);
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.$antiXss->xss_clean($one_char['rating']).'</td><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.$antiXss->xss_clean($one_char['rating']).'</td><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
@@ -232,17 +238,18 @@ require_once 'header.php'; ?>
                                         $i++;
 
                                         $data2show = status::get_top_guild_by_member($onerealm['realmid']);
-                                        echo "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Guilds by member count</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog\"><div class=\"modal-content\">
-                                        <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Guilds by member count</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Guilds by member count</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Guilds by member count</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                                         if(!is_array($data2show))
                                         {
                                             echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                         }else{
-                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
+                                            echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
+                                            $m = 1;
                                             foreach($data2show as $one_char)
                                             {
                                                 $character_data = status::get_character_by_guid($onerealm['realmid'],$one_char['leaderguid']);
-                                                echo '<tr><th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
+                                                echo '<tr><td>'.$m++.'<th scope="row">'.$antiXss->xss_clean($one_char['name']).'</th><td>'.(!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-').'</td></tr>';
                                             }
                                             echo '</table>';
                                         }
