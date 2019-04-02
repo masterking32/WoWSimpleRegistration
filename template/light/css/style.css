@@ -1,44 +1,103 @@
-@font-face {font-family: 'OpenSansWeb';src: url('../fonts/OpenSans-Regular.woff2') format('woff2'),url('../fonts/OpenSans-Regular.woff') format('woff');}
-*,body{font-family: OpenSansWeb;}
-html {position: relative;min-height: 100%;}
-body {background-image: url(https://api.masterking32.com/random_bg.php?wow);background-repeat: no-repeat; background-attachment: fixed;background-position: center;background-repeat: no-repeat;background-size: 100% 100%;margin-bottom: 80px;}
-footer {position: absolute;bottom: 0;width: 100%;height: 60px;background-color: rgba(255,255,255,0.8);padding:20px;}
-.main-box{width: 100%; margin:80px auto;background-color: rgba(255,255,255,0.8);border-radius: 5px;text-align: center;}
-.box-form{max-width: 80%; margin:10px auto 10px auto;padding:25px;background-color: rgba(255,255,255,0.8);border-radius: 5px;}
-.login-form img{max-width: 100%;margin-bottom: 10px;}
-.form-control { margin: 5px 0px 10px 0px;}
-.input-group span{padding-top: 10px;}
-nav > .nav.nav-tabs{border: none;color:#fff;background:#272e38;border-radius:0;}
+@font-face {
+    font-family: 'OpenSansWeb';
+    src: url('../fonts/OpenSans-Regular.woff2') format('woff2'), url('../fonts/OpenSans-Regular.woff') format('woff');
+}
+
+*, body {
+    font-family: OpenSansWeb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-image: url(https://api.masterking32.com/random_bg.php?wow);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-bottom: 80px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
+
+.main-box {
+    width: 100%;
+    margin: 80px auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.box-form {
+    max-width: 80%;
+    margin: 10px auto 10px auto;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+.login-form img {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    margin: 5px 0px 10px 0px;
+}
+
+.input-group span {
+    padding-top: 10px;
+}
+
+nav > .nav.nav-tabs {
+    border: none;
+    color: #fff;
+    background: #272e38;
+    border-radius: 0;
+}
+
 nav > div a.nav-item.nav-link,
-nav > div a.nav-item.nav-link.active
-{
+nav > div a.nav-item.nav-link.active {
     border: none;
     padding: 18px 25px;
-    color:#fff;
-    background:#272e38;
-    border-radius:0;
+    color: #fff;
+    background: #272e38;
+    border-radius: 0;
 }
-.tab-content{
+
+.tab-content {
     background: #fdfdfd;
     line-height: 25px;
     border: 1px solid #ddd;
-    border-top:5px solid #e74c3c;
-    border-bottom:5px solid #e74c3c;
-    padding:30px 25px;
-}
-#nav-topplayers button{
-    margin: 5px;
-}
-nav > div a.nav-item.nav-link:hover,
-nav > div a.nav-item.nav-link:focus
-{
-    border: none;
-    background: #e74c3c;
-    color:#fff;
-    border-radius:0;
-    transition:background 0.20s linear;
+    border-top: 5px solid #e74c3c;
+    border-bottom: 5px solid #e74c3c;
+    padding: 30px 25px;
 }
 
-td,th{
+#nav-topplayers button {
+    margin: 5px;
+}
+
+nav > div a.nav-item.nav-link:hover,
+nav > div a.nav-item.nav-link:focus {
+    border: none;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 0;
+    transition: background 0.20s linear;
+}
+
+td, th {
     text-align: center;
 }

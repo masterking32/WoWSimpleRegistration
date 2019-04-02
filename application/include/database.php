@@ -1,13 +1,15 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright	Copyright (c) 2019 - 2022, MsaterkinG32 Team, Inc. (https://masterking32.com)
- * @link	https://masterking32.com
+ * @copyright    Copyright (c) 2019 - 2022, MsaterkinG32 Team, Inc. (https://masterking32.com)
+ * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
+
 use Medoo\Medoo;
 
-class database{
+class database
+{
     public static $auth;
     public static $chars;
 
@@ -23,10 +25,9 @@ class database{
             'collation' => 'utf8_general_ci',
             'port' => get_config('db_auth_port')
         ]);
-        foreach(get_config("realmlists") as $realm)
-        {
-            if(!empty($realm["realmid"]) && !empty($realm["db_host"]) && !empty($realm["db_port"]) && !empty($realm["db_user"]) && !empty($realm["db_pass"]) && !empty($realm["db_name"]))
-            {
+
+        foreach (get_config("realmlists") as $realm) {
+            if (!empty($realm["realmid"]) && !empty($realm["db_host"]) && !empty($realm["db_port"]) && !empty($realm["db_user"]) && !empty($realm["db_pass"]) && !empty($realm["db_name"])) {
                 self::$chars[$realm["realmid"]] = new Medoo([
                     'database_type' => 'mysql',
                     'database_name' => $realm["db_name"],
@@ -37,7 +38,7 @@ class database{
                     'collation' => 'utf8_general_ci',
                     'port' => $realm["db_port"]
                 ]);
-            }else{
+            } else {
                 die("Missing char database required field.");
             }
         }

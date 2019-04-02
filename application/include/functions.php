@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright	Copyright (c) 2019 - 2022, MsaterkinG32 Team, Inc. (https://masterking32.com)
- * @link	https://masterking32.com
+ * @copyright    Copyright (c) 2019 - 2022, MsaterkinG32 Team, Inc. (https://masterking32.com)
+ * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
 $error_msg = "";
@@ -10,10 +10,8 @@ $success_msg = "";
 function get_config($name)
 {
     global $config;
-    if(!empty($name))
-    {
-        if(isset($config[$name]))
-        {
+    if (!empty($name)) {
+        if (isset($config[$name])) {
             return $config[$name];
         }
     }
@@ -23,29 +21,26 @@ function get_config($name)
 function error_msg($input = false)
 {
     global $error_error;
-    if(!empty($error_error))
-    {
+    if (!empty($error_error)) {
         echo "<p class=\"alert alert-danger\">$error_error</p>";
-    }elseif(!empty($input))
-    {
+    } elseif (!empty($input)) {
         $error_error = $input;
     }
 }
+
 function success_msg($input = false)
 {
     global $success_msg;
-    if(!empty($success_msg))
-    {
+    if (!empty($success_msg)) {
         echo "<p class=\"alert alert-success\">$success_msg</p>";
-    }elseif(!empty($input))
-    {
+    } elseif (!empty($input)) {
         $success_msg = $input;
     }
 }
+
 function GetRaceID($race)
 {
-    switch( $race )
-    {
+    switch ($race) {
         case "HUMAN":
             return 1;
         case "ORC":
@@ -67,13 +62,13 @@ function GetRaceID($race)
         case "DRAENEI":
             return 11;
         default:
-            exit( "error" );
+            exit("error");
     }
 }
+
 function GetClassID($class)
 {
-    switch( $class )
-    {
+    switch ($class) {
         case "WARRIOR":
             return 1;
         case "PALADIN":
@@ -95,10 +90,12 @@ function GetClassID($class)
         case "DRUID":
             return 11;
         default:
-            exit( "<br>YOUR CHARACTER CLASS IS NOT BLIZZLIKE FOR 3.3.5a<br>" );
+            exit("<br>YOUR CHARACTER CLASS IS NOT BLIZZLIKE FOR 3.3.5a<br>");
     }
 }
-function get_human_time_from_sec($seconds){
+
+function get_human_time_from_sec($seconds)
+{
     $interval = new DateInterval("PT{$seconds}S");
     $now = new DateTimeImmutable('now', new DateTimeZone('utc'));
     return $now->diff($now->add($interval))->format('%a:%h:%i');
