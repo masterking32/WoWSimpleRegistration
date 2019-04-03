@@ -66,5 +66,5 @@ $config['realmlists'] = array(
 
 */
 
-$config['script_version'] = '1.6';
+$config['script_version'] = '1.7';
 ?>
