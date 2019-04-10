@@ -117,25 +117,25 @@ require_once 'header.php'; ?>
                             echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
                             $i++;
 
-                            $data2show = status::get_top_achievements($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Achievements</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
-                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Achievements</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
-                            if (!is_array($data2show)) {
-                                echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                            } else {
-                                echo '<table class="table table-striped"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Achievements</th></tr></thead><tbody>';
-                                $m = 1;
-                                foreach ($data2show as $one_char) {
-                                    $character_data = status::get_character_by_guid($onerealm['realmid'], $one_char['guid']);
-                                    if (empty($character_data['name'])) {
-                                        continue;
-                                    }
-                                    echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($character_data['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($character_data["race"]) . '-' . $antiXss->xss_clean($character_data["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($character_data["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($character_data['level']) . '</td><td>' . $antiXss->xss_clean($one_char['total']) . '</td></tr>';
-                                }
-                                echo '</table>';
-                            }
-                            echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
-                            $i++;
+//                            $data2show = status::get_top_achievements($onerealm['realmid']);
+//                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Achievements</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+//                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Achievements</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+//                            if (!is_array($data2show)) {
+//                                echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+//                            } else {
+//                                echo '<table class="table table-striped"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Achievements</th></tr></thead><tbody>';
+//                                $m = 1;
+//                                foreach ($data2show as $one_char) {
+//                                    $character_data = status::get_character_by_guid($onerealm['realmid'], $one_char['guid']);
+//                                    if (empty($character_data['name'])) {
+//                                        continue;
+//                                    }
+//                                    echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($character_data['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($character_data["race"]) . '-' . $antiXss->xss_clean($character_data["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($character_data["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($character_data['level']) . '</td><td>' . $antiXss->xss_clean($one_char['total']) . '</td></tr>';
+//                                }
+//                                echo '</table>';
+//                            }
+//                            echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
+//                            $i++;
 
                             $data2show = status::get_top_killers($onerealm['realmid']);
                             echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Killers</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
@@ -202,22 +202,22 @@ require_once 'header.php'; ?>
                             echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
                             $i++;
 
-                            $data2show = status::get_top_guild_by_member($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Guilds by member count</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
-                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Guilds by member count</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
-                            if (!is_array($data2show)) {
-                                echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
-                            } else {
-                                echo '<table class="table table-striped"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
-                                $m = 1;
-                                foreach ($data2show as $one_char) {
-                                    $character_data = status::get_character_by_guid($onerealm['realmid'], $one_char['leaderguid']);
-                                    echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td>' . (!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-') . '</td></tr>';
-                                }
-                                echo '</table>';
-                            }
-                            echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
-                            $i++;
+//                            $data2show = status::get_top_guild_by_member($onerealm['realmid']);
+//                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Guilds by member count</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+//                                            <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Guilds by member count</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+//                            if (!is_array($data2show)) {
+//                                echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
+//                            } else {
+//                                echo '<table class="table table-striped"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Guild Leader</th></tr></thead><tbody>';
+//                                $m = 1;
+//                                foreach ($data2show as $one_char) {
+//                                    $character_data = status::get_character_by_guid($onerealm['realmid'], $one_char['leaderguid']);
+//                                    echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td>' . (!empty($character_data["name"]) ? $antiXss->xss_clean($character_data['name']) : '-') . '</td></tr>';
+//                                }
+//                                echo '</table>';
+//                            }
+//                            echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
+//                            $i++;
 
                             echo "<hr>";
                         }
