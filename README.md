@@ -20,6 +20,7 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
  3. Show TOPs by Playtime, Achievements, Kills, Honor Point, Arena Point, Arena Team, Guilds by member count (Multi-Realm support).
  4. How to connect Page.
  5. Contact us page.
+ 6. Change Password (4/10/2019).
 
 ## Screenshots
 

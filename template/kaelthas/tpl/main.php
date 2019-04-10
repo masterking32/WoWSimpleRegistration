@@ -83,6 +83,7 @@ require_once 'header.php'; ?>
                                             <img src="<?php echo user::$captcha->inline(); ?>"
                                                  style="border-radius: 5px;"/>
                                         </p>
+                                        <input name="submit" type="hidden" value="register">
                                         <div class="text-center" style="margin-top: 10px;"><input type="submit"
                                                                                                   class="btn btn-success"
                                                                                                   value="Register">
@@ -92,6 +93,70 @@ require_once 'header.php'; ?>
                                 <div class="col-md-6">
                                     <div class="box1" style="margin-top: 10px;padding: 10px;text-align: left">
                                         <?php require_once base_path . 'template/' . $antiXss->xss_clean(get_config("template")) . '/tpl/rules.php'; ?>
+                                        <hr>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#changepassword-modal">
+                                                Change Password
+                                            </button>
+                                        </div>
+                                        <div class="modal" id="changepassword-modal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Change Password</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="input-group">
+                                                            <span class="input-group">Email</span>
+                                                            <input type="email" class="form-control" placeholder="Email"
+                                                                   name="email">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Old Password</span>
+                                                            <input type="password" class="form-control"
+                                                                   placeholder="Old Password"
+                                                                   name="old_password">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Password</span>
+                                                            <input type="password" class="form-control"
+                                                                   placeholder="Password"
+                                                                   name="password">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Re-Password</span>
+                                                            <input type="password" class="form-control"
+                                                                   placeholder="Re-Password"
+                                                                   name="repassword">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Captcha</span>
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Captcha"
+                                                                   name="captcha">
+                                                        </div>
+                                                        <p style="text-align: center;margin-top: 10px;">
+                                                            <img src="<?php echo user::$captcha->inline(); ?>"
+                                                                 style="border-radius: 5px;"/>
+                                                        </p>
+                                                        <input name="submit" type="hidden" value="changepass">
+                                                        <div class="text-center" style="margin-top: 10px;"><input
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
+                                                                    value="Change Password"></div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

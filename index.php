@@ -7,5 +7,5 @@
  **/
 
 require_once './application/loader.php';
-user::register();
+user::post_handler();
 require_once base_path . 'template/' . get_config('template') . '/tpl/main.php';

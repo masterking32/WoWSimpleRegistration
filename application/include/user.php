@@ -13,19 +13,32 @@ class user
 {
     public static $captcha;
 
-    public static function register()
+    public static function post_handler()
     {
-        if (get_config('battlenet_register')) {
-            self::bnet_register();
+        if (!empty($_POST['submit'])) {
+            if (get_config('battlenet_support')) {
+                self::bnet_register();
+                self::bnet_changepass();
+            } else {
+                self::normal_register();
+                self::normal_changepass();
+            }
+            unset($_SESSION['captcha']);
+            self::$captcha = new CaptchaBuilder;
+            self::$captcha->build();
+            $_SESSION['captcha'] = self::$captcha->getPhrase();
         } else {
-            self::normal_register();
+            unset($_SESSION['captcha']);
+            self::$captcha = new CaptchaBuilder;
+            self::$captcha->build();
+            $_SESSION['captcha'] = self::$captcha->getPhrase();
         }
     }
 
     public static function bnet_register()
     {
         global $antiXss;
-        if (!empty($_POST["password"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
+        if ($_POST['submit'] == 'register' && !empty($_POST["password"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
             if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
                 unset($_SESSION['captcha']);
                 if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
@@ -66,17 +79,12 @@ class user
                 error_msg("Captcha is not valid.");
             }
         }
-        unset($_SESSION['captcha']);
-        self::$captcha = new CaptchaBuilder;
-        self::$captcha->build();
-        $_SESSION['captcha'] = self::$captcha->getPhrase();
     }
-
 
     public static function normal_register()
     {
         global $antiXss;
-        if (!empty($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
+        if ($_POST['submit'] == 'register' && !empty($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
             if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
                 unset($_SESSION['captcha']);
                 if (preg_match("/^[0-9A-Z-_]+$/", strtoupper($_POST["username"]))) {
@@ -116,10 +124,102 @@ class user
                 error_msg("Captcha is not valid.");
             }
         }
-        unset($_SESSION['captcha']);
-        self::$captcha = new CaptchaBuilder;
-        self::$captcha->build();
-        $_SESSION['captcha'] = self::$captcha->getPhrase();
+    }
+
+    public static function bnet_changepass()
+    {
+        global $antiXss;
+        if ($_POST['submit'] == 'changepass' && !empty($_POST["password"]) && !empty($_POST["old_password"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
+            if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
+                unset($_SESSION['captcha']);
+                if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                    if ($_POST["password"] == $_POST["repassword"]) {
+                        if (strlen($_POST["password"]) >= 4 && strlen($_POST["password"]) <= 16) {
+                            $userinfo = self::get_user_by_email(strtoupper($_POST["email"]));
+                            if (!empty($userinfo["username"])) {
+                                $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["old_password"])));
+                                $hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["password"])));
+                                if ($userinfo["sha_pass_hash"] == $Old_hashed_pass) {
+                                    database::$auth->update("account", [
+                                        "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
+                                        "sessionkey" => "",
+                                        "v" => "",
+                                        "s" => ""
+                                    ], [
+                                        "id[=]" => $userinfo["id"]
+                                    ]);
+
+                                    $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash("sha256", strtoupper(hash("sha256", strtoupper($userinfo["email"])) . ":" . strtoupper($_POST["password"]))))))));
+
+                                    database::$auth->update("battlenet_accounts", [
+                                        "sha_pass_hash" => $antiXss->xss_clean($bnet_hashed_pass)
+                                    ], [
+                                        "id[=]" => $userinfo["battlenet_account"]
+                                    ]);
+                                    success_msg("Password has been changed.");
+                                } else {
+                                    error_msg("Old password is not valid.");
+                                }
+                            } else {
+                                error_msg("Email is not valid.");
+                            }
+                        } else {
+                            error_msg("Password length is not valid.");
+                        }
+                    } else {
+                        error_msg("Passwords is not equal.");
+                    }
+                } else {
+                    error_msg("Use valid email.");
+                }
+            } else {
+                error_msg("Captcha is not valid.");
+            }
+        }
+    }
+
+    public static function normal_changepass()
+    {
+        global $antiXss;
+        if ($_POST['submit'] == 'changepass' && !empty($_POST["password"]) && !empty($_POST["old_password"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
+            if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
+                unset($_SESSION['captcha']);
+                if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                    if ($_POST["password"] == $_POST["repassword"]) {
+                        if (strlen($_POST["password"]) >= 4 && strlen($_POST["password"]) <= 16) {
+                            $userinfo = self::get_user_by_email(strtoupper($_POST["email"]));
+                            if (!empty($userinfo["username"])) {
+                                $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["old_password"])));
+                                $hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["password"])));
+                                if ($userinfo["sha_pass_hash"] == $Old_hashed_pass) {
+                                    database::$auth->update("account", [
+                                        "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
+                                        "sessionkey" => "",
+                                        "v" => "",
+                                        "s" => ""
+                                    ], [
+                                        "id[=]" => $userinfo["id"]
+                                    ]);
+                                    success_msg("Password has been changed.");
+                                } else {
+                                    error_msg("Old password is not valid.");
+                                }
+                            } else {
+                                error_msg("Email is not valid.");
+                            }
+                        } else {
+                            error_msg("Password length is not valid.");
+                        }
+                    } else {
+                        error_msg("Passwords is not equal.");
+                    }
+                } else {
+                    error_msg("Use valid email.");
+                }
+            } else {
+                error_msg("Captcha is not valid.");
+            }
+        }
     }
 
     public static function check_email_exists($email)
@@ -128,6 +228,17 @@ class user
             $datas = database::$auth->select("account", ["id"], ["email" => Medoo::raw('UPPER(:email)', [':email' => $email])]);
             if (empty($datas[0])) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public static function get_user_by_email($email)
+    {
+        if (!empty($email)) {
+            $datas = database::$auth->select("account", "*", ["email" => Medoo::raw('UPPER(:email)', [':email' => strtoupper($email)])]);
+            if (!empty($datas[0]["username"])) {
+                return $datas[0];
             }
         }
         return false;
