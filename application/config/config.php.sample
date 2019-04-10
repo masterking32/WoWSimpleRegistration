@@ -25,6 +25,14 @@ $config['battlenet_register'] = false;                              // Change it
 $config['debug_mode'] = false;                                      // Enable debug mode to display system errors.
 $config['template'] = 'light';                                      // Change template name ( 'light' or 'icecrown' or 'kaelthas' )
 
+$config['smtp_host'] = 'smtp1.example.com';                         // Specify main and backup SMTP servers
+$config['smtp_port'] = 587;                                         // TCP port to connect to
+$config['smtp_auth'] = true;                                        // Enable SMTP authentication
+$config['smtp_user'] = 'user@example.com';                          // SMTP username
+$config['smtp_pass'] = 'SECRET';                                    // SMTP password
+$config['smtp_secure'] = 'tls';                                     // Enable TLS encryption, `ssl` also accepted
+$config['smtp_mail'] = 'no-reply@example.com';                      // Send emails by ...
+
 $config['realmlists'] = array( // Add your realmlist here
     "1" => array(
         'realmid' => 1,
