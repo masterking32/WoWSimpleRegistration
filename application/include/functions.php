@@ -5,6 +5,10 @@
  * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 $error_msg = "";
 $success_msg = "";
 function get_config($name)
@@ -99,4 +103,33 @@ function get_human_time_from_sec($seconds)
     $interval = new DateInterval("PT{$seconds}S");
     $now = new DateTimeImmutable('now', new DateTimeZone('utc'));
     return $now->diff($now->add($interval))->format('%a:%h:%i');
+}
+
+function send_phpmailer($email, $subject, $message)
+{
+    $mail = new PHPMailer(true);
+    if (get_config('debug_mode')) {
+        $mail->SMTPDebug = 2;
+    }
+    $mail->isSMTP();
+    $mail->Host = get_config('smtp_host');
+    $mail->SMTPAuth = get_config('smtp_auth');
+    $mail->Username = get_config('smtp_user');
+    $mail->Password = get_config('smtp_pass');
+    $mail->SMTPSecure = get_config('smtp_secure');
+    $mail->Port = get_config('smtp_port');
+
+    //Recipients
+    $mail->setFrom(get_config('smtp_mail'));
+    $mail->addAddress($email);     // Add a recipient
+    $mail->addReplyTo(get_config('smtp_mail'));
+
+    // Content
+    $mail->isHTML(true);
+    $mail->Subject = $subject;
+    $mail->Body = $message;
+
+    $mail->send();
+    
+    return true;
 }
