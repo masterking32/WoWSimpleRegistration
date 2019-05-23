@@ -139,7 +139,7 @@ class user
                             if (!empty($userinfo["username"])) {
                                 $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["old_password"])));
                                 $hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["password"])));
-                                if ($userinfo["sha_pass_hash"] == $Old_hashed_pass) {
+                                if (strtoupper($userinfo["sha_pass_hash"]) == $Old_hashed_pass) {
                                     database::$auth->update("account", [
                                         "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
                                         "sessionkey" => "",
@@ -191,7 +191,7 @@ class user
                             if (!empty($userinfo["username"])) {
                                 $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["old_password"])));
                                 $hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["password"])));
-                                if ($userinfo["sha_pass_hash"] == $Old_hashed_pass) {
+                                if (strtoupper($userinfo["sha_pass_hash"]) == $Old_hashed_pass) {
                                     database::$auth->update("account", [
                                         "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
                                         "sessionkey" => "",
