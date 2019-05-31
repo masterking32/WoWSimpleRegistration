@@ -23,6 +23,7 @@ class user
                 self::normal_register();
                 self::normal_changepass();
             }
+            self::restorepassword();
             unset($_SESSION['captcha']);
             self::$captcha = new CaptchaBuilder;
             self::$captcha->build();
@@ -281,6 +282,52 @@ class user
         return true;
     }
 
+    /**
+     * Change password for normal servers.
+     * @return bool
+     */
+    public static function restorepassword()
+    {
+        global $antiXss;
+        if (!($_POST['submit'] == 'restorepassword' && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+            return false;
+        }
+
+        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
+            error_msg('Captcha is not valid.');
+            return false;
+        }
+
+        unset($_SESSION['captcha']);
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            error_msg('Use valid email.');
+            return false;
+        }
+
+        $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
+        if (empty($userinfo['email'])) {
+            error_msg('Email is not valid.');
+            return false;
+        }
+
+        if (empty($userinfo['restore_key'])) {
+            self::add_password_key_to_acctbl();
+        }
+
+        $restore_key = strtolower(md5(time() . mt_rand(2000)) . mt_rand(20000));
+        database::$auth->update('account', [
+            'restore_key' => $antiXss->xss_clean($restore_key)
+        ], [
+            'id[=]' => $userinfo['id']
+        ]);
+
+        $restorepass_URL = get_config('baseurl') . '/index.php?restore=' . strtolower($userinfo['email']) . '&key=' . $restore_key;
+        $message = "For restore you game account open <a href='$restorepass_URL' target='_blank'>this link</a>: <BR>$restorepass_URL";
+        send_phpmailer(strtolower($userinfo['email']), 'Restore Account Password', $message);
+        success_msg('Check your email, (Check SPAM/Junk too).');
+        return true;
+    }
+
     public static function check_email_exists($email)
     {
         if (!empty($email)) {
@@ -334,5 +381,11 @@ class user
             return $datas;
         }
         return 0;
+    }
+
+    public static function add_password_key_to_acctbl()
+    {
+        database::$auth->query("ALTER TABLE `account` ADD COLUMN `restore_key` varchar(255) NULL DEFAULT '1';");
+        return ture;
     }
 }
