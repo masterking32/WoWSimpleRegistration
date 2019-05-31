@@ -223,6 +223,10 @@ class user
         return true;
     }
 
+    /**
+     * Change password for normal servers.
+     * @return bool
+     */
     public static function normal_changepass()
     {
         global $antiXss;
@@ -263,7 +267,7 @@ class user
             error_msg('Old password is not valid.');
             return false;
         }
-        
+
         database::$auth->update('account', [
             'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
             'sessionkey' => '',
