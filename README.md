@@ -21,6 +21,7 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
  4. How to connect Page.
  5. Contact us page.
  6. Change Password (4/10/2019).
+ 7. Restore Password (31/5/2019).
 
 ## Screenshots
 
