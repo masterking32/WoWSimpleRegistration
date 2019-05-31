@@ -155,98 +155,114 @@ class user
         return true;
     }
 
+    /**
+     * Change password for Battle.net Cores.
+     * @return bool
+     */
     public static function bnet_changepass()
     {
         global $antiXss;
-        if ($_POST['submit'] == 'changepass' && !empty($_POST["password"]) && !empty($_POST["old_password"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
-            if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
-                unset($_SESSION['captcha']);
-                if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                    if ($_POST["password"] == $_POST["repassword"]) {
-                        if (strlen($_POST["password"]) >= 4 && strlen($_POST["password"]) <= 16) {
-                            $userinfo = self::get_user_by_email(strtoupper($_POST["email"]));
-                            if (!empty($userinfo["username"])) {
-                                $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["old_password"])));
-                                $hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["password"])));
-                                if (strtoupper($userinfo["sha_pass_hash"]) == $Old_hashed_pass) {
-                                    database::$auth->update("account", [
-                                        "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
-                                        "sessionkey" => "",
-                                        "v" => "",
-                                        "s" => ""
-                                    ], [
-                                        "id[=]" => $userinfo["id"]
-                                    ]);
-
-                                    $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash("sha256", strtoupper(hash("sha256", strtoupper($userinfo["email"])) . ":" . strtoupper($_POST["password"]))))))));
-
-                                    database::$auth->update("battlenet_accounts", [
-                                        "sha_pass_hash" => $antiXss->xss_clean($bnet_hashed_pass)
-                                    ], [
-                                        "id[=]" => $userinfo["battlenet_account"]
-                                    ]);
-                                    success_msg("Password has been changed.");
-                                } else {
-                                    error_msg("Old password is not valid.");
-                                }
-                            } else {
-                                error_msg("Email is not valid.");
-                            }
-                        } else {
-                            error_msg("Password length is not valid.");
-                        }
-                    } else {
-                        error_msg("Passwords is not equal.");
-                    }
-                } else {
-                    error_msg("Use valid email.");
-                }
-            } else {
-                error_msg("Captcha is not valid.");
-            }
+        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+            return false;
         }
+
+        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
+            error_msg('Captcha is not valid.');
+            return false;
+        }
+        unset($_SESSION['captcha']);
+
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            error_msg('Use valid email.');
+            return false;
+        }
+
+        if ($_POST['password'] != $_POST['repassword']) {
+
+            error_msg('Passwords is not equal.');
+            return false;
+        }
+
+        if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
+            error_msg('Password length is not valid.');
+            return true;
+        }
+
+        $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
+        if (empty($userinfo['username'])) {
+            error_msg('Email is not valid.');
+            return false;
+        }
+
+        $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
+        $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
+
+        if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
+            error_msg('Old password is not valid.');
+            return false;
+        }
+
+        database::$auth->update('account', [
+            'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+            'sessionkey' => '',
+            'v' => '',
+            's' => ''
+        ], [
+            'id[=]' => $userinfo['id']
+        ]);
+
+        $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($_POST['password']))))))));
+
+        database::$auth->update('battlenet_accounts', [
+            'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass)
+        ], [
+            'id[=]' => $userinfo['battlenet_account']
+        ]);
+
+        success_msg('Password has been changed.');
+        return true;
     }
 
     public static function normal_changepass()
     {
         global $antiXss;
-        if ($_POST['submit'] == 'changepass' && !empty($_POST["password"]) && !empty($_POST["old_password"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
-            if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
+        if ($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha'])) {
+            if (strtolower($_SESSION['captcha']) == strtolower($_POST['captcha'])) {
                 unset($_SESSION['captcha']);
-                if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                    if ($_POST["password"] == $_POST["repassword"]) {
-                        if (strlen($_POST["password"]) >= 4 && strlen($_POST["password"]) <= 16) {
-                            $userinfo = self::get_user_by_email(strtoupper($_POST["email"]));
-                            if (!empty($userinfo["username"])) {
-                                $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["old_password"])));
-                                $hashed_pass = strtoupper(sha1(strtoupper($userinfo["username"] . ":" . $_POST["password"])));
-                                if (strtoupper($userinfo["sha_pass_hash"]) == $Old_hashed_pass) {
-                                    database::$auth->update("account", [
-                                        "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
-                                        "sessionkey" => "",
-                                        "v" => "",
-                                        "s" => ""
+                if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                    if ($_POST['password'] == $_POST['repassword']) {
+                        if (strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16) {
+                            $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
+                            if (!empty($userinfo['username'])) {
+                                $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
+                                $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
+                                if (strtoupper($userinfo['sha_pass_hash']) == $Old_hashed_pass) {
+                                    database::$auth->update('account', [
+                                        'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                                        'sessionkey' => '',
+                                        'v' => '',
+                                        's' => ''
                                     ], [
-                                        "id[=]" => $userinfo["id"]
+                                        'id[=]' => $userinfo['id']
                                     ]);
-                                    success_msg("Password has been changed.");
+                                    success_msg('Password has been changed.');
                                 } else {
-                                    error_msg("Old password is not valid.");
+                                    error_msg('Old password is not valid.');
                                 }
                             } else {
-                                error_msg("Email is not valid.");
+                                error_msg('Email is not valid.');
                             }
                         } else {
-                            error_msg("Password length is not valid.");
+                            error_msg('Password length is not valid.');
                         }
                     } else {
-                        error_msg("Passwords is not equal.");
+                        error_msg('Passwords is not equal.');
                     }
                 } else {
-                    error_msg("Use valid email.");
+                    error_msg('Use valid email.');
                 }
             } else {
-                error_msg("Captcha is not valid.");
+                error_msg('Captcha is not valid.');
             }
         }
     }
@@ -254,7 +270,7 @@ class user
     public static function check_email_exists($email)
     {
         if (!empty($email)) {
-            $datas = database::$auth->select("account", ["id"], ["email" => Medoo::raw('UPPER(:email)', [':email' => $email])]);
+            $datas = database::$auth->select('account', ['id'], ['email' => Medoo::raw('UPPER(:email)', [':email' => $email])]);
             if (empty($datas[0])) {
                 return true;
             }
@@ -265,18 +281,22 @@ class user
     public static function get_user_by_email($email)
     {
         if (!empty($email)) {
-            $datas = database::$auth->select("account", "*", ["email" => Medoo::raw('UPPER(:email)', [':email' => strtoupper($email)])]);
-            if (!empty($datas[0]["username"])) {
+            $datas = database::$auth->select('account', '*', ['email' => Medoo::raw('UPPER(:email)', [':email' => strtoupper($email)])]);
+            if (!empty($datas[0]['username'])) {
                 return $datas[0];
             }
         }
         return false;
     }
 
+    /**
+     * @param $username
+     * @return bool
+     */
     public static function check_username_exists($username)
     {
         if (!empty($username)) {
-            $datas = database::$auth->select("account", ["id"], ["username" => Medoo::raw('UPPER(:username)', [':username' => $username])]);
+            $datas = database::$auth->select('account', ['id'], ['username' => Medoo::raw('UPPER(:username)', [':username' => $username])]);
             if (empty($datas[0])) {
                 return true;
             }
@@ -286,8 +306,8 @@ class user
 
     public static function get_online_players($realmID)
     {
-        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level"), ['LIMIT' => 49, "ORDER" => ["level" => "DESC"], "online[=]" => 1]);
-        if (!empty($datas[0]["name"])) {
+        $datas = database::$chars[$realmID]->select('characters', array('name', 'race', 'class', 'gender', 'level'), ['LIMIT' => 49, 'ORDER' => ['level' => 'DESC'], 'online[=]' => 1]);
+        if (!empty($datas[0]['name'])) {
             return $datas;
         }
         return false;
