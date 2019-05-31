@@ -78,7 +78,7 @@ class user
             'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
             'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass)
         ]);
-        
+
         $bnet_account_id = database::$auth->id();
         $username = $bnet_account_id . '#1';
         $hashed_pass = strtoupper(sha1(strtoupper($username . ':' . $_POST['password'])));
@@ -95,49 +95,64 @@ class user
         return true;
     }
 
+    /**
+     * Registration without battle net servers.
+     * @return bool
+     */
     public static function normal_register()
     {
         global $antiXss;
-        if ($_POST['submit'] == 'register' && !empty($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["repassword"]) && !empty($_POST["email"]) && !empty($_POST["captcha"]) && !empty($_SESSION['captcha'])) {
-            if (strtolower($_SESSION['captcha']) == strtolower($_POST["captcha"])) {
-                unset($_SESSION['captcha']);
-                if (preg_match("/^[0-9A-Z-_]+$/", strtoupper($_POST["username"]))) {
-                    if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                        if ($_POST["password"] == $_POST["repassword"]) {
-                            if (strlen($_POST["password"]) >= 4 && strlen($_POST["password"]) <= 16) {
-                                if (strlen($_POST["username"]) >= 2 && strlen($_POST["username"]) <= 16) {
-                                    if (self::check_email_exists(strtoupper($_POST["email"])) && self::check_username_exists(strtoupper($_POST["username"]))) {
-                                        $hashed_pass = strtoupper(sha1(strtoupper($_POST["username"] . ":" . $_POST["password"])));
-                                        database::$auth->insert("account", [
-                                            "username" => $antiXss->xss_clean(strtoupper($_POST["username"])),
-                                            "sha_pass_hash" => $antiXss->xss_clean($hashed_pass),
-                                            "email" => $antiXss->xss_clean(strtoupper($_POST["email"])),
-                                            "reg_mail" => $antiXss->xss_clean(strtoupper($_POST["email"])),
-                                            "expansion" => $antiXss->xss_clean(get_config('expansion'))
-                                        ]);
-                                        success_msg("Your account has been created.");
-                                    } else {
-                                        error_msg("Username or Email is exists.");
-                                    }
-                                } else {
-                                    error_msg("Username length is not valid.");
-                                }
-                            } else {
-                                error_msg("Password length is not valid.");
-                            }
-                        } else {
-                            error_msg("Passwords is not equal.");
-                        }
-                    } else {
-                        error_msg("Use valid email.");
-                    }
-                } else {
-                    error_msg("Use valid characters for username.");
-                }
-            } else {
-                error_msg("Captcha is not valid.");
-            }
+        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['username']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+            return false;
         }
+
+        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
+            error_msg('Captcha is not valid.');
+            return false;
+        }
+
+        unset($_SESSION['captcha']);
+        if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
+            error_msg('Use valid characters for username.');
+            return false;
+        }
+
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            error_msg('Use valid email.');
+            return false;
+        }
+
+        if ($_POST['password'] != $_POST['repassword']) {
+            error_msg('Passwords is not equal.');
+            return false;
+        }
+
+        if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
+            error_msg('Password length is not valid.');
+            return false;
+        }
+
+        if (!(strlen($_POST['username']) >= 2 && strlen($_POST['username']) <= 16)) {
+            error_msg('Username length is not valid.');
+            return false;
+        }
+
+        if (!self::check_email_exists(strtoupper($_POST['email'])) && !self::check_username_exists(strtoupper($_POST['username']))) {
+            error_msg('Username or Email is exists.');
+            return false;
+        }
+
+        $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
+        database::$auth->insert('account', [
+            'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+            'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+            'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+            'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+            'expansion' => $antiXss->xss_clean(get_config('expansion'))
+        ]);
+
+        success_msg('Your account has been created.');
+        return true;
     }
 
     public static function bnet_changepass()
