@@ -116,6 +116,50 @@ require_once 'header.php'; ?>
                                                 data-target="#changepassword-modal">
                                             Change Password
                                         </button>
+                                        <button type="button" class="btn btn-info" data-toggle="modal"
+                                                data-target="#restorepassword-modal">
+                                            Restore Password
+                                        </button>
+                                    </div>
+                                    <div class="modal" id="restorepassword-modal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Restore Password</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="" method="post">
+                                                        <div class="input-group">
+                                                            <span class="input-group">Email</span>
+                                                            <input type="email" class="form-control" placeholder="Email"
+                                                                   name="email">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Captcha</span>
+                                                            <input type="text" class="form-control" placeholder="Captcha"
+                                                                   name="captcha">
+                                                        </div>
+                                                        <p style="text-align: center;margin-top: 10px;">
+                                                            <img src="<?php echo user::$captcha->inline(); ?>"
+                                                                 style="border-radius: 5px;"/>
+                                                        </p>
+                                                        <input name="submit" type="hidden" value="restorepassword">
+                                                        <div class="text-center" style="margin-top: 10px;"><input
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
+                                                                    value="Change Password"></div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal" id="changepassword-modal">
                                         <div class="modal-dialog">
