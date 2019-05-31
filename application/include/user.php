@@ -326,4 +326,13 @@ class user
         }
         return false;
     }
+
+    public static function get_online_players_count($realmID)
+    {
+        $datas = database::$chars[$realmID]->count('characters', ['online[=]' => 1]);
+        if (!empty($datas)) {
+            return $datas;
+        }
+        return 0;
+    }
 }

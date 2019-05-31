@@ -192,7 +192,7 @@ require_once 'header.php'; ?>
                     <div class="tab-pane fade in" id="pills-serverstatus">
                         <?php
                         foreach (get_config('realmlists') as $onerealm_key => $onerealm) {
-                            echo "<p><span style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player)</span></p><hr>";
+                            echo "<p><span style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player - Online players : " . user::get_online_players_count($onerealm['realmid']) . ")</span></p><hr>";
                             $online_chars = user::get_online_players($onerealm['realmid']);
                             if (!is_array($online_chars)) {
                                 echo "<span style='color: #0d99e5;'>No have Online player.</span>";
