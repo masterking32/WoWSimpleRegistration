@@ -15,6 +15,10 @@ class user
 
     public static function post_handler()
     {
+        if (!empty($_GET['restore']) && !empty($_GET['key'])) {
+            self::restorepassword_setnewpw($_GET['restore'], $_GET['key']);
+        }
+
         if (!empty($_POST['submit'])) {
             if (get_config('battlenet_support')) {
                 self::bnet_register();
@@ -326,6 +330,65 @@ class user
         send_phpmailer(strtolower($userinfo['email']), 'Restore Account Password', $message);
         success_msg('Check your email, (Check SPAM/Junk too).');
         return true;
+    }
+
+    public static function restorepassword_setnewpw($email, $restore_key)
+    {
+        global $antiXss;
+        if (empty($email) || empty($restore_key)) {
+            return false;
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
+        $userinfo = self::get_user_by_email(strtoupper($email));
+        if (empty($userinfo['email'])) {
+            return false;
+        }
+
+        if ($userinfo['restore_key'] != $restore_key) {
+            return false;
+        }
+
+        $new_password = generateRandomString(12);
+
+        if (get_config('battlenet_support')) {
+            $message = 'Your new account information : <br>Email: ' . strtolower($userinfo['email']) . '<br>Password: ' . $new_password;
+            $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
+            database::$auth->update('account', [
+                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'sessionkey' => '',
+                'v' => '',
+                's' => '',
+                'restore_key' => '1'
+            ], [
+                'id[=]' => $userinfo['id']
+            ]);
+
+            $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($new_password))))))));
+            database::$auth->update('battlenet_accounts', [
+                'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass)
+            ], [
+                'id[=]' => $userinfo['battlenet_account']
+            ]);
+        } else {
+            $message = 'Your new account information : <br>Username: ' . strtolower($userinfo['username']) . '<br>Password: ' . $new_password;
+            $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
+            database::$auth->update('account', [
+                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'sessionkey' => '',
+                'v' => '',
+                's' => '',
+                'restore_key' => '1'
+            ], [
+                'id[=]' => $userinfo['id']
+            ]);
+        }
+
+        send_phpmailer(strtolower($userinfo['email']), 'New Account Password', $message);
+        success_msg('Check your email for new password, (Check SPAM/Junk too).');
+        return false;
     }
 
     public static function check_email_exists($email)
