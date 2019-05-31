@@ -1,5 +1,23 @@
 # Changelog
 
+### 5.4.7 (2019-05-28)
+
+- optimize performance for "bootstrap.php"
+
+### 5.4.6 (2019-04-25)
+
+- fix "UTF8::to_latin1()" for non-char input + optimize performance
+
+### 5.4.5 (2019-04-21)
+
+- fix unicode support for regex 
+
+### 5.4.4 (2019-04-15)
+
+- optimize performance for UTF8::rawurldecode() and UTF8::urldecode()
+- optimize "UTF8::str_split_pattern()" with limit usage
+- fix warnings detected by psalm && phpstan && phpstorm
+
 ### 5.4.3 (2019-03-05)
 
 - optimize "UTF8::strrev()" with support for emoji chars

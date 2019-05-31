@@ -1,5 +1,30 @@
 # Changelog
 
+### 4.1.10 (2019-04-19)
+
+- fix replacing of false-positive xss words e.g. "ANAMNESI E VAL!DEFINITE BREVI ORTO" (issue #43)
+
+
+### 4.1.9 (2019-04-19)
+
+- optimize the spacing regex 
+
+
+### 4.1.8 (2019-04-19)
+
+- fix replacing of false-positive xss words e.g. "MONDRAGÓN" (issue #43)
+
+
+### 4.1.7 (2019-04-19)
+
+- fix replacing of false-positive xss words e.g. "DE VAL HERNANDEZ" (issue #43)
+
+
+### 4.1.6 (2019-04-12)
+
+- fix replacing of false-positive xss words e.g. "Mondragon" (issue #43)
+
+
 ### 4.1.5 (2019-02-13)
 
 - fix issue with "()" in some html attributes (issue #41)
