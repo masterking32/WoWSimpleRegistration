@@ -33,6 +33,25 @@ $config['smtp_pass'] = 'SECRET';                                    // SMTP pass
 $config['smtp_secure'] = 'tls';                                     // Enable TLS encryption, `ssl` also accepted
 $config['smtp_mail'] = 'no-reply@example.com';                      // Send emails by ...
 
+$config['realmlists'] = array(
+	"1" => array(
+		'realmid' => 1,
+		'realmname' => "Realm 1",
+		'db_host' => "127.0.0.1",
+		'db_port' => "3306",
+		'db_user' => "root",
+		'db_pass' => "root",
+		'db_name' => "rm1_chars"
+	)
+);
+
+
+/* 
+
+ **********************************
+ * EXMAPLE OF MORE THAN ONE REALM *
+ **********************************
+ 
 $config['realmlists'] = array( // Add your realmlist here
     "1" => array(
         'realmid' => 1,
@@ -51,25 +70,16 @@ $config['realmlists'] = array( // Add your realmlist here
         'db_user' => "root",
         'db_pass' => "root",
         'db_name' => "rm2_chars"
+    ),
+    "3" => array(
+        'realmid' => 3,
+        'realmname' => "Realm 3",
+        'db_host' => "127.0.0.1",
+        'db_port' => "3306",
+        'db_user' => "root",
+        'db_pass' => "root",
+        'db_name' => "rm3_chars"
     )
-);
-
-/* 
-
- ************************
- * EXMAPLE OF ONE REALM *
- ************************
- 
-$config['realmlists'] = array(
-	"1" => array(
-		'realmid' => 1,
-		'realmname' => "Realm 1",
-		'db_host' => "127.0.0.1",
-		'db_port' => "3306",
-		'db_user' => "root",
-		'db_pass' => "root",
-		'db_name' => "rm1_chars"
-	)
 );
 
 */
