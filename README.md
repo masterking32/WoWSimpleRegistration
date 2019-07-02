@@ -23,6 +23,14 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
  6. Change Password (4/10/2019).
  7. Restore Password (5/31/2019).
 
+## DEMO
+
+RESTORE PASSWORD DOSEN'T WORK IN DEMO VERSIONS.
+
+[Light](http://wowsimpleregistration.gigfa.com/light/)
+[IceCrown](http://wowsimpleregistration.gigfa.com/kaelthas/)
+[Kaelthas](http://wowsimpleregistration.gigfa.com/icecrown/)
+
 ## Screenshots
 
 ## Light Template
