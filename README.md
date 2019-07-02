@@ -29,9 +29,9 @@ RESTORE PASSWORD DOSEN'T WORK IN DEMO VERSIONS.
 
 [Light Template](http://wowsimpleregistration.gigfa.com/light/)
 
-[IceCrown Template](http://wowsimpleregistration.gigfa.com/kaelthas/)
+[IceCrown Template](http://wowsimpleregistration.gigfa.com/icecrown/)
 
-[Kaelthas Template](http://wowsimpleregistration.gigfa.com/icecrown/)
+[Kaelthas Template](http://wowsimpleregistration.gigfa.com/kaelthas/)
 
 ## Screenshots
 
