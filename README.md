@@ -27,9 +27,11 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 RESTORE PASSWORD DOSEN'T WORK IN DEMO VERSIONS.
 
-[Light](http://wowsimpleregistration.gigfa.com/light/)
-[IceCrown](http://wowsimpleregistration.gigfa.com/kaelthas/)
-[Kaelthas](http://wowsimpleregistration.gigfa.com/icecrown/)
+[Light Template](http://wowsimpleregistration.gigfa.com/light/)
+
+[IceCrown Template](http://wowsimpleregistration.gigfa.com/kaelthas/)
+
+[Kaelthas Template](http://wowsimpleregistration.gigfa.com/icecrown/)
 
 ## Screenshots
 
