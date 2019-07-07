@@ -185,17 +185,17 @@
     },
     {
         "name": "phpunit/php-timer",
-        "version": "2.1.1",
-        "version_normalized": "2.1.1.0",
+        "version": "2.1.2",
+        "version_normalized": "2.1.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-timer.git",
-            "reference": "8b389aebe1b8b0578430bda0c7c95a829608e059"
+            "reference": "1038454804406b0b5f5f520358e78c1c2f71501e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/8b389aebe1b8b0578430bda0c7c95a829608e059",
-            "reference": "8b389aebe1b8b0578430bda0c7c95a829608e059",
+            "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/1038454804406b0b5f5f520358e78c1c2f71501e",
+            "reference": "1038454804406b0b5f5f520358e78c1c2f71501e",
             "shasum": ""
         },
         "require": {
@@ -204,7 +204,7 @@
         "require-dev": {
             "phpunit/phpunit": "^7.0"
         },
-        "time": "2019-02-20T10:12:59+00:00",
+        "time": "2019-06-07T04:22:29+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -287,23 +287,23 @@
     },
     {
         "name": "symfony/finder",
-        "version": "v4.3.0",
-        "version_normalized": "4.3.0.0",
+        "version": "v4.3.2",
+        "version_normalized": "4.3.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/finder.git",
-            "reference": "b3d4f4c0e4eadfdd8b296af9ca637cfbf51d8176"
+            "reference": "33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/finder/zipball/b3d4f4c0e4eadfdd8b296af9ca637cfbf51d8176",
-            "reference": "b3d4f4c0e4eadfdd8b296af9ca637cfbf51d8176",
+            "url": "https://api.github.com/repos/symfony/finder/zipball/33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a",
+            "reference": "33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a",
             "shasum": ""
         },
         "require": {
             "php": "^7.1.3"
         },
-        "time": "2019-05-26T20:47:49+00:00",
+        "time": "2019-06-13T11:03:18+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -644,17 +644,17 @@
     },
     {
         "name": "voku/anti-xss",
-        "version": "4.1.11",
-        "version_normalized": "4.1.11.0",
+        "version": "4.1.14",
+        "version_normalized": "4.1.14.0",
         "source": {
             "type": "git",
             "url": "https://github.com/voku/anti-xss.git",
-            "reference": "5e131105bc74803aae616702099ab6996bd24ce9"
+            "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/voku/anti-xss/zipball/5e131105bc74803aae616702099ab6996bd24ce9",
-            "reference": "5e131105bc74803aae616702099ab6996bd24ce9",
+            "url": "https://api.github.com/repos/voku/anti-xss/zipball/53c5da8039cf2ed226e3249b86a2be700c415f88",
+            "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88",
             "shasum": ""
         },
         "require": {
@@ -664,7 +664,7 @@
         "require-dev": {
             "phpunit/phpunit": "~6.0 || ~7.0"
         },
-        "time": "2019-04-25T13:54:07+00:00",
+        "time": "2019-06-27T21:40:28+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -703,17 +703,17 @@
     },
     {
         "name": "voku/portable-utf8",
-        "version": "5.4.7",
-        "version_normalized": "5.4.7.0",
+        "version": "5.4.10",
+        "version_normalized": "5.4.10.0",
         "source": {
             "type": "git",
             "url": "https://github.com/voku/portable-utf8.git",
-            "reference": "5745db4bcf3242905239f51693ad6e4d99e28d32"
+            "reference": "fd4966494cdf2fc5bdc83bf8c210ad6327e5a5c1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/voku/portable-utf8/zipball/5745db4bcf3242905239f51693ad6e4d99e28d32",
-            "reference": "5745db4bcf3242905239f51693ad6e4d99e28d32",
+            "url": "https://api.github.com/repos/voku/portable-utf8/zipball/fd4966494cdf2fc5bdc83bf8c210ad6327e5a5c1",
+            "reference": "fd4966494cdf2fc5bdc83bf8c210ad6327e5a5c1",
             "shasum": ""
         },
         "require": {
@@ -735,7 +735,7 @@
             "ext-json": "Use JSON for string detection",
             "ext-mbstring": "Use Mbstring for best performance"
         },
-        "time": "2019-05-28T08:11:05+00:00",
+        "time": "2019-07-05T09:08:42+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

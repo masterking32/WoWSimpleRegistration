@@ -1,5 +1,27 @@
 # Changelog
 
+### 4.1.14 (2019-06-27)
+
+- add "removeNeverAllowedOnEventsAfterwards()" && "addNeverAllowedOnEventsAfterwards()"
+- update "_never_allowed_on_events_afterwards" -> add "onTouchend" + "onTouchLeave" + "onTouchMove" (thx @DmytroChymyrys)
+- optimize phpdoc for array => string[]
+
+
+### 4.1.13 (2019-06-08)
+
+- fix replacing of false-positive xss words e.g. "<script@gmail.com>" (issue #44)
+
+
+### 4.1.12 (2019-05-31)
+
+- fix replacing of false-positive xss words e.g. "<video@gmail.com>" (issue #44)
+
+
+### 4.1.11 (2019-05-28)
+
+- fix replacing of false-positive xss words e.g. "<styler_tester@gmail.com>" (issue #44)
+
+
 ### 4.1.10 (2019-04-19)
 
 - fix replacing of false-positive xss words e.g. "ANAMNESI E VAL!DEFINITE BREVI ORTO" (issue #43)

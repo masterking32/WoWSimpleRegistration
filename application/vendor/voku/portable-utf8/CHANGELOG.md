@@ -1,5 +1,20 @@
 # Changelog
 
+### 5.4.10 (2019-07-05)
+
+- fix "UTF8::str_contains_any()" -> thanks @drupalista-br
+
+
+### 5.4.9 (2019-06-19)
+
+- sync with "PHP RFC: Add str begin and end functions"
+- fix "UTF8::rawurldecode()" and "UTF8::urldecode()" -> for non multi usage
+
+### 5.4.8 (2019-06-08)
+
+- fix typo in "win1252_to_utf8.php"
+- optimize "UTF8::fix_simple_utf8()"
+
 ### 5.4.7 (2019-05-28)
 
 - optimize performance for "bootstrap.php"
