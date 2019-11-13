@@ -318,7 +318,7 @@ class user
             self::add_password_key_to_acctbl();
         }
 
-        $restore_key = strtolower(md5(time() . mt_rand(2000)) . mt_rand(20000));
+        $restore_key = strtolower(md5(time() . mt_rand(1000, 9999)) . mt_rand(10000,99999));
         database::$auth->update('account', [
             'restore_key' => $antiXss->xss_clean($restore_key)
         ], [
