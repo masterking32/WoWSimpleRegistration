@@ -142,8 +142,13 @@ class user
             return false;
         }
 
-        if (!self::check_email_exists(strtoupper($_POST['email'])) && !self::check_username_exists(strtoupper($_POST['username']))) {
-            error_msg('Username or Email is exists.');
+        if (!get_config('multiple_email_use') && !self::check_email_exists(strtoupper($_POST['email']))) {
+            error_msg('Email is exists.');
+            return false;
+        }
+
+        if (!self::check_username_exists(strtoupper($_POST['username']))) {
+            error_msg('Username is exists.');
             return false;
         }
 
