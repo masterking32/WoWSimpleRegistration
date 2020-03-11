@@ -6,7 +6,7 @@
 [![Latest Stable Version](https://poser.pugx.org/voku/portable-utf8/v/stable)](https://packagist.org/packages/voku/portable-utf8) 
 [![Total Downloads](https://poser.pugx.org/voku/portable-utf8/downloads)](https://packagist.org/packages/voku/portable-utf8)
 [![License](https://poser.pugx.org/voku/portable-utf8/license)](https://packagist.org/packages/voku/portable-utf8)
-[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/moelleken)
+[![Donate to this project using PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/moelleken)
 [![Donate to this project using Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/voku)
 
 # 🉑 Portable UTF-8
@@ -19,15 +19,21 @@ The benefit of Portable UTF-8 is that it is easy to use, easy to bundle. This li
 auto-detect your server environment and will use the installed php-extensions if they are available, 
 so you will have the best possible performance.
 
-As fallback we will use Symfony Polyfills, if needed. (https://github.com/symfony/polyfill)
+As a fallback we will use Symfony Polyfills, if needed. (https://github.com/symfony/polyfill)
 
 The project based on ...
-+ Hamid Sarfraz's work (http://pageconfig.com/attachments/portable-utf8.php) 
-+ Nicolas Grekas's work (https://github.com/tchwork/utf8) 
-+ Behat's work (https://github.com/Behat/Transliterator) 
-+ Sebastián Grignoli's work (https://github.com/neitanod/forceutf8) 
-+ Ivan Enderlin's work (https://github.com/hoaproject/Ustring)
-+ and many cherry-picks from "github"-gists and "Stack Overflow"-snippets ...
++ Hamid Sarfraz's work - [portable-utf8](http://pageconfig.com/attachments/portable-utf8.php) 
++ Nicolas Grekas's work - [tchwork/utf8](https://github.com/tchwork/utf8) 
++ Behat's work - [Behat/Transliterator](https://github.com/Behat/Transliterator) 
++ Sebastián Grignoli's work - [neitanod/forceutf8](https://github.com/neitanod/forceutf8) 
++ Ivan Enderlin's work - [hoaproject/Ustring](https://github.com/hoaproject/Ustring)
++ and many cherry-picks from "GitHub"-gists and "Stack Overflow"-snippets ...
+
+## Demo
+
+Here you can test some basic functions from this library and you can compare some results with the native php function results.
+
++ [encoder.suckup.de](https://encoder.suckup.de/)
 
 ## Index
 
@@ -157,7 +163,7 @@ The project based on ...
 
 ## Alternative
 
-If you like a more Object Oriented Way to edit strings, then you can take a look at [voku/Stringy](https://github.com/voku/Stringy), it's a fork of "danielstjules/Stringy" but it used the "Portable UTF-8"-Class and some extra methodes. 
+If you like a more Object Oriented Way to edit strings, then you can take a look at [voku/Stringy](https://github.com/voku/Stringy), it's a fork of "danielstjules/Stringy" but it used the "Portable UTF-8"-Class and some extra methods. 
 
 ```php
 // Standard library
@@ -215,14 +221,18 @@ The problem with "mbstring" and others is that most of the time you cannot ensur
 *   Although Portable UTF-8 is easy to use; moving from native API to Portable UTF-8 may not be straight-forward for everyone. It is highly recommended that you do not update your scripts to include Portable UTF-8 or replace or change anything before you first know the reason and consequences. Most of the time, some native function may be all what you need.
 *   There is also a shim for "mbstring", "iconv" and "intl", so you can use it also on shared webspace. 
 
-## Warning
+## Info
 
-By default this library requires that you using "UTF-8"-encoding on your server and it will force "UTF-8" by "bootstrap.php".
-If you need to disable this behavior you can define "PORTABLE_UTF8__DISABLE_AUTO_FILTER".
+Since version 5.4.26 this library will NOT force "UTF-8" by "bootstrap.php" anymore.
+If you need to enable this behavior you can define "PORTABLE_UTF8__ENABLE_AUTO_FILTER", before requiring the autoloader.
 
 ```php
-define('PORTABLE_UTF8__DISABLE_AUTO_FILTER', 1);
+define('PORTABLE_UTF8__ENABLE_AUTO_FILTER', 1);
 ```
+
+Before version 5.4.26 this behavior was enabled by default and you could disable it via "PORTABLE_UTF8__DISABLE_AUTO_FILTER",
+but the code had potential security vulnerabilities via injecting code while redirecting via ```header('Location ...```.
+This is the reason I decided to add this BC in a bug fix release, so that everybody using the current version will receive the security-fix.
 
 ## Usage
 
@@ -230,7 +240,7 @@ Example 1: UTF8::cleanup()
 ```php
   echo UTF8::cleanup('�DÃ¼sseldorf�');
   
-  // will output
+  // will output:
   // Düsseldorf
 ```
 
@@ -294,7 +304,7 @@ UTF8::add_bom_to_string('fòô'); // "\xEF\xBB\xBF" . 'fòô'
 
 ##### binary_to_str(mixed $bin)
 
-Convert binary into an string.
+Convert binary into a string.
 
 opposite: UTF8::str_to_binary()
 
@@ -325,7 +335,7 @@ UTF8::chr(0x2603); // '☃'
 Applies callback to all characters of a string.
 
 ```php
-UTF8::chr_map(['voku\helper\UTF8', 'strtolower'], 'Κόσμε'); // ['κ','ό', 'σ', 'μ', 'ε']
+UTF8::chr_map([UTF8::class, 'strtolower'], 'Κόσμε'); // ['κ','ό', 'σ', 'μ', 'ε']
 ```
 
 ##### chr_size_list(string $str) : array
@@ -379,7 +389,7 @@ UTF8::clean("\xEF\xBB\xBF„Abcdef\xc2\xa0\x20…” — 😃 - DÃ¼sseldorf", 
 
 ##### cleanup(string $str) : string
 
-Clean-up a and show only printable UTF-8 chars at the end + fix UTF-8 encoding.
+Clean-up a string and show only printable UTF-8 chars at the end + fix UTF-8 encoding.
 
 ```php
 UTF8::cleanup("\xEF\xBB\xBF„Abcdef\xc2\xa0\x20…” — 😃 - DÃ¼sseldorf", true, true); // '„Abcdef  …” — 😃 - Düsseldorf'
@@ -397,7 +407,7 @@ UTF8::codepoints('κöñ'); // array(954, 246, 241)
 UTF8::codepoints('κöñ', true); // array('U+03ba', 'U+00f6', 'U+00f1')
 ```
 
-##### count_chars(string $str, bool $cleanUtf8 = false) : array
+##### count_chars(string $str, bool $clean_utf8 = false) : array
 
 Returns count of characters used in a string.
 
@@ -407,7 +417,7 @@ UTF8::count_chars('κaκbκc'); // array('κ' => 3, 'a' => 1, 'b' => 1, 'c' => 1
 
 ##### decimal_to_chr(mixed $int) : string
 
-Converts a int-value into an UTF-8 character.
+Converts an int value into a UTF-8 character.
 
 opposite: UTF8::chr_to_decimal()
 
@@ -417,7 +427,7 @@ alias: UTF8::int_to_chr()
 UTF8::decimal_to_chr(931); // 'Σ'
 ```
 
-##### emoji_decode(string $str, bool $useReversibleStringMapping = false) : string
+##### emoji_decode(string $str, bool $use_reversible_string_mappings = false) : string
 
 Decodes a string which was encoded by "UTF8::emoji_encode()".
 
@@ -427,7 +437,7 @@ UTF8::emoji_decode('foo CHARACTER_OGRE', false); // 'foo 👹'
 UTF8::emoji_encode('foo _-_PORTABLE_UTF8_-_308095726_-_627590803_-_8FTU_ELBATROP_-_', true); // 'foo 👹'
 ```
 
-##### emoji_encode(string $str, bool $useReversibleStringMapping = false) : string
+##### emoji_encode(string $str, bool $use_reversible_string_mappings = false) : string
 
 Encode a string with emoji chars into a non-emoji string.
 
@@ -437,12 +447,12 @@ UTF8::emoji_encode('foo 👹', false); // 'foo CHARACTER_OGRE'
 UTF8::emoji_encode('foo 👹', true); // 'foo _-_PORTABLE_UTF8_-_308095726_-_627590803_-_8FTU_ELBATROP_-_'
 ```
 
-##### encode(string $encoding, string $str, bool $autodetectFromEncoding = true, string $fromEncoding = '') : string
+##### encode(string $to_encoding, string $str, bool $auto_detect_the_from_encoding = true, string $from_encoding = ''): string 
 
 Encode a string with a new charset-encoding.
 
-INFO:  The different to "UTF8::utf8_encode()" is that this function, try to fix also broken / double encoding,
-       so you can call this function also on a UTF-8 String and you don't mess the string.
+INFO: This function will also try to fix broken / double encoding,
+      so you can call this function also on a UTF-8 string and you don't mess up the string.
 
 ```php
 UTF8::encode('ISO-8859-1', '-ABC-中文空白-'); // '-ABC-????-'
@@ -454,11 +464,11 @@ UTF8::encode('HTML', '-ABC-中文空白-'); // '-ABC-&#20013;&#25991;&#31354;&#3
 UTF8::encode('BASE64', '-ABC-中文空白-'); // 'LUFCQy3kuK3mlofnqbrnmb0t'
 ```
 
-##### file_get_contents(string $filename, int|null $flags = null, resource|null $context = null, int|null $offset = null, int|null $maxlen = null, int $timeout = 10, bool $convertToUtf8 = true) : string
+##### file_get_contents(string $filename, int|null $flags = null, resource|null $context = null, int|null $offset = null, int|null $maxlen = null, int $timeout = 10, bool $convert_to_utf8 = true) : string
 
 Reads entire file into a string.
 
-WARNING: do not use UTF-8 Option ($convertToUtf8) for binary-files (e.g.: images) !!!
+WARNING: Do not use UTF-8 Option ($convert_to_utf8) for binary files (e.g.: images) !!!
 
 ```php
 UTF8::file_get_contents('utf16le.txt'); // ...
@@ -512,7 +522,7 @@ UTF8::filter_var('-ABC-中文空白-', FILTER_VALIDATE_URL); // false
 
 ```php
 $filters = [ 
-  'name'  => ['filter'  => FILTER_CALLBACK, 'options' => ['voku\helper\UTF8', 'ucwords']],
+  'name'  => ['filter'  => FILTER_CALLBACK, 'options' => [UTF8::class, 'ucwords']],
   'age'   => ['filter'  => FILTER_VALIDATE_INT, 'options' => ['min_range' => 1, 'max_range' => 120]],
   'email' => FILTER_VALIDATE_EMAIL,
 ];
@@ -528,7 +538,7 @@ UTF8::filter_var_array($data, $filters, true); // ['name' => 'Κόσμε', 'age'
 
 ##### fits_inside(string $str, int $box_size) : bool
 
-Check if the number of unicode characters are not more than the specified integer.
+Check if the number of Unicode characters isn't greater than the specified integer.
 
 ```php
 UTF8::fits_inside('κόσμε', 6); // false
@@ -562,7 +572,7 @@ UTF8::getCharDirection('ا'); // 'RTL'
 
 ##### hex_to_chr(string $hexdec) : string|false
 
-Converts a hexadecimal-value into an UTF-8 character.
+Converts a hexadecimal value into a UTF-8 character.
 
 opposite: UTF8::chr_to_hex()
 
@@ -580,7 +590,7 @@ opposite: UTF8::int_to_hex()
 UTF8::hex_to_int('U+00f1'); // 241
 ```
 
-##### html_encode(string $str, bool $keepAsciiChars = false, string $encoding = 'UTF-8') : string
+##### html_encode(string $str, bool $keep_ascii_chars = false, string $encoding = 'UTF-8') : string
 
 Converts a UTF-8 string to a series of HTML numbered entities.
 
@@ -690,7 +700,7 @@ UTF8::is_bom("\xef\xbb\xbf"); // true
 
 ##### is_json(string $str) : bool
 
-Try to check if "$str" is an json-string.
+Try to check if "$str" is a JSON-string.
 
 alias: UTF8::isJson()
 
@@ -700,7 +710,7 @@ UTF8::is_json('{"array":[1,"¥","ä"]}'); // true
 
 ##### is_html(string $str) : bool
 
-Check if the string contains any html-tags <lall>.
+Check if the string contains any HTML tags <lall>.
 
 alias: UTF8::isHtml()
 
@@ -710,7 +720,7 @@ UTF8::is_html('<b>lall</b>'); // true
 
 ##### is_utf16(string $str) : int|false
 
-Check if the string is UTF-16: This function will return  false if is't not UTF-16, 1 for UTF-16LE, 2 for UTF-16BE.
+Check if the string is UTF-16: This function will return  false if it's not UTF-16, 1 for UTF-16LE, 2 for UTF-16BE.
 
 alias: UTF8::isUtf16()
 
@@ -722,7 +732,7 @@ UTF8::is_utf16(file_get_contents('utf-8.txt')); // false
 
 ##### is_utf32(string $str) : int|false
 
-Check if the string is UTF-32: This function will return  false if is't not UTF-32, 1 for UTF-32LE, 2 for UTF-32BE.
+Check if the string is UTF-32: This function will return  false if it's not UTF-32, 1 for UTF-32LE, 2 for UTF-32BE.
 
 alias: UTF8::isUtf16()
 
@@ -734,7 +744,7 @@ UTF8::is_utf32(file_get_contents('utf-8.txt')); // false
 
 ##### is_utf8(string $str, bool $strict = false) : bool
 
-Checks whether the passed string contains only byte sequences that appear valid UTF-8 characters.
+Checks whether the passed string contains only byte sequences that are valid UTF-8 characters.
 
 alias: UTF8::isUtf8()
 
@@ -808,7 +818,7 @@ Normalize some MS Word special characters.
 UTF8::normalize_msword('„Abcdef…”'); // '"Abcdef..."'
 ```
 
-##### normalize_whitespace(string $str, bool $keepNonBreakingSpace = false, bool $keepBidiUnicodeControls = false) : string
+##### normalize_whitespace(string $str, bool $keep_non_breaking_space = false, bool $keep_bidi_unicode_controls = false) : string
 
 Normalize the whitespace.
 
@@ -826,11 +836,11 @@ opposite: UTF8::chr()
 UTF8::ord('☃'); // 0x2603
 ```
 
-##### parse_str(string $str, &$result, bool $cleanUtf8 = false) : bool
+##### parse_str(string $str, &$result, bool $clean_utf8 = false) : bool
 
 Parses the string into an array (into the the second parameter).
 
-WARNING: Instead of "parse_str()" this method do not (re-)placing variables in the current scope,
+WARNING: Unlike "parse_str()", this method does not (re-)place variables in the current scope,
           if the second parameter is not set!
 
 ```php
@@ -870,7 +880,7 @@ Remove invisible characters from a string.
 UTF8::remove_invisible_characters("κόσ\0με"); // 'κόσμε'
 ```
 
-##### replace_diamond_question_mark(string $str, string $replacementChar = '', bool $processInvalidUtf8 = true) : string
+##### replace_diamond_question_mark(string $str, string $replacement_char = '', bool $process_invalid_utf8 = true) : string
 
 Replace the diamond question mark (�) and invalid-UTF8 chars with the replacement.
 
@@ -880,7 +890,7 @@ UTF8::replace_diamond_question_mark('中文空白�', ''); // '中文空白'
 
 ##### trim(string $str = '', string $chars = INF) : string
 
-Strip whitespace or other characters from beginning or end of a UTF-8 string.
+Strip whitespace or other characters from the beginning and end of a UTF-8 string.
 
 ```php
 UTF8::rtrim('   -ABC-中文空白-  '); // '-ABC-中文空白-'
@@ -888,7 +898,7 @@ UTF8::rtrim('   -ABC-中文空白-  '); // '-ABC-中文空白-'
 
 ##### rtrim(string $str = '', string $chars = INF) : string
 
-Strip whitespace or other characters from end of a UTF-8 string.
+Strip whitespace or other characters from the end of a UTF-8 string.
 
 ```php
 UTF8::rtrim('-ABC-中文空白-  '); // '-ABC-中文空白-'
@@ -896,13 +906,13 @@ UTF8::rtrim('-ABC-中文空白-  '); // '-ABC-中文空白-'
 
 ##### ltrim(string $str, string $chars = INF) : string
 
-Strip whitespace or other characters from beginning of a UTF-8 string.
+Strip whitespace or other characters from the beginning of a UTF-8 string.
 
 ```php
 UTF8::ltrim('　中文空白　 '); // '中文空白　 '
 ```
 
-##### single_chr_html_encode(string $char, bool $keepAsciiChars = false) : string
+##### single_chr_html_encode(string $char, bool $keep_ascii_chars = false) : string
 
 Converts a UTF-8 character to HTML Numbered Entity like "&#123;".
 
@@ -910,7 +920,7 @@ Converts a UTF-8 character to HTML Numbered Entity like "&#123;".
 UTF8::single_chr_html_encode('κ'); // '&#954;'
 ```
 
-##### split(string $str, int $length = 1, bool $cleanUtf8 = false) : array
+##### split(string $str, int $length = 1, bool $clean_utf8 = false) : array
 
 Convert a string to an array of Unicode characters.
 
@@ -938,7 +948,7 @@ UTF8::str_ends_with('BeginMiddleΚόσμε', 'κόσμε'); // false
 
 ##### str_iends_with(string $haystack, string $needle) : bool
 
-Check if the string ends with the given substring, case insensitive.
+Check if the string ends with the given substring, case-insensitive.
 
 ```php
 UTF8::str_iends_with('BeginMiddleΚόσμε', 'Κόσμε'); // true
@@ -953,7 +963,7 @@ Case-insensitive and UTF-8 safe version of <function>str_replace</function>.
 UTF8::str_ireplace('lIzÆ', 'lise', array('Iñtërnâtiônàlizætiøn')); // array('Iñtërnâtiônàlisetiøn')
 ```
 
-##### str_limit_after_word(string $str, int $length = 100, stirng $strAddOn = '...') : string
+##### str_limit_after_word(string $str, int $length = 100, stirng $str_add_on = '...') : string
 
 Limit the number of characters in a string, but also after the next word.
 
@@ -963,7 +973,7 @@ UTF8::str_limit_after_word('fòô bàř fòô', 8, ''); // 'fòô bàř'
 
 ##### str_pad(string $str, int $pad_length, string $pad_string = ' ', int $pad_type = STR_PAD_RIGHT) : string
 
-Pad a UTF-8 string to given length with another string.
+Pad a UTF-8 string to a given length with another string.
 
 ```php
 UTF8::str_pad('中文空白', 10, '_', STR_PAD_BOTH); // '___中文空白___'
@@ -1012,7 +1022,7 @@ UTF8::str_starts_with('ΚόσμεMiddleEnd', 'κόσμε'); // false
 
 ##### str_istarts_with(string $haystack, string $needle) : bool
 
-Check if the string starts with the given substring, case insensitive.
+Check if the string starts with the given substring, case-insensitive.
 
 ```php
 UTF8::str_istarts_with('ΚόσμεMiddleEnd', 'Κόσμε'); // true
@@ -1031,7 +1041,7 @@ UTF8::str_to_binary('😃'); // '11110000100111111001100010000011'
 
 ##### str_word_count(string $str, int $format = 0, string $charlist = '') : string
 
-Get a binary representation of a specific string.
+Get the number of words in a specific string.
 
 ```php
 // format: 0 -> return only word count (int)
@@ -1090,7 +1100,7 @@ UTF8::strcasecmp("iñtërnâtiôn\nàlizætiøn", "Iñtërnâtiôn\nàlizætiøn
 
 ##### strnatcasecmp(string $str1, string $str2) : int
 
-Case insensitive string comparisons using a "natural order" algorithm: < 0 if str1 is less than str2; 
+Case-insensitive string comparisons using a "natural order" algorithm: < 0 if str1 is less than str2; 
                                                                        > 0 if str1 is greater than str2, 
                                                                        0 if they are equal.
 
@@ -1148,7 +1158,7 @@ alias: UTF8::hasBom()
 UTF8::string_has_bom("\xef\xbb\xbf foobar"); // true
 ```
 
-##### strip_tags(string $str, sting|null $allowable_tags = null, bool $cleanUtf8 = false) : string
+##### strip_tags(string $str, sting|null $allowable_tags = null, bool $clean_utf8 = false) : string
 
 Strip HTML and PHP tags from a string + clean invalid UTF-8.
 
@@ -1165,7 +1175,7 @@ as well as multibyte whitespace such as the thin space and ideographic space.
 UTF8::strip_whitespace('   Ο     συγγραφέας  '); // 'Οσυγγραφέας'
 ```
 
-##### strlen(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int
+##### strlen(string $str, string $encoding = 'UTF-8', bool $clean_utf8 = false) : int
 
 Get the string length, not the byte-length!
 
@@ -1173,7 +1183,7 @@ Get the string length, not the byte-length!
 UTF8::strlen("Iñtërnâtiôn\xE9àlizætiøn")); // 20
 ```
 
-##### strwidth(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int
+##### strwidth(string $str, string $encoding = 'UTF-8', bool $clean_utf8 = false) : int
 
 Return the width of a string.
 
@@ -1189,49 +1199,49 @@ Search a string for any of a set of characters.
 UTF8::strpbrk('-中文空白-', '白'); // '白-'
 ```
 
-##### strpos(string $haystack, string $needle, int $offset = 0, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int|false
+##### strpos(string $haystack, string $needle, int $offset = 0, string $encoding = 'UTF-8', bool $clean_utf8 = false) : int|false
 
-Find position of first occurrence of string in a string.
-
-```php
-UTF8::strpos('ABC-ÖÄÜ-中文空白-中文空白', '中'); // 8
-```
-
-##### stripos(string $str, string $needle, int $offset = null, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int|false
-
-Finds position of first occurrence of a string within another, case insensitive.
+Find the position of the first occurrence of a substring in a string.
 
 ```php
 UTF8::strpos('ABC-ÖÄÜ-中文空白-中文空白', '中'); // 8
 ```
 
-##### strrpos(string $haystack, string $needle, int $offset = 0, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string|false
+##### stripos(string $str, string $needle, int $offset = null, string $encoding = 'UTF-8', bool $clean_utf8 = false) : int|false
 
-Find position of last occurrence of a string in a string.
+Find the position of the first occurrence of a substring in a string, case-insensitive.
+
+```php
+UTF8::strpos('ABC-ÖÄÜ-中文空白-中文空白', '中'); // 8
+```
+
+##### strrpos(string $haystack, string $needle, int $offset = 0, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string|false
+
+Find the position of the last occurrence of a substring in a string.
 
 ```php
 UTF8::strrpos('ABC-ÖÄÜ-中文空白-中文空白', '中'); // 13
 ```
 
-##### strripos(string $haystack, string $needle, int $offset = 0, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string|false
+##### strripos(string $haystack, string $needle, int $offset = 0, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string|false
 
-Find position of last occurrence of a case-insensitive string.
+Find the position of the last occurrence of a substring in a string, case-insensitive.
 
 ```php
 UTF8::strripos('ABC-ÖÄÜ-中文空白-中文空白', '中'); // 13
 ```
 
-##### strrchr(string $haystack, string $needle, bool $part = false, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string|false
+##### strrchr(string $haystack, string $needle, bool $part = false, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string|false
 
-Finds the last occurrence of a character in a string within another.
+Find the last occurrence of a character in a string within another.
 
 ```php
 UTF8::strrchr('κόσμεκόσμε-äöü', 'κόσμε'); // 'κόσμε-äöü'
 ```
 
-##### strrichr(string $haystack, string $needle, bool $part = false, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string|false
+##### strrichr(string $haystack, string $needle, bool $part = false, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string|false
 
-Finds the last occurrence of a character in a string within another, case insensitive.
+Find the last occurrence of a character in a string within another, case-insensitive.
 
 ```php
 UTF8::strrichr('Aκόσμεκόσμε-äöü', 'aκόσμε'); // 'Aκόσμεκόσμε-äöü'
@@ -1253,7 +1263,7 @@ Finds the length of the initial segment of a string consisting entirely of chara
 UTF8::strspn('iñtërnâtiônàlizætiøn', 'itñ'); // '3'
 ```
 
-##### strstr(string $str, string $needle, bool $before_needle = false, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### strstr(string $str, string $needle, bool $before_needle = false, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Returns part of haystack string from the first occurrence of needle to the end of haystack.
 
@@ -1267,7 +1277,7 @@ UTF8::strstr($str, $search)); // 'nâtiônàlizætiøn'
 UTF8::strstr($str, $search, true)); // 'iñtër'
 ```
 
-##### stristr(string $str, string $needle, bool $before_needle = false, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### stristr(string $str, string $needle, bool $before_needle = false, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Returns all of haystack starting from and including the first occurrence of needle to the end.
 
@@ -1289,7 +1299,7 @@ Unicode transformation for case-less matching.
 UTF8::strtocasefold('ǰ◌̱'); // 'ǰ◌̱'
 ```
 
-##### strtolower(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### strtolower(string $str, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Make a string lowercase.
 
@@ -1297,7 +1307,7 @@ Make a string lowercase.
 UTF8::strtolower('DÉJÀ Σσς Iıİi'); // 'déjà σσς iıii'
 ```
 
-##### strtoupper(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### strtoupper(string $str, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Make a string uppercase.
 
@@ -1325,7 +1335,7 @@ Convert a string (phrase, sentence, ...) into an array of words.
 UTF8::str_to_words('中文空白 oöäü#s', '#') // array('', '中文空白', ' ', 'oöäü#s', '')
 ```
 
-##### substr(string $str, int $start = 0, int $length = null, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### substr(string $str, int $start = 0, int $length = null, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Get part of a string.
 
@@ -1335,7 +1345,7 @@ UTF8::substr('中文空白', 1, 2); // '文空'
 
 ##### substr_compare(string $main_str, string $str, int $offset, int $length = 2147483647, bool $case_insensitivity = false) : int
 
-Binary safe comparison of two strings from an offset, up to length characters.
+Binary-safe comparison of two strings from an offset, up to a length of characters.
 
 ```php
 UTF8::substr_compare("○●◎\r", '●◎', 0, 2); // -1
@@ -1343,7 +1353,7 @@ UTF8::substr_compare("○●◎\r", '◎●', 1, 2); // 1
 UTF8::substr_compare("○●◎\r", '●◎', 1, 2); // 0
 ```
 
-##### substr_count(string $haystack, string $needle, int $offset = 0, int $length = null, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int|false
+##### substr_count(string $haystack, string $needle, int $offset = 0, int $length = null, string $encoding = 'UTF-8', bool $clean_utf8 = false) : int|false
 
 Count the number of substring occurrences.
 
@@ -1353,7 +1363,7 @@ UTF8::substr_count('中文空白', '文空', 1, 2); // 1
 
 ##### substr_left(string $haystack, string $needle) : string
 
-Removes an prefix ($needle) from start of the string ($haystack).
+Removes a prefix ($needle) from the beginning of the string ($haystack).
 
 ```php
 UTF8::substr_left('ΚόσμεMiddleEnd', 'Κόσμε'); // 'MiddleEnd'
@@ -1362,7 +1372,7 @@ UTF8::substr_left('ΚόσμεMiddleEnd', 'κόσμε'); // 'ΚόσμεMiddleE
 
 ##### substr_ileft(string $haystack, string $needle) : string
 
-Removes an prefix ($needle) from start of the string ($haystack), case insensitive.
+Removes a prefix ($needle) from the beginning of the string ($haystack), case-insensitive.
 
 ```php
 UTF8::substr_ileft('ΚόσμεMiddleEnd', 'Κόσμε'); // 'MiddleEnd'
@@ -1371,7 +1381,7 @@ UTF8::substr_ileft('ΚόσμεMiddleEnd', 'κόσμε'); // 'MiddleEnd'
 
 ##### substr_right(string $haystack, string $needle) : string
 
-Removes an suffix ($needle) from end of the string ($haystack).
+Removes a suffix ($needle) from the end of the string ($haystack).
 
 ```php
 UTF8::substr_right('BeginMiddleΚόσμε', 'Κόσμε'); // 'BeginMiddle'
@@ -1380,7 +1390,7 @@ UTF8::substr_right('BeginMiddleΚόσμε', 'κόσμε'); // 'BeginMiddleΚ�
 
 ##### substr_iright(string $haystack, string $needle) : string
 
-Removes an suffix ($needle) from end of the string ($haystack), case insensitive.
+Removes a suffix ($needle) from the end of the string ($haystack), case-insensitive.
 
 ```php
 UTF8::substr_iright('BeginMiddleΚόσμε', 'Κόσμε'); // 'BeginMiddle'
@@ -1395,7 +1405,7 @@ Replace text within a portion of a string.
 UTF8::substr_replace(array('Iñtërnâtiônàlizætiøn', 'foo'), 'æ', 1); // array('Iæñtërnâtiônàlizætiøn', 'fæoo')
 ```
 
-##### swapCase(string $str, string string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### swapCase(string $str, string string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Returns a case swapped version of the string.
 
@@ -1414,11 +1424,11 @@ alias: UTF8::str_transliterate()
 UTF8::to_ascii('déjà σσς iıii'); // 'deja sss iiii'
 ```
 
-##### to_utf8(string|string[] $str, bool $decodeHtmlEntityToUtf8 = false) : string|string[]
+##### to_utf8(string|string[] $str, bool $decode_html_entity_to_utf8 = false) : string|string[]
 
 This function leaves UTF-8 characters alone, while converting almost all non-UTF8 to UTF8.
 
-* It decode UTF-8 codepoints and unicode escape sequences.
+* It decode UTF-8 codepoints and Unicode escape sequences.
 * It assumes that the encoding of the original string is either WINDOWS-1252 or ISO-8859-1.
 * WARNING: It does not remove invalid UTF-8 characters, so you maybe need to use "UTF8::clean()" for this case.
 
@@ -1440,7 +1450,7 @@ alias: UTF8::toLatin1()
 UTF8::to_utf8(UTF8::to_latin1('  -ABC-中文空白-  ')); // '  -ABC-????-  ' 
 ```
 
-##### ucfirst(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### ucfirst(string $str, string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Makes string's first char uppercase.
 
@@ -1450,7 +1460,7 @@ alias: UTF8::ucword()
 UTF8::ucfirst('ñtërnâtiônàlizætiøn'); // 'Ñtërnâtiônàlizætiøn'
 ```
 
-##### ucwords(string $str, array $exceptions = array(), string $charlist = '', string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string
+##### ucwords(string $str, array $exceptions = array(), string $charlist = '', string $encoding = 'UTF-8', bool $clean_utf8 = false) : string
 
 Uppercase for all words in the string.
 
@@ -1460,7 +1470,7 @@ UTF8::ucwords('iñt ërn âTi ônà liz æti øn'); // 'Iñt Ërn ÂTi Ônà Liz
 
 ##### rawurldecode(string $str) : string
 
-Multi decode html entity & fix urlencoded-win1252-chars.
+Multi decode HTML entity + fix urlencoded-win1252-chars.
 
 ```php
 UTF8::urldecode('tes%20öäü%20\u00edtest+test'); // 'tes öäü ítest+test'
@@ -1468,7 +1478,7 @@ UTF8::urldecode('tes%20öäü%20\u00edtest+test'); // 'tes öäü ítest+test'
 
 ##### urldecode(string $str) : string
 
-Multi decode html entity & fix urlencoded-win1252-chars.
+Multi decode HTML entity + fix urlencoded-win1252-chars.
 
 ```php
 UTF8::urldecode('tes%20öäü%20\u00edtest+test'); // 'tes öäü ítest test'
@@ -1476,7 +1486,7 @@ UTF8::urldecode('tes%20öäü%20\u00edtest+test'); // 'tes öäü ítest test'
 
 ##### utf8_decode(string $str) : string
 
-Decodes an UTF-8 string to ISO-8859-1.
+Decodes a UTF-8 string to ISO-8859-1.
 
 ```php
 UTF8::encode('UTF-8', UTF8::utf8_decode('-ABC-中文空白-')); // '-ABC-????-'
@@ -1490,7 +1500,7 @@ Encodes an ISO-8859-1 string to UTF-8.
 UTF8::utf8_decode(UTF8::utf8_encode('-ABC-中文空白-')); // '-ABC-中文空白-'
 ```
 
-##### words_limit(string $str, int $words = 100, string $strAddOn = '...') : string
+##### words_limit(string $str, int $words = 100, string $str_add_on = '...') : string
 
 Limit the number of words in a string.
 
@@ -1523,7 +1533,7 @@ composer install
 
 ### Support
 
-For support and donations please visit [Github](https://github.com/voku/portable-utf8/) | [Issues](https://github.com/voku/portable-utf8/issues) | [PayPal](https://paypal.me/moelleken) | [Patreon](https://www.patreon.com/voku).
+For support and donations please visit [GitHub](https://github.com/voku/portable-utf8/) | [Issues](https://github.com/voku/portable-utf8/issues) | [PayPal](https://paypal.me/moelleken) | [Patreon](https://www.patreon.com/voku).
 
 For status updates and release announcements please visit [Releases](https://github.com/voku/portable-utf8/releases) | [Twitter](https://twitter.com/suckup_de) | [Patreon](https://www.patreon.com/voku/posts).
 
@@ -1531,11 +1541,11 @@ For professional support please contact [me](https://about.me/voku).
 
 ### Thanks
 
-- Thanks to [GitHub](https://github.com) (Microsoft) for hosting the code and a good infrastructure including Issues-Managment, etc.
+- Thanks to [GitHub](https://github.com) (Microsoft) for hosting the code and a good infrastructure including Issues-Management, etc.
 - Thanks to [IntelliJ](https://www.jetbrains.com) as they make the best IDEs for PHP and they gave me an open source license for PhpStorm!
-- Thanks to [Travis CI](https://travis-ci.com/) for being the most awesome, easiest continous integration tool out there!
-- Thanks to [StyleCI](https://styleci.io/) for the simple but powerfull code style check.
-- Thanks to [PHPStan](https://github.com/phpstan/phpstan) && [Psalm](https://github.com/vimeo/psalm) for relly great Static analysis tools and for discover bugs in the code!
+- Thanks to [Travis CI](https://travis-ci.com/) for being the most awesome, easiest continuous integration tool out there!
+- Thanks to [StyleCI](https://styleci.io/) for the simple but powerful code style check.
+- Thanks to [PHPStan](https://github.com/phpstan/phpstan) && [Psalm](https://github.com/vimeo/psalm) for really great Static analysis tools and for discovering bugs in the code!
 
 ### License and Copyright
 

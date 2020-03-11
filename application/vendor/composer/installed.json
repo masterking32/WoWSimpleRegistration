@@ -1,17 +1,17 @@
 [
     {
         "name": "catfan/medoo",
-        "version": "v1.6.1",
-        "version_normalized": "1.6.1.0",
+        "version": "v1.7.10",
+        "version_normalized": "1.7.10.0",
         "source": {
             "type": "git",
             "url": "https://github.com/catfan/Medoo.git",
-            "reference": "53a02b300d673f716cb06bf0e24fd774ec53939f"
+            "reference": "2d675f73e23f63bbaeb9a8aa33318659a3d3c32f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/catfan/Medoo/zipball/53a02b300d673f716cb06bf0e24fd774ec53939f",
-            "reference": "53a02b300d673f716cb06bf0e24fd774ec53939f",
+            "url": "https://api.github.com/repos/catfan/Medoo/zipball/2d675f73e23f63bbaeb9a8aa33318659a3d3c32f",
+            "reference": "2d675f73e23f63bbaeb9a8aa33318659a3d3c32f",
             "shasum": ""
         },
         "require": {
@@ -25,9 +25,9 @@
             "ext-pdo_oci8": "For Oracle version 8 database",
             "ext-pdo_pqsql": "For PostgreSQL database",
             "ext-pdo_sqlite": "For SQLite database",
-            "ext-pdo_sqlsrv": "For MSSQL database"
+            "ext-pdo_sqlsrv": "For MSSQL database on both Window/Liunx platform"
         },
-        "time": "2018-12-08T20:24:23+00:00",
+        "time": "2020-02-11T08:20:42+00:00",
         "type": "framework",
         "installation-source": "dist",
         "autoload": {
@@ -45,10 +45,11 @@
                 "email": "angel@catfan.me"
             }
         ],
-        "description": "The lightest PHP database framework to accelerate development",
+        "description": "The lightweight PHP database framework to accelerate development",
         "homepage": "https://medoo.in",
         "keywords": [
             "database",
+            "database library",
             "lightweight",
             "mariadb",
             "mssql",
@@ -62,17 +63,17 @@
     },
     {
         "name": "gregwar/captcha",
-        "version": "v1.1.7",
-        "version_normalized": "1.1.7.0",
+        "version": "v1.1.8",
+        "version_normalized": "1.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Gregwar/Captcha.git",
-            "reference": "cf953dd79748406e0292cea8c565399681e4d345"
+            "reference": "6088ad3db59bc226423ad1476a9f0424b19b1866"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Gregwar/Captcha/zipball/cf953dd79748406e0292cea8c565399681e4d345",
-            "reference": "cf953dd79748406e0292cea8c565399681e4d345",
+            "url": "https://api.github.com/repos/Gregwar/Captcha/zipball/6088ad3db59bc226423ad1476a9f0424b19b1866",
+            "reference": "6088ad3db59bc226423ad1476a9f0424b19b1866",
             "shasum": ""
         },
         "require": {
@@ -84,7 +85,7 @@
         "require-dev": {
             "phpunit/phpunit": "^6.4"
         },
-        "time": "2018-08-17T22:57:28+00:00",
+        "time": "2020-01-22T14:54:02+00:00",
         "type": "captcha",
         "installation-source": "dist",
         "autoload": {
@@ -117,17 +118,17 @@
     },
     {
         "name": "phpmailer/phpmailer",
-        "version": "v6.0.7",
-        "version_normalized": "6.0.7.0",
+        "version": "v6.1.4",
+        "version_normalized": "6.1.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHPMailer/PHPMailer.git",
-            "reference": "0c41a36d4508d470e376498c1c0c527aa36a2d59"
+            "reference": "c5e61d0729507049cec9673aa1a679f9adefd683"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/0c41a36d4508d470e376498c1c0c527aa36a2d59",
-            "reference": "0c41a36d4508d470e376498c1c0c527aa36a2d59",
+            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/c5e61d0729507049cec9673aa1a679f9adefd683",
+            "reference": "c5e61d0729507049cec9673aa1a679f9adefd683",
             "shasum": ""
         },
         "require": {
@@ -136,13 +137,9 @@
             "php": ">=5.5.0"
         },
         "require-dev": {
-            "doctrine/annotations": "1.2.*",
+            "doctrine/annotations": "^1.2",
             "friendsofphp/php-cs-fixer": "^2.2",
-            "phpdocumentor/phpdocumentor": "2.*",
-            "phpunit/phpunit": "^4.8 || ^5.7",
-            "zendframework/zend-eventmanager": "3.0.*",
-            "zendframework/zend-i18n": "2.7.3",
-            "zendframework/zend-serializer": "2.7.*"
+            "phpunit/phpunit": "^4.8 || ^5.7"
         },
         "suggest": {
             "ext-mbstring": "Needed to send email in multibyte encoding charset",
@@ -152,7 +149,7 @@
             "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
             "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
         },
-        "time": "2019-02-01T15:04:28+00:00",
+        "time": "2019-12-10T11:17:38+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -162,16 +159,16 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "LGPL-2.1"
+            "LGPL-2.1-only"
         ],
         "authors": [
             {
-                "name": "Jim Jagielski",
-                "email": "jimjag@gmail.com"
-            },
-            {
                 "name": "Marcus Bointon",
                 "email": "phpmailer@synchromedia.co.uk"
+            },
+            {
+                "name": "Jim Jagielski",
+                "email": "jimjag@gmail.com"
             },
             {
                 "name": "Andy Prevost",
@@ -287,27 +284,27 @@
     },
     {
         "name": "symfony/finder",
-        "version": "v4.3.2",
-        "version_normalized": "4.3.2.0",
+        "version": "v5.0.5",
+        "version_normalized": "5.0.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/finder.git",
-            "reference": "33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a"
+            "reference": "6251f201187ca9d66f6b099d3de65d279e971138"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/finder/zipball/33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a",
-            "reference": "33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a",
+            "url": "https://api.github.com/repos/symfony/finder/zipball/6251f201187ca9d66f6b099d3de65d279e971138",
+            "reference": "6251f201187ca9d66f6b099d3de65d279e971138",
             "shasum": ""
         },
         "require": {
-            "php": "^7.1.3"
+            "php": "^7.2.5"
         },
-        "time": "2019-06-13T11:03:18+00:00",
+        "time": "2020-02-14T07:43:07+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.3-dev"
+                "dev-master": "5.0-dev"
             }
         },
         "installation-source": "dist",
@@ -338,17 +335,17 @@
     },
     {
         "name": "symfony/polyfill-iconv",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
+        "version": "v1.14.0",
+        "version_normalized": "1.14.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-iconv.git",
-            "reference": "f037ea22acfaee983e271dd9c3b8bb4150bd8ad7"
+            "reference": "926832ce51059bb58211b7b2080a88e0c3b5328e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/f037ea22acfaee983e271dd9c3b8bb4150bd8ad7",
-            "reference": "f037ea22acfaee983e271dd9c3b8bb4150bd8ad7",
+            "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/926832ce51059bb58211b7b2080a88e0c3b5328e",
+            "reference": "926832ce51059bb58211b7b2080a88e0c3b5328e",
             "shasum": ""
         },
         "require": {
@@ -357,11 +354,11 @@
         "suggest": {
             "ext-iconv": "For best performance"
         },
-        "time": "2019-02-06T07:57:58+00:00",
+        "time": "2020-01-13T11:15:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.11-dev"
+                "dev-master": "1.14-dev"
             }
         },
         "installation-source": "dist",
@@ -399,17 +396,17 @@
     },
     {
         "name": "symfony/polyfill-intl-grapheme",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
+        "version": "v1.14.0",
+        "version_normalized": "1.14.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
-            "reference": "d4b2e06aed3f7a4e3de06f9ad9189cd6a1f0a2ec"
+            "reference": "699871accfb394eb6f34ba1210df437f79b14d58"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/d4b2e06aed3f7a4e3de06f9ad9189cd6a1f0a2ec",
-            "reference": "d4b2e06aed3f7a4e3de06f9ad9189cd6a1f0a2ec",
+            "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/699871accfb394eb6f34ba1210df437f79b14d58",
+            "reference": "699871accfb394eb6f34ba1210df437f79b14d58",
             "shasum": ""
         },
         "require": {
@@ -418,11 +415,11 @@
         "suggest": {
             "ext-intl": "For best performance"
         },
-        "time": "2019-01-07T19:39:47+00:00",
+        "time": "2020-01-13T11:15:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.9-dev"
+                "dev-master": "1.14-dev"
             }
         },
         "installation-source": "dist",
@@ -461,17 +458,17 @@
     },
     {
         "name": "symfony/polyfill-intl-normalizer",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
+        "version": "v1.14.0",
+        "version_normalized": "1.14.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-            "reference": "d570b8ea2cb7f33f217832339a181a206cf54a04"
+            "reference": "e62b4845992282d14037950542fc8e8650ae2a65"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/d570b8ea2cb7f33f217832339a181a206cf54a04",
-            "reference": "d570b8ea2cb7f33f217832339a181a206cf54a04",
+            "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/e62b4845992282d14037950542fc8e8650ae2a65",
+            "reference": "e62b4845992282d14037950542fc8e8650ae2a65",
             "shasum": ""
         },
         "require": {
@@ -480,11 +477,11 @@
         "suggest": {
             "ext-intl": "For best performance"
         },
-        "time": "2019-01-07T19:39:47+00:00",
+        "time": "2020-01-13T11:15:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.9-dev"
+                "dev-master": "1.14-dev"
             }
         },
         "installation-source": "dist",
@@ -526,17 +523,17 @@
     },
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
+        "version": "v1.14.0",
+        "version_normalized": "1.14.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
+            "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
-            "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/34094cfa9abe1f0f14f48f490772db7a775559f2",
+            "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2",
             "shasum": ""
         },
         "require": {
@@ -545,11 +542,11 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2019-02-06T07:57:58+00:00",
+        "time": "2020-01-13T11:15:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.11-dev"
+                "dev-master": "1.14-dev"
             }
         },
         "installation-source": "dist",
@@ -587,27 +584,27 @@
     },
     {
         "name": "symfony/polyfill-php72",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
+        "version": "v1.14.0",
+        "version_normalized": "1.14.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-php72.git",
-            "reference": "ab50dcf166d5f577978419edd37aa2bb8eabce0c"
+            "reference": "46ecacf4751dd0dc81e4f6bf01dbf9da1dc1dadf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/ab50dcf166d5f577978419edd37aa2bb8eabce0c",
-            "reference": "ab50dcf166d5f577978419edd37aa2bb8eabce0c",
+            "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/46ecacf4751dd0dc81e4f6bf01dbf9da1dc1dadf",
+            "reference": "46ecacf4751dd0dc81e4f6bf01dbf9da1dc1dadf",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2019-02-06T07:57:58+00:00",
+        "time": "2020-01-13T11:15:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.11-dev"
+                "dev-master": "1.14-dev"
             }
         },
         "installation-source": "dist",
@@ -644,27 +641,27 @@
     },
     {
         "name": "voku/anti-xss",
-        "version": "4.1.14",
-        "version_normalized": "4.1.14.0",
+        "version": "4.1.24",
+        "version_normalized": "4.1.24.0",
         "source": {
             "type": "git",
             "url": "https://github.com/voku/anti-xss.git",
-            "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88"
+            "reference": "4c032aa1aedbf4934418520c61c00b8fad6ca8d5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/voku/anti-xss/zipball/53c5da8039cf2ed226e3249b86a2be700c415f88",
-            "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88",
+            "url": "https://api.github.com/repos/voku/anti-xss/zipball/4c032aa1aedbf4934418520c61c00b8fad6ca8d5",
+            "reference": "4c032aa1aedbf4934418520c61c00b8fad6ca8d5",
             "shasum": ""
         },
         "require": {
             "php": ">=7.0.0",
-            "voku/portable-utf8": "~5.4.1"
+            "voku/portable-utf8": "~5.4.27"
         },
         "require-dev": {
             "phpunit/phpunit": "~6.0 || ~7.0"
         },
-        "time": "2019-06-27T21:40:28+00:00",
+        "time": "2020-03-08T00:12:04+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -702,18 +699,69 @@
         ]
     },
     {
-        "name": "voku/portable-utf8",
-        "version": "5.4.10",
-        "version_normalized": "5.4.10.0",
+        "name": "voku/portable-ascii",
+        "version": "1.4.9",
+        "version_normalized": "1.4.9.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/voku/portable-utf8.git",
-            "reference": "fd4966494cdf2fc5bdc83bf8c210ad6327e5a5c1"
+            "url": "https://github.com/voku/portable-ascii.git",
+            "reference": "9fd2b224c71448b5f84aef9d499a1428d79776a2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/voku/portable-utf8/zipball/fd4966494cdf2fc5bdc83bf8c210ad6327e5a5c1",
-            "reference": "fd4966494cdf2fc5bdc83bf8c210ad6327e5a5c1",
+            "url": "https://api.github.com/repos/voku/portable-ascii/zipball/9fd2b224c71448b5f84aef9d499a1428d79776a2",
+            "reference": "9fd2b224c71448b5f84aef9d499a1428d79776a2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~6.0 || ~7.0"
+        },
+        "suggest": {
+            "ext-intl": "Use Intl for transliterator_transliterate() support"
+        },
+        "time": "2020-03-06T02:47:42+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "voku\\": "src/voku/",
+                "voku\\tests\\": "tests/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Lars Moelleken",
+                "homepage": "http://www.moelleken.org/"
+            }
+        ],
+        "description": "Portable ASCII library - performance optimized (ascii) string functions for php.",
+        "homepage": "https://github.com/voku/portable-ascii",
+        "keywords": [
+            "ascii",
+            "clean",
+            "php"
+        ]
+    },
+    {
+        "name": "voku/portable-utf8",
+        "version": "5.4.41",
+        "version_normalized": "5.4.41.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/voku/portable-utf8.git",
+            "reference": "e34247dce28f9aebebd2d752d8813b91de689aec"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/voku/portable-utf8/zipball/e34247dce28f9aebebd2d752d8813b91de689aec",
+            "reference": "e34247dce28f9aebebd2d752d8813b91de689aec",
             "shasum": ""
         },
         "require": {
@@ -722,7 +770,8 @@
             "symfony/polyfill-intl-grapheme": "~1.0",
             "symfony/polyfill-intl-normalizer": "~1.0",
             "symfony/polyfill-mbstring": "~1.0",
-            "symfony/polyfill-php72": "~1.0"
+            "symfony/polyfill-php72": "~1.0",
+            "voku/portable-ascii": "~1.4"
         },
         "require-dev": {
             "phpunit/phpunit": "~6.0 || ~7.0"
@@ -735,7 +784,7 @@
             "ext-json": "Use JSON for string detection",
             "ext-mbstring": "Use Mbstring for best performance"
         },
-        "time": "2019-07-05T09:08:42+00:00",
+        "time": "2020-03-06T01:23:48+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -753,16 +802,16 @@
         ],
         "authors": [
             {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
                 "name": "Hamid Sarfraz",
                 "homepage": "http://pageconfig.com/"
             },
             {
                 "name": "Lars Moelleken",
                 "homepage": "http://www.moelleken.org/"
-            },
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
             }
         ],
         "description": "Portable UTF-8 library - performance optimized (unicode) string functions for php.",
