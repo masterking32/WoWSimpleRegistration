@@ -21,8 +21,7 @@ $config['game_version'] = '3.3.5a (12340)';                         // Your game
 $config['expansion'] = '2';                                         // 0 = Classic, 1 = The Burning Crusade (TBC), 2 = Wrath of the Lich King (WotLK), 3 = Mist of Pandaria (MOP), 4 = Warlords of Draenor (WOD), 5 = Legion
 
 $config['battlenet_support'] = false;                               // Change it to true, If you want use it for WoD/Legion/BFA
-$config['disable_status'] = false;                                  // Disable server status and top players [True = Hide status pages]
-
+$config['disable_top_players'] = false;                             // Disable server top players page [True: Hide top players page]
 
 $config['debug_mode'] = false;                                      // Enable debug mode to display system errors.
 $config['template'] = 'light';                                      // Change template name ( 'light' or 'icecrown' or 'kaelthas' )

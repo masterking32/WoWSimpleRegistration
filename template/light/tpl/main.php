@@ -17,8 +17,10 @@ require_once 'header.php'; ?>
                     <a class="nav-item nav-link" id="nav-serverstatus-tab" data-toggle="tab"
                        href="#nav-serverstatus" role="tab" aria-controls="nav-serverstatus" aria-selected="false">Server
                         status</a>
-                    <a class="nav-item nav-link" id="nav-topplayers-tab" data-toggle="tab" href="#nav-topplayers"
-                       role="tab" aria-controls="nav-topplayers" aria-selected="false">Top Players</a>
+                    <?php if (!get_config('disable_top_players')) { ?>
+                        <a class="nav-item nav-link" id="nav-topplayers-tab" data-toggle="tab" href="#nav-topplayers"
+                           role="tab" aria-controls="nav-topplayers" aria-selected="false">Top Players</a>
+                    <?php } ?>
                     <a class="nav-item nav-link" id="nav-howtoconnect-tab" data-toggle="tab"
                        href="#nav-howtoconnect" role="tab" aria-controls="nav-howtoconnect" aria-selected="false">How
                         to connect</a>
@@ -205,6 +207,8 @@ require_once 'header.php'; ?>
                     }
                     ?>
                 </div>
+
+                <?php if (!get_config('disable_top_players')) { ?>
                 <div class="tab-pane fade" id="nav-topplayers" role="tabpanel" aria-labelledby="nav-topplayers-tab">
                     <?php
                     $i = 1;
@@ -334,6 +338,7 @@ require_once 'header.php'; ?>
                     }
                     ?>
                 </div>
+                <?php } ?>
                 <div class="tab-pane fade" id="nav-howtoconnect" role="tabpanel"
                      aria-labelledby="nav-howtoconnect-tab">
                     <?php require_once base_path . 'template/' . get_config('template') . '/tpl/howtoconnect.php'; ?>
