@@ -298,7 +298,13 @@ class user
     public static function restorepassword()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'restorepassword' && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if (!($_POST['submit'] == 'restorepassword' && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+            return false;
+        }
+
+        if (get_config('battlenet_support') && empty($_POST['email'])) {
+            return false;
+        } elseif (!get_config('battlenet_support') && empty($_POST['username'])) {
             return false;
         }
 
@@ -308,46 +314,74 @@ class user
         }
 
         unset($_SESSION['captcha']);
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            error_msg('Use valid email.');
-            return false;
-        }
+        if (get_config('battlenet_support')) {
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                error_msg('Use a valid email.');
+                return false;
+            }
 
-        $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
-        if (empty($userinfo['email'])) {
-            error_msg('Email is not valid.');
-            return false;
+            $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
+            if (empty($userinfo['email'])) {
+                error_msg('Email is not valid.');
+                return false;
+            }
+
+            $field_acc = $userinfo['email'];
+        } else if (!get_config('battlenet_support')) {
+            if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
+                error_msg('Use a valid username.');
+                return false;
+            }
+
+            $userinfo = self::get_user_by_username(strtoupper($_POST['username']));
+            if (empty($userinfo['email'])) {
+                error_msg('Username is not valid.');
+                return false;
+            }
+
+            $field_acc = $userinfo['username'];
         }
 
         if (empty($userinfo['restore_key'])) {
             self::add_password_key_to_acctbl();
         }
 
-        $restore_key = strtolower(md5(time() . mt_rand(1000, 9999)) . mt_rand(10000,99999));
+        $restore_key = strtolower(md5(time() . mt_rand(1000, 9999)) . mt_rand(10000, 99999));
         database::$auth->update('account', [
             'restore_key' => $antiXss->xss_clean($restore_key)
         ], [
             'id[=]' => $userinfo['id']
         ]);
 
-        $restorepass_URL = get_config('baseurl') . '/index.php?restore=' . strtolower($userinfo['email']) . '&key=' . $restore_key;
+        $restorepass_URL = get_config('baseurl') . '/index.php?restore=' . strtolower($field_acc) . '&key=' . $restore_key;
         $message = "For restore you game account open <a href='$restorepass_URL' target='_blank'>this link</a>: <BR>$restorepass_URL";
         send_phpmailer(strtolower($userinfo['email']), 'Restore Account Password', $message);
         success_msg('Check your email, (Check SPAM/Junk too).');
         return true;
     }
 
-    public static function restorepassword_setnewpw($email, $restore_key)
+    public static function restorepassword_setnewpw($user_data, $restore_key)
     {
         global $antiXss;
-        if (empty($email) || empty($restore_key)) {
-            return false;
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (empty($user_data) || empty($restore_key)) {
             return false;
         }
 
-        $userinfo = self::get_user_by_email(strtoupper($email));
+        if (get_config('battlenet_support')) {
+            if (!filter_var($user_data, FILTER_VALIDATE_EMAIL)) {
+                return false;
+            }
+
+            $userinfo = self::get_user_by_email(strtoupper($user_data));
+        } else if (!get_config('battlenet_support')) {
+            if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($user_data))) {
+                error_msg('Use a valid username.');
+                return false;
+            }
+
+            $userinfo = self::get_user_by_username(strtoupper($user_data));
+        }
+
         if (empty($userinfo['email'])) {
             return false;
         }
