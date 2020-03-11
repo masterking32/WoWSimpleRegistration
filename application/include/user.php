@@ -240,7 +240,7 @@ class user
     public static function normal_changepass()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['username']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
             return false;
         }
 
@@ -250,8 +250,8 @@ class user
         }
 
         unset($_SESSION['captcha']);
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            error_msg('Use valid email.');
+        if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
+            error_msg('Use valid characters for username.');
             return false;
         }
 
@@ -265,9 +265,9 @@ class user
             return false;
         }
 
-        $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
+        $userinfo = self::get_user_by_username(strtoupper($_POST['username']));
         if (empty($userinfo['username'])) {
-            error_msg('Email is not valid.');
+            error_msg('Username is not valid.');
             return false;
         }
 
@@ -411,6 +411,17 @@ class user
     {
         if (!empty($email)) {
             $datas = database::$auth->select('account', '*', ['email' => Medoo::raw('UPPER(:email)', [':email' => strtoupper($email)])]);
+            if (!empty($datas[0]['username'])) {
+                return $datas[0];
+            }
+        }
+        return false;
+    }
+
+    public static function get_user_by_username($username)
+    {
+        if (!empty($username)) {
+            $datas = database::$auth->select('account', '*', ['username' => Medoo::raw('UPPER(:username)', [':username' => strtoupper($username)])]);
             if (!empty($datas[0]['username'])) {
                 return $datas[0];
             }

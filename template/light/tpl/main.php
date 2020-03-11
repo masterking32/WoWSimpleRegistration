@@ -138,11 +138,19 @@ require_once 'header.php'; ?>
                                             </div>
                                             <div class="modal-body">
                                                 <form action="" method="post">
-                                                    <div class="input-group">
-                                                        <span class="input-group">Email</span>
-                                                        <input type="email" class="form-control" placeholder="Email"
-                                                               name="email">
-                                                    </div>
+                                                    <?php if (get_config('battlenet_support')) { ?>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Email</span>
+                                                            <input type="email" class="form-control" placeholder="Email"
+                                                                   name="email">
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="input-group">
+                                                            <span class="input-group">Username</span>
+                                                            <input type="text" class="form-control" placeholder="Username"
+                                                                   name="username">
+                                                        </div>
+                                                    <?php } ?>
                                                     <div class="input-group">
                                                         <span class="input-group">Old Password</span>
                                                         <input type="password" class="form-control"
