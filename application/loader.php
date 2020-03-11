@@ -35,7 +35,12 @@ require_once app_path . 'include/user.php';
 require_once app_path . 'include/status.php';
 $antiXss = new AntiXSS();
 if (!empty(get_config('script_version'))) {
-    /* @TODO New Version Checker */
+    /* @TODO Add online version check! */
+	if(get_config('script_version') < 1.9)
+	{
+		echo 'Use last version of config.php file.';
+		exit();
+	}
 } else {
     echo 'Use last version of config.php file.';
     exit();
