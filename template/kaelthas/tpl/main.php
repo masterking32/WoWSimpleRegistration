@@ -13,8 +13,10 @@ require_once 'header.php'; ?>
                 <ul class="nav nav-tabs" style="display: none;">
                     <li><a data-toggle="tab" href="#pills-register" id="register">Register</a></li>
                     <li><a data-toggle="tab" href="#pills-howtoconnect" id="howtoconnect">How to Connect</a></li>
-                    <li><a data-toggle="tab" href="#pills-serverstatus" id="serverstatus">Server Status</a></li>
-                    <?php if (!get_config('disable_top_players')) { ?>
+                    <?php if (!get_config('disable_online_players')) { ?>
+                        <li><a data-toggle="tab" href="#pills-serverstatus" id="serverstatus">Server Status</a></li>
+                    <?php }
+                    if (!get_config('disable_top_players')) { ?>
                         <li><a data-toggle="tab" href="#pills-topplayers" id="topplayers">Top Players</a></li>
                     <?php } ?>
                     <li><a data-toggle="tab" href="#pills-contact" id="contact">Contact us</a></li>
@@ -220,27 +222,29 @@ require_once 'header.php'; ?>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade in" id="pills-serverstatus">
-                        <div class="box1" style="margin-top: 10px;">
-                            <?php
-                            foreach (get_config('realmlists') as $onerealm_key => $onerealm) {
-                                echo "<p><span style='color: #F1A40F;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player - Online players : " . user::get_online_players_count($onerealm['realmid']) . ")</span></p><hr>";
-                                $online_chars = user::get_online_players($onerealm['realmid']);
-                                if (!is_array($online_chars)) {
-                                    echo "<span style='color: #F1A40F;'>No have Online player.</span>";
-                                } else {
-                                    echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th></tr></thead><tbody>';
-                                    foreach ($online_chars as $one_char) {
-                                        echo '<tr><th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($one_char["race"]) . '-' . $antiXss->xss_clean($one_char["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($one_char["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($one_char['level']) . '</td></tr>';
+                    <?php if (!get_config('disable_online_players')) { ?>
+                        <div class="tab-pane fade in" id="pills-serverstatus">
+                            <div class="box1" style="margin-top: 10px;">
+                                <?php
+                                foreach (get_config('realmlists') as $onerealm_key => $onerealm) {
+                                    echo "<p><span style='color: #F1A40F;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player - Online players : " . user::get_online_players_count($onerealm['realmid']) . ")</span></p><hr>";
+                                    $online_chars = user::get_online_players($onerealm['realmid']);
+                                    if (!is_array($online_chars)) {
+                                        echo "<span style='color: #F1A40F;'>No have Online player.</span>";
+                                    } else {
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th></tr></thead><tbody>';
+                                        foreach ($online_chars as $one_char) {
+                                            echo '<tr><th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($one_char["race"]) . '-' . $antiXss->xss_clean($one_char["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($one_char["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($one_char['level']) . '</td></tr>';
+                                        }
+                                        echo '</table>';
                                     }
-                                    echo '</table>';
+                                    echo "<hr>";
                                 }
-                                echo "<hr>";
-                            }
-                            ?>
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                    <?php if (!get_config('disable_top_players')) { ?>
+                    <?php }
+                    if (!get_config('disable_top_players')) { ?>
                         <div class="tab-pane fade in" id="pills-topplayers">
                             <div class="box1" style="margin-top: 10px;">
                                 <?php

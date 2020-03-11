@@ -58,8 +58,10 @@
                         <li><a href="./index.php">Home</a></li>
                         <li><a onclick="$('#register').trigger('click')">Register</a></li>
                         <li><a onclick="$('#howtoconnect').trigger('click')">How to connect</a></li>
-                        <li><a onclick="$('#serverstatus').trigger('click')">Server Status</a></li>
-                        <?php if (!get_config('disable_top_players')) { ?>
+                        <?php if (!get_config('disable_online_players')) { ?>
+                            <li><a onclick="$('#serverstatus').trigger('click')">Server Status</a></li>
+                        <?php }
+                        if (!get_config('disable_top_players')) { ?>
                             <li><a onclick="$('#topplayers').trigger('click')">Top Players</a></li>
                         <?php } ?>
                         <li><a onclick="$('#contact').trigger('click')">Contact us</a></li>
