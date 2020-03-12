@@ -29,6 +29,9 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
  1. Allow using an email for multiple accounts. (For non-battle.net servers)
  2. Replace Email to username for change password and restore password. (For non-battle.net servers)
  3. Add an option to enable or disable top players and online players.
+
+ **1.9.1 (3/12/2020):**
+ 1. Check PHP version.
  
 ## DEMO
 
