@@ -23,9 +23,7 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
  6. Change Password (4/10/2019).
  7. Restore Password (5/31/2019).
 
-## Features
-
-#### Changelogs:
+## Changelogs
 
  **1.9 (3/12/2020):**
  1. Allow using an email for multiple accounts. (For non-battle.net servers)
