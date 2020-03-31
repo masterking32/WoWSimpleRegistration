@@ -60,7 +60,13 @@ class status
 
     public static function get_top_honorpoints($realmID)
     {
-        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totalHonorPoints"), ['LIMIT' => 10, "ORDER" => ["totalHonorPoints" => "DESC"], "name[!]" => '']);
+		if(get_config('expansion') >= 6)
+		{
+			$datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "honorLevel", "honor"), ['LIMIT' => 10, "ORDER" => ["honorLevel" => "DESC", "honor" => "DESC"], "name[!]" => '']);
+		}else{
+			$datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totalHonorPoints"), ['LIMIT' => 10, "ORDER" => ["totalHonorPoints" => "DESC"], "name[!]" => '']);
+		}
+		
         if (!empty($datas[0]["name"])) {
             return $datas;
         }

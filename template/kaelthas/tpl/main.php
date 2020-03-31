@@ -327,10 +327,27 @@ require_once 'header.php'; ?>
                                     if (!is_array($data2show)) {
                                         echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                     } else {
-                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th><th scope="col">Honor Points</th></tr></thead><tbody>';
+                                        echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th>';
+								
+										if(get_config('expansion') >= 6)
+										{
+											echo '<th scope="col">Honor Level</th>';
+										}
+										
+										echo '<th scope="col">Honor Points</th></tr></thead><tbody>';
                                         $m = 1;
                                         foreach ($data2show as $one_char) {
-                                            echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($one_char["race"]) . '-' . $antiXss->xss_clean($one_char["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($one_char["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($one_char['level']) . '</td><td>' . $antiXss->xss_clean($one_char['totalHonorPoints']) . '</td></tr>';
+                                            echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($one_char["race"]) . '-' . $antiXss->xss_clean($one_char["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($one_char["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($one_char['level']) . '</td>';
+									
+											if(get_config('expansion') >= 6)
+											{
+												echo '<td>' . $antiXss->xss_clean($one_char['honorLevel']) . '</td>';
+												echo '<td>' . $antiXss->xss_clean($one_char['honor']) . '</td>';
+											} else {
+												echo '<td>' . $antiXss->xss_clean($one_char['totalHonorPoints']) . '</td>';
+											}
+
+											echo '</tr>';
                                         }
                                         echo '</table>';
                                     }
