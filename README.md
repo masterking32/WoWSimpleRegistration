@@ -26,10 +26,10 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 ## Changelogs
 
  **1.9.3 (4/02/2020):**
- 1. Added a new tempale.
+ 1. Added a new template.
 
  **1.9.2 (3/31/2020):**
- 1. Fixed some of issues.
+ 1. Fixed some of the issues.
 
  **1.9.1 (3/12/2020):**
  1. Check the PHP version.
