@@ -48,7 +48,7 @@
 <header id="header" class="d-flex align-items-center">
     <div class="container">
         <div class="logo d-block d-lg-none">
-            <a href="index.html"><img
+            <a href="index.php"><img
                         src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/logo.png"
                         alt="" class="img-fluid"></a>
         </div>
@@ -57,7 +57,7 @@
                 <li class="active"><a href="">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#connect">How to Connect</a></li>
-                <li class="nav-logo"><a href="index.html"><img
+                <li class="nav-logo"><a href="index.php"><img
                                 src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/logo.png"
                                 alt="" class="img-fluid"></a></li>
                 <li><a href="#register">Register</a></li>
