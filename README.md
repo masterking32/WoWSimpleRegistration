@@ -25,7 +25,7 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
 ## Changelogs
 
- **1.9.2 (4/02/2020):**
+ **1.9.3 (4/02/2020):**
  1. Added a new tempale.
 
  **1.9.2 (3/31/2020):**
