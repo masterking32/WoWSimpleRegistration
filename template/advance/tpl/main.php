@@ -105,7 +105,7 @@ require_once 'rules.php';
                                         <div class="text-center" style="margin-top: 10px;"><input
                                                     type="submit"
                                                     class="btn btn-primary"
-                                                    value="Change Password"></div>
+                                                    value="Restore Password"></div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -218,14 +218,14 @@ require_once 'rules.php';
             <div class="section-title" data-aos="fade-up" data-aos-delay="100">
                 <h2>Top Players</h2>
             </div>
-            <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
                 <div class="col-lg-12 text-center" style="margin-top: -30px;">
                     <?php if (!get_config('disable_top_players')) {
                         $i = 1;
                         foreach (get_config('realmlists') as $onerealm_key => $onerealm) {
                             echo "<h6 style='color: #005cbf;font-weight: bold;'>{$onerealm['realmname']}</h6><hr>";
                             $data2show = status::get_top_playtime($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Play Time</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">Play Time</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
                                             <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Play Time</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
 
                             if (!is_array($data2show)) {
@@ -242,7 +242,7 @@ require_once 'rules.php';
                             $i++;
 
                             $data2show = status::get_top_killers($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Killers</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">Killers</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
                                             <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Kills</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                             if (!is_array($data2show)) {
                                 echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
@@ -258,7 +258,7 @@ require_once 'rules.php';
                             $i++;
 
                             $data2show = status::get_top_honorpoints($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Honor Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">Honor Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
                                             <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Honor Point</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                             if (!is_array($data2show)) {
                                 echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
@@ -289,7 +289,7 @@ require_once 'rules.php';
                             $i++;
 
                             $data2show = status::get_top_arenapoints($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Arena Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">Arena Point</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
                                             <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Arena Point:</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                             if (!is_array($data2show)) {
                                 echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
@@ -305,7 +305,7 @@ require_once 'rules.php';
                             $i++;
 
                             $data2show = status::get_top_arenateams($onerealm['realmid']);
-                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#modal-id$i\">Arena Team</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">Arena Team</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
                                             <div class=\"modal-header\"><h4 class=\"modal-title\">TOP PLAYERS - Arena Team</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                             if (!is_array($data2show)) {
                                 echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";

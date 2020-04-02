@@ -162,7 +162,7 @@ require_once 'header.php'; ?>
                                                         <div class="text-center" style="margin-top: 10px;"><input
                                                                     type="submit"
                                                                     class="btn btn-primary"
-                                                                    value="Change Password"></div>
+                                                                    value="Restore Password"></div>
 
                                                     </form>
                                                 </div>
