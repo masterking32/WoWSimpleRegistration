@@ -17,13 +17,19 @@ Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://Trinity
 
  1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
  2. Online Players Status (Multi-Realm support).
- 3. Show TOPs by Playtime, Achievements, Kills, Honor Point, Arena Point, Arena Team, Guilds by member count (Multi-Realm support).
+ 3. Show TOPs by Playtime, Kills, Honor Point, Arena Point, Arena Team (Multi-Realm support).
  4. How to connect Page.
  5. Contact us page.
  6. Change Password (4/10/2019).
  7. Restore Password (5/31/2019).
 
 ## Changelogs
+
+ **1.9.2 (4/02/2020):**
+ 1. Added a new tempale.
+
+ **1.9.2 (3/31/2020):**
+ 1. Fixed some of issues.
 
  **1.9.1 (3/12/2020):**
  1. Check the PHP version.
@@ -43,7 +49,20 @@ RESTORE PASSWORD DOSEN'T WORK IN DEMO VERSIONS.
 
 [Kaelthas Template](http://wowsimpleregistration.gigfa.com/kaelthas/)
 
+Advance Template - NO HAVE LIVE DEMO!
+
 ## Screenshots
+
+## Advance Template
+
+![BFA](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-bfa-min.jpg)
+![LEGION](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-legion-min.jpg)
+![WOD](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-wod-min.jpg)
+![MOP](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-mop-min.jpg)
+![Cata](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-cata-min.jpg)
+![Lich King](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-lichking-min.jpg)
+![TBC](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-tbc-min.jpg)
+![Classic](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-vanilla-min.jpg)
 
 ## Light Template
 

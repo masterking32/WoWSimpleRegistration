@@ -19,6 +19,7 @@ $config['realmlist'] = 'logon.myserver.com';                        // Server Re
 $config['patch_location'] = 'http://mypatch.com/patch.mpq';         // If have patch set URL to download our patch here or make that empty
 $config['game_version'] = '3.3.5a (12340)';                         // Your game version
 $config['expansion'] = '2';                                         // 0 = Classic, 1 = The Burning Crusade (TBC), 2 = Wrath of the Lich King (WotLK), 3 = Cataclysm, 4 = Mist of Pandaria (MOP), 5 = Warlords of Draenor (WOD), 6 = Legion
+// If you want to use advance template, Your images and backgrounds will be changed for your expansion.
 
 $config['battlenet_support'] = false;                               // Change it to true, If you want use it for WoD/Legion/BFA
 $config['disable_top_players'] = false;                             // Disable server top players page [true: Hide top players page]
@@ -27,7 +28,7 @@ $config['disable_online_players'] = false;                          // Disable o
 $config['multiple_email_use'] = false;                              // Allow to users make account with an email for several accounts (Just work for non-battle.net servers)
 
 $config['debug_mode'] = false;                                      // Enable debug mode to display system errors.
-$config['template'] = 'light';                                      // Change template name ( 'light' or 'icecrown' or 'kaelthas' )
+$config['template'] = 'light';                                      // Change template name ( 'light' or 'icecrown' or 'kaelthas' or 'advance' )
 
 $config['smtp_host'] = 'smtp1.example.com';                         // Specify main and backup SMTP servers
 $config['smtp_port'] = 587;                                         // TCP port to connect to
@@ -88,4 +89,4 @@ $config['realmlists'] = array( // Add your realmlist here
 
 */
 
-$config['script_version'] = '1.9.1';
+$config['script_version'] = '1.9.3';
