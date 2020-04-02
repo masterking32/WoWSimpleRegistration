@@ -1,4 +1,4 @@
-# Simple Register Page for TrinityCore/AzerothCore
+# Simple Register Page for TrinityCore/AzerothCore/AshamaneCore
 
 With this script you can make a website for your game server.
 
