@@ -20,7 +20,7 @@ use SebastianBergmann\Timer\Timer;
         </div>
     </div>
     <div class="container footer-bottom clearfix">
-        <div class="credits" data-aos="fade-up" data-aos-delay="100">
+        <div class="credits">
             Developed by <a href="http://masterking32.com">MasterkinG32.CoM</a>
             - <?php echo "Load " . Timer::resourceUsage(); ?>
             <BR>
