@@ -2,7 +2,7 @@
 
 With this script you can make a website for your game server.
 
-Support : [AzerothCore](http://azerothcore.org) and [TrinityCore](http://TrinityCore.org).
+Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/).
 
 # Installation
 
