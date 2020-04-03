@@ -81,7 +81,7 @@ class vote
 
     public static function get_vote_by_IP($siteID)
     {
-        $datas = database::$auth->select('votes', '*', ['ip' => Medoo::raw('UPPER(:ip)', [':ip' => strtoupper(getIP())]), 'vote_site[=]' => $siteID]);
+        $datas = database::$auth->select('votes', '*', ["AND" => ['ip' => Medoo::raw('UPPER(:ip)', [':ip' => strtoupper(getIP())]), 'vote_site[=]' => $siteID]]);
         if (!empty($datas[0]['id'])) {
             return $datas;
         }
