@@ -341,7 +341,7 @@ class user
             $field_acc = $userinfo['username'];
         }
 
-        if (isset($userinfo['restore_key'])) {
+        if (!isset($userinfo['restore_key'])) {
             self::add_password_key_to_acctbl();
         }
 
