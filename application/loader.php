@@ -32,11 +32,12 @@ if (get_config('debug_mode')) {
 
 require_once app_path . 'include/database.php';
 require_once app_path . 'include/user.php';
+require_once app_path . 'include/vote.php';
 require_once app_path . 'include/status.php';
 $antiXss = new AntiXSS();
 if (!empty(get_config('script_version'))) {
     /* @TODO Add online version check! */
-	if(version_compare(get_config('script_version'), '1.9.3', '<') )
+	if(version_compare(get_config('script_version'), '1.9.4', '<') )
 	{
 		echo 'Use last version of config.php file.';
 		exit();

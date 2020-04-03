@@ -50,7 +50,6 @@ $config['realmlists'] = array(
 	)
 );
 
-
 /* 
 
  **********************************
@@ -89,4 +88,23 @@ $config['realmlists'] = array( // Add your realmlist here
 
 */
 
-$config['script_version'] = '1.9.3';
+$config['vote_system'] = true;                                      // Enable or disable vote system (Vote system is a simple and don't have postback or something like that to verify the votes.)
+/**
+If you use Cloudflare and you have issue with IPs and voting, Read this: https://support.cloudflare.com/hc/en-us/articles/200170786
+*/
+$config['vote_sites'] = array(
+    array(
+        'image' => 'http://www.top100arena.com/hit.asp?id=93137&c=WoW&t=2',
+         'site_url' => 'http://www.top100arena.com/in.asp?id=93137'
+     ),
+    array(
+        'image' => 'https://topg.org/topg.gif',
+         'site_url' => 'https://topg.org/wow-private-servers/in-479394'
+     ),
+    array(
+        'image' => 'http://www.xtremeTop100.com/votenew.jpg',
+         'site_url' => 'http://www.xtremetop100.com/in.php?site=1132364316'
+     )
+);
+
+$config['script_version'] = '1.9.4';

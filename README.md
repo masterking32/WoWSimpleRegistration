@@ -22,9 +22,13 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
  5. Contact us page.
  6. Change Password (4/10/2019).
  7. Restore Password (5/31/2019).
+ 8. Vote System (4/03/2020).
 
 ## Changelogs
 
+ **1.9.4 (4/03/2020):**
+ 1. Vote Added.
+ 
  **1.9.3 (4/02/2020):**
  1. Added a new template.
 

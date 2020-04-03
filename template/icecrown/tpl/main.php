@@ -125,6 +125,62 @@ require_once 'header.php'; ?>
                                             Restore Password
                                         </button>
                                     </div>
+                                    <?php if (get_config('vote_system')) { ?>
+                                        <div class="text-center" style="margin-top: 5px;">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#vote-modal">
+                                                Vote for us
+                                            </button>
+                                        </div>
+                                        <div class="modal" id="vote-modal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Vote</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
+                                                              method="post">
+                                                            <?php if (get_config('battlenet_support')) { ?>
+                                                                <div class="input-group">
+                                                                    <span class="input-group">Email</span>
+                                                                    <input type="email" class="form-control"
+                                                                           placeholder="Email"
+                                                                           name="account">
+                                                                </div>
+                                                            <?php } else { ?>
+                                                                <div class="input-group">
+                                                                    <span class="input-group">Username</span>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Username"
+                                                                           name="account">
+                                                                </div>
+                                                            <?php } ?>
+                                                            <div class="text-center" style="margin-top: 10px;">
+                                                                <?php
+                                                                $vote_sites = get_config('vote_sites');
+                                                                if (!empty($vote_sites)) {
+                                                                    foreach ($vote_sites as $siteID => $vote_site) {
+                                                                        $tmp_id = $siteID + 1;
+                                                                        echo '<button type="submit" name="siteid" value="' . $tmp_id . '" style="border:none; background-color: transparent;"><img src="' . $vote_site['image'] . '"></button>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                     <div class="modal" id="restorepassword-modal">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -138,13 +194,15 @@ require_once 'header.php'; ?>
                                                         <?php if (get_config('battlenet_support')) { ?>
                                                             <div class="input-group">
                                                                 <span class="input-group">Email</span>
-                                                                <input type="email" class="form-control" placeholder="Email"
+                                                                <input type="email" class="form-control"
+                                                                       placeholder="Email"
                                                                        name="email">
                                                             </div>
                                                         <?php } else { ?>
                                                             <div class="input-group">
                                                                 <span class="input-group">Username</span>
-                                                                <input type="text" class="form-control" placeholder="Username"
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Username"
                                                                        name="username">
                                                             </div>
                                                         <?php } ?>
@@ -187,13 +245,15 @@ require_once 'header.php'; ?>
                                                         <?php if (get_config('battlenet_support')) { ?>
                                                             <div class="input-group">
                                                                 <span class="input-group">Email</span>
-                                                                <input type="email" class="form-control" placeholder="Email"
+                                                                <input type="email" class="form-control"
+                                                                       placeholder="Email"
                                                                        name="email">
                                                             </div>
                                                         <?php } else { ?>
                                                             <div class="input-group">
                                                                 <span class="input-group">Username</span>
-                                                                <input type="text" class="form-control" placeholder="Username"
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Username"
                                                                        name="username">
                                                             </div>
                                                         <?php } ?>
@@ -341,26 +401,24 @@ require_once 'header.php'; ?>
                                     echo "<span style='color: #0d99e5;'>Don't have anything for display.</span>";
                                 } else {
                                     echo '<table class="table table-dark"><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th>';
-								
-									if(get_config('expansion') >= 6)
-									{
-										echo '<th scope="col">Honor Level</th>';
-									}
-									
-									echo '<th scope="col">Honor Points</th></tr></thead><tbody>';
+
+                                    if (get_config('expansion') >= 6) {
+                                        echo '<th scope="col">Honor Level</th>';
+                                    }
+
+                                    echo '<th scope="col">Honor Points</th></tr></thead><tbody>';
                                     $m = 1;
                                     foreach ($data2show as $one_char) {
                                         echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/race/' . $antiXss->xss_clean($one_char["race"]) . '-' . $antiXss->xss_clean($one_char["gender"]) . '.gif\'></td><td><img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/class/' . $antiXss->xss_clean($one_char["class"]) . '.gif\'></td><td>' . $antiXss->xss_clean($one_char['level']) . '</td>';
-									
-										if(get_config('expansion') >= 6)
-										{
-											echo '<td>' . $antiXss->xss_clean($one_char['honorLevel']) . '</td>';
-											echo '<td>' . $antiXss->xss_clean($one_char['honor']) . '</td>';
-										} else {
-											echo '<td>' . $antiXss->xss_clean($one_char['totalHonorPoints']) . '</td>';
-										}
 
-										echo '</tr>';
+                                        if (get_config('expansion') >= 6) {
+                                            echo '<td>' . $antiXss->xss_clean($one_char['honorLevel']) . '</td>';
+                                            echo '<td>' . $antiXss->xss_clean($one_char['honor']) . '</td>';
+                                        } else {
+                                            echo '<td>' . $antiXss->xss_clean($one_char['totalHonorPoints']) . '</td>';
+                                        }
+
+                                        echo '</tr>';
                                     }
                                     echo '</table>';
                                 }
