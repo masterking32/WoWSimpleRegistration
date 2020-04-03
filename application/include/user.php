@@ -91,7 +91,6 @@ class user
             'username' => $antiXss->xss_clean(strtoupper($username)),
             'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
             'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-            'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
             'expansion' => $antiXss->xss_clean(get_config('expansion')),
             'battlenet_account' => $bnet_account_id,
             'battlenet_index' => 1
@@ -342,7 +341,7 @@ class user
             $field_acc = $userinfo['username'];
         }
 
-        if (empty($userinfo['restore_key'])) {
+        if (isset($userinfo['restore_key'])) {
             self::add_password_key_to_acctbl();
         }
 
@@ -499,6 +498,6 @@ class user
     public static function add_password_key_to_acctbl()
     {
         database::$auth->query("ALTER TABLE `account` ADD COLUMN `restore_key` varchar(255) NULL DEFAULT '1';");
-        return ture;
+        return true;
     }
 }
