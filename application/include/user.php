@@ -151,16 +151,31 @@ class user
             return false;
         }
 
-        $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
-        database::$auth->insert('account', [
-            'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
-            'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-            'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-            'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-            'expansion' => $antiXss->xss_clean(get_config('expansion'))
-        ]);
+        if (empty(get_config('use_soap'))) {
+            $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
+            database::$auth->insert('account', [
+                'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                //'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                'expansion' => $antiXss->xss_clean(get_config('expansion'))
+            ]);
+            success_msg('Your account has been created.');
+        } else {
+            $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_ca_command'));
+            $command = str_replace('{PASSWORD}', $antiXss->xss_clean($_POST['password']), $command);
+            $command = str_replace('{EMAIL}', $antiXss->xss_clean(strtoupper($_POST['email'])), $command);
+            if (RemoteCommandWithSOAP($command)) {
+                database::$auth->update('account', [
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email']))
+                ], ['username' => Medoo::raw('UPPER(:username)', [':username' => $antiXss->xss_clean(strtoupper($_POST['username']))])]);
 
-        success_msg('Your account has been created.');
+                success_msg('Your account has been created.');
+            } else {
+                error_msg('ERROR!, Please try again!');
+            }
+        }
+
         return true;
     }
 
@@ -171,6 +186,11 @@ class user
     public static function bnet_changepass()
     {
         global $antiXss;
+
+        if (!empty(get_config('disable_changepassword'))) {
+            return false;
+        }
+
         if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
             return false;
         }
@@ -239,6 +259,11 @@ class user
     public static function normal_changepass()
     {
         global $antiXss;
+
+        if (!empty(get_config('disable_changepassword'))) {
+            return false;
+        }
+
         if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['username']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
             return false;
         }
@@ -412,16 +437,32 @@ class user
             ]);
         } else {
             $message = 'Your new account information : <br>Username: ' . strtolower($userinfo['username']) . '<br>Password: ' . $new_password;
-            $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
-            database::$auth->update('account', [
-                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-                'sessionkey' => '',
-                'v' => '',
-                's' => '',
-                'restore_key' => '1'
-            ], [
-                'id[=]' => $userinfo['id']
-            ]);
+            if (empty(get_config('use_soap'))) {
+                $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
+                database::$auth->update('account', [
+                    'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                    'sessionkey' => '',
+                    'v' => '',
+                    's' => '',
+                    'restore_key' => '1'
+                ], [
+                    'id[=]' => $userinfo['id']
+                ]);
+            } else {
+                $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($userinfo['username'])), get_config('soap_cp_command'));
+                $command = str_replace('{PASSWORD}', $antiXss->xss_clean($new_password), $command);
+                if (RemoteCommandWithSOAP($command)) {
+                    success_msg('Password has been changed.');
+                    database::$auth->update('account', [
+                        'restore_key' => '1'
+                    ], [
+                        'id[=]' => $userinfo['id']
+                    ]);
+                } else {
+                    error_msg('ERROR!, Please try again!');
+                    return false;
+                }
+            }
         }
 
         send_phpmailer(strtolower($userinfo['email']), 'New Account Password', $message);
@@ -429,7 +470,8 @@ class user
         return false;
     }
 
-    public static function check_email_exists($email)
+    public
+    static function check_email_exists($email)
     {
         if (!empty($email)) {
             $datas = database::$auth->select('account', ['id'], ['email' => Medoo::raw('UPPER(:email)', [':email' => $email])]);
@@ -440,7 +482,8 @@ class user
         return false;
     }
 
-    public static function get_user_by_email($email)
+    public
+    static function get_user_by_email($email)
     {
         if (!empty($email)) {
             $datas = database::$auth->select('account', '*', ['email' => Medoo::raw('UPPER(:email)', [':email' => strtoupper($email)])]);
@@ -451,7 +494,8 @@ class user
         return false;
     }
 
-    public static function get_user_by_username($username)
+    public
+    static function get_user_by_username($username)
     {
         if (!empty($username)) {
             $datas = database::$auth->select('account', '*', ['username' => Medoo::raw('UPPER(:username)', [':username' => strtoupper($username)])]);
@@ -466,7 +510,8 @@ class user
      * @param $username
      * @return bool
      */
-    public static function check_username_exists($username)
+    public
+    static function check_username_exists($username)
     {
         if (!empty($username)) {
             $datas = database::$auth->select('account', ['id'], ['username' => Medoo::raw('UPPER(:username)', [':username' => $username])]);
@@ -477,7 +522,8 @@ class user
         return false;
     }
 
-    public static function get_online_players($realmID)
+    public
+    static function get_online_players($realmID)
     {
         $datas = database::$chars[$realmID]->select('characters', array('name', 'race', 'class', 'gender', 'level'), ['LIMIT' => 49, 'ORDER' => ['level' => 'DESC'], 'online[=]' => 1]);
         if (!empty($datas[0]['name'])) {
@@ -486,7 +532,8 @@ class user
         return false;
     }
 
-    public static function get_online_players_count($realmID)
+    public
+    static function get_online_players_count($realmID)
     {
         $datas = database::$chars[$realmID]->count('characters', ['online[=]' => 1]);
         if (!empty($datas)) {
@@ -495,7 +542,8 @@ class user
         return 0;
     }
 
-    public static function add_password_key_to_acctbl()
+    public
+    static function add_password_key_to_acctbl()
     {
         database::$auth->query("ALTER TABLE `account` ADD COLUMN `restore_key` varchar(255) NULL DEFAULT '1';");
         return true;

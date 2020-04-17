@@ -12,14 +12,15 @@ use PHPMailer\PHPMailer\Exception;
 $error_msg = "";
 $success_msg = "";
 
-function getIP(){
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+function getIP()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         //ip from share internet
         $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         //ip pass from proxy
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }else{
+    } else {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
     return $ip;
@@ -145,16 +146,16 @@ function send_phpmailer($email, $subject, $message)
         $mail->Body = $message;
 
         $mail->send();
-    }
-    catch(Exception $e) {
+    } catch (Exception $e) {
         if (get_config('debug_mode')) {
-            echo 'Message: ' .$e->getMessage();
+            echo 'Message: ' . $e->getMessage();
         }
     }
     return true;
 }
 
-function generateRandomString($length = 10) {
+function generateRandomString($length = 10)
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -162,4 +163,29 @@ function generateRandomString($length = 10) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+
+function RemoteCommandWithSOAP($COMMAND)
+{
+    global $soap_connection_info;
+
+    if (empty($COMMAND)) {
+        return false;
+    }
+
+    try {
+        $conn = new SoapClient(NULL, array(
+            'location' => 'http://' . get_config('soap_host') . ':' . get_config('soap_port') . '/',
+            'uri' => get_config('soap_uri'),
+            'style' => get_config('soap_style'),
+            'login' => get_config('soap_username'),
+            'password' => get_config('soap_password')
+        ));
+        $conn->executeCommand(new SoapParam($COMMAND, 'command'));
+        unset($conn);
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
 }

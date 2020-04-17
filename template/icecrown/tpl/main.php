@@ -116,10 +116,12 @@ require_once 'header.php'; ?>
                                     <?php require_once base_path . 'template/' . $antiXss->xss_clean(get_config("template")) . '/tpl/rules.php'; ?>
                                     <hr>
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#changepassword-modal">
-                                            Change Password
-                                        </button>
+                                        <?php if (empty(get_config('disable_changepassword'))) { ?>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#changepassword-modal">
+                                                Change Password
+                                            </button>
+                                        <?php } ?>
                                         <button type="button" class="btn btn-info" data-toggle="modal"
                                                 data-target="#restorepassword-modal">
                                             Restore Password

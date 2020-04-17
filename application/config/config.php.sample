@@ -38,6 +38,19 @@ $config['smtp_pass'] = 'SECRET';                                    // SMTP pass
 $config['smtp_secure'] = 'tls';                                     // Enable TLS encryption, `ssl` also accepted
 $config['smtp_mail'] = 'no-reply@example.com';                      // Send emails by ...
 
+$config['disable_changepassword'] = false;                          // Disable change password - [Enable it for CMangos and servers with SRP6]
+
+$config['use_soap'] = false;                                        // Enable it if you use servers like CMangos. (Not work on Battle.net servers)
+$config['soap_host'] = '127.0.0.1';                                 // SOAP server address.
+$config['soap_port'] = '7878';                                      // SOAP server port.
+$config['soap_uri'] = 'urn:MaNGOS';                                 // urn:TC for TrinityCore, urn:AC for AzerothCore, urn:MaNGOS for Mangos
+$config['soap_style'] = 'SOAP_RPC';                                 // SOAP style
+$config['soap_username'] = 'admin_soap';                            // SOAP account username.
+$config['soap_password'] = 'admin_soap';                            // SOAP account password.
+
+$config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}'; // Create account command, You can use it like this too: '.account create {USERNAME} {PASSWORD} {PASSWORD} {EMAIL}'
+$config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}'; // Change password command
+
 $config['realmlists'] = array(
 	"1" => array(
 		'realmid' => 1,
@@ -107,4 +120,4 @@ $config['vote_sites'] = array(
      )
 );
 
-$config['script_version'] = '1.9.4';
+$config['script_version'] = '1.9.5';

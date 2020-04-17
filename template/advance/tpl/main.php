@@ -59,10 +59,12 @@ require_once 'rules.php';
                         </div>
                     </form>
                     <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#changepassword-modal">
-                            Change Password
-                        </button>
+                        <?php if (empty(get_config('disable_changepassword'))) { ?>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#changepassword-modal">
+                                Change Password
+                            </button>
+                        <?php } ?>
                         <button type="button" class="btn btn-info" data-toggle="modal"
                                 data-target="#restorepassword-modal">
                             Restore Password
