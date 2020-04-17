@@ -1,8 +1,8 @@
-# Simple Register Page for TrinityCore/AzerothCore/AshamaneCore
+# Simple Register Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
 
 With this script you can make a website for your game server.
 
-Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/).
+Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/), [CMangos](https://github.com/cmangos/).
 
 # Installation
 
@@ -26,6 +26,9 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
 
 ## Changelogs
 
+ **1.9.5 (4/17/2020):**
+ 1. Register/Restore Password via SOAP. (Support CMangos)
+ 
  **1.9.4 (4/03/2020):**
  1. Vote Added.
  
