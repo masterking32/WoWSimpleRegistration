@@ -13,6 +13,8 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
 
 ## Requirement : PHP >= 7.0
 
+Enable gd, soap, mbstring, pdo and pdo-mysql.
+
 ## Features
 
  1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
