@@ -144,7 +144,7 @@ require_once 'header.php'; ?>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
-                                                              method="post">
+                                                              method="post" target="_blank">
                                                             <?php if (get_config('battlenet_support')) { ?>
                                                                 <div class="input-group">
                                                                     <span class="input-group">Email</span>
