@@ -15,6 +15,10 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
 
 Enable gd, soap, mbstring, pdo and pdo-mysql.
 
+# Debug
+
+If you got blank screen, You can enable `debug_mode` in config file.
+
 ## Features
 
  1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
