@@ -40,13 +40,13 @@ $config['smtp_mail'] = 'no-reply@example.com';                      // Send emai
 
 $config['realmlists'] = array(
 	"1" => array(
-		'realmid' => 1,
-		'realmname' => "Realm 1",
-		'db_host' => "127.0.0.1",
-		'db_port' => "3306",
-		'db_user' => "root",
-		'db_pass' => 'root',
-		'db_name' => "rm1_chars"
+		'realmid' => 1, // Realm ID
+		'realmname' => "Realm 1", // Realm Name
+		'db_host' => "127.0.0.1", // MySQL Host IP
+		'db_port' => "3306", // MySQL Host Port
+		'db_user' => "root", // MySQL username
+		'db_pass' => 'root', // MySQL password
+		'db_name' => "rm1_chars" // Characters database name
 	)
 );
 
