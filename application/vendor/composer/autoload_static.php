@@ -18,7 +18,6 @@ class ComposerStaticInitde424ad7860a40a14ec11f109060d25d
     public static $prefixLengthsPsr4 = array (
         'v' => 
         array (
-            'voku\\tests\\' => 11,
             'voku\\helper\\' => 12,
             'voku\\' => 5,
         ),
@@ -46,11 +45,6 @@ class ComposerStaticInitde424ad7860a40a14ec11f109060d25d
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/voku/portable-ascii/tests',
-            1 => __DIR__ . '/..' . '/voku/portable-utf8/tests',
-        ),
         'voku\\helper\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',

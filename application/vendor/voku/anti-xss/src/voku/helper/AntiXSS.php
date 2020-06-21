@@ -1381,10 +1381,17 @@ final class AntiXSS
      */
     private function _sanitize_naughty_html($str)
     {
+        // init
+        $strEnd = '';
+
         do {
             $original = $str;
 
-            if (\strpos($str, '<') === false) {
+            if (
+                \strpos($str, '<') === false
+                &&
+                \strpos($str, '>') === false
+            ) {
                 return $str;
             }
 
@@ -1411,6 +1418,12 @@ final class AntiXSS
                 },
                 $str
             );
+
+            if ($str === $strEnd) {
+                return (string) $str;
+            }
+
+            $strEnd = $str;
         } while ($original !== $str);
 
         return (string) $str;
@@ -1447,24 +1460,27 @@ final class AntiXSS
         $fullMatch = $matches[0];
 
         // skip some edge-cases
+        /** @noinspection NotOptimalIfConditionsInspection */
         if (
-            $fullMatch !== '<' . $matches['tagName']
-            &&
-            \strpos($fullMatch, '=') === false
-            &&
-            \strpos($fullMatch, ' ') === false
-            &&
-            \strpos($fullMatch, ':') === false
-            &&
-            \strpos($fullMatch, '/') === false
-            &&
-            \strpos($fullMatch, '\\') === false
-            &&
-            \stripos($fullMatch, '<' . $matches['tagName'] . '>') !== 0
-            &&
-            \stripos($fullMatch, '</' . $matches['tagName'] . '>') !== 0
-            &&
-            \stripos($fullMatch, '<' . $matches['tagName'] . '<') !== 0
+            (
+                \strpos($fullMatch, '=') === false
+                &&
+                \strpos($fullMatch, ' ') === false
+                &&
+                \strpos($fullMatch, ':') === false
+                &&
+                \strpos($fullMatch, '/') === false
+                &&
+                \strpos($fullMatch, '\\') === false
+                &&
+                \stripos($fullMatch, '<' . $matches['tagName'] . '>') !== 0
+                &&
+                \stripos($fullMatch, '</' . $matches['tagName'] . '>') !== 0
+                &&
+                \stripos($fullMatch, '<' . $matches['tagName'] . '<') !== 0
+            )
+            ||
+            \preg_match('/<[\/]?' . $matches['tagName'] . '\p{L}+>/us', $fullMatch) === 1
         ) {
             return $fullMatch;
         }
@@ -1474,11 +1490,9 @@ final class AntiXSS
                . \str_replace(
                    [
                        '>',
-                       '<',
                    ],
                    [
                        '&gt;',
-                       '&lt;',
                    ],
                    $matches['rest']
                );

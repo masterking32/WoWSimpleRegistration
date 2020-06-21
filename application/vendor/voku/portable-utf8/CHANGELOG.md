@@ -1,5 +1,27 @@
 # Changelog
 
+### 5.4.45 (2020-05-26)
+
+- fix UTF8::(l|r)trim | thanks @pmacko
+
+### 5.4.44 (2020-05-24)
+
+- update vendor (ASCII) lib
+
+### 5.4.43 (2020-05-14)
+
+- fix auto-generate the "API documentation" in the README (via generate_docs.php)
+- optimize phpdoc comments
+- fix autoloader for test files
+
+### 5.4.42 (2020-05-05)
+
+- add "UTF8::css_identifier()"
+- optimize phpdoc comments
+- use more template phpdoc-annotation (supported by phpstan and psalm)
+- move code examples into the code
+- auto-generate the "API documentation" in the README (via generate_docs.php)
+
 ### 5.4.41 (2020-03-06)
 
 - fix "UTF8::is_utf8*" -> detecting when last byte is incomplete multibyte character | big thanks @daniel-jeffery 
