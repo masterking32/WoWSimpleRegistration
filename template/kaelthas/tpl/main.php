@@ -308,7 +308,7 @@ require_once 'header.php'; ?>
                                     echo "<p><span style='color: #F1A40F;font-weight: bold;'>{$onerealm['realmname']}</span> <span style='font-size: 12px;'>(Limited to show 49 player - Online players : " . user::get_online_players_count($onerealm['realmid']) . ")</span></p><hr>";
                                     $online_chars = user::get_online_players($onerealm['realmid']);
                                     if (!is_array($online_chars)) {
-                                        echo "<span style='color: #F1A40F;'>No have Online player.</span>";
+                                        echo "<span style='color: #F1A40F;'>No players are currently online.</span>";
                                     } else {
                                         echo '<table class="table table-dark"><thead><tr><th scope="col">Name</th><th scope="col">Race</th> <th scope="col">Class</th><th scope="col">Level</th></tr></thead><tbody>';
                                         foreach ($online_chars as $one_char) {
