@@ -5,8 +5,6 @@
  * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
-ini_set("display_errors", "On");
-error_reporting(E_ALL | E_STRICT);
 // base config
 $config['baseurl'] = "http://localhost";                            // Site URL
 $config['page_title'] = "Simple Register";                          // Site Title
