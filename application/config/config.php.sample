@@ -123,5 +123,17 @@ $config['soap_password'] = 'admin_soap';                            // SOAP acco
 $config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}'; // Create account command, You can use it like this too: '.account create {USERNAME} {PASSWORD} {PASSWORD} {EMAIL}'
 $config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}'; // Change password command
 
+/*
+enable 2FA specially for vmangos/light's hope and oregoncore
+pin: 6~7 numberic eg: 123456
+TOTP secret: 16 alphabet eg: ABCD EFGH IJLK LMNO
+*/
+$config['enable_2FA']           = true;                                // enable 2FA reg option including pin method and TOTP method
+$config['db_lock_type']         = 'security_flag';                     // lock type field inside account table. for oregon:security_flag; for vmangos/lightshope:lock. 
+$config['default_lock_type']    = 1;                                   // for oregon, PIN: security_flag = 1; TOTP: security_flag = 4 for vmangos, PIN: lock = 10; TOTP: lock = 12
+$config['db_lock_pin']          = 'token_key';                         // where you should insert the pin key inside account table. for oregon:token_key; for vmangos/lightshope:geolock_pin. 
+$config['default_lock_pin']     = '123456';                            // lock pin
+$config['db_totp_secret']       = 'token_key';                         // where you should insert the totp secret inside account table. for oregon:token_key; for vmangos/lightshope:security. 
+$config['default_totp_secret']  = 'ABCDEFGHIJLKMNOP';                  // default totp secret
 
 $config['script_version'] = '1.9.5';
