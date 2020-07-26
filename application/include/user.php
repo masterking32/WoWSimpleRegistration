@@ -153,14 +153,63 @@ class user
 
         if (empty(get_config('use_soap'))) {
             $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
-            database::$auth->insert('account', [
-                'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
-                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-                'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-                //'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-                'expansion' => $antiXss->xss_clean(get_config('expansion'))
-            ]);
-            success_msg('Your account has been created.');
+			
+			if (get_config('enable_2FA')) {
+				//2FA
+				if (get_config('enable_2FA') && (get_config('default_lock_type') == 1 || get_config('default_lock_type') == 10)) {
+					if (!is_numeric($_POST['lockpin']) || strlen($_POST['lockpin']) > 7  || strlen($_POST['lockpin']) < 6 ){
+						error_msg('lock pin has to be 6~7 numberic.');
+						return false;
+					}
+					
+					//lock pin
+					database::$auth->insert('account', [
+						'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+						'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+						'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+						//'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+						get_config('db_lock_type') => $antiXss->xss_clean(get_config('default_lock_type')),
+						get_config('db_lock_pin') => $antiXss->xss_clean($_POST['lockpin']),
+						'expansion' => $antiXss->xss_clean(get_config('expansion'))
+					]);
+					success_msg('Your account has been created. please remember your lock pin is:' . $_POST['lockpin']);
+				} elseif(get_config('enable_2FA') && (get_config('default_lock_type') == 4 || get_config('default_lock_type') == 12)) {
+					//TOTP
+					database::$auth->insert('account', [
+					'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+					'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+					'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+					//'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+					get_config('db_lock_type') => $antiXss->xss_clean(get_config('default_lock_type')),
+					get_config('db_totp_secret') => $antiXss->xss_clean(get_config('default_totp_secret')),
+					'expansion' => $antiXss->xss_clean(get_config('expansion'))
+				]);
+				success_msg('Your account has been created. please download eagle 2FA or google authenticator and input below information <br> email address:' . $_POST['email'] . "<br> Secret: " . get_config('default_totp_secret') );
+				} else {
+					//no 2FA
+					database::$auth->insert('account', [
+						'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+						'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+						'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+						//'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+						'expansion' => $antiXss->xss_clean(get_config('expansion'))
+					]);
+					success_msg('Your account has been created.');
+				}
+
+				
+			} else {
+			    //no 2FA
+				database::$auth->insert('account', [
+					'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+					'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+					'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+					//'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+					'expansion' => $antiXss->xss_clean(get_config('expansion'))
+				]);
+				success_msg('Your account has been created.');
+				
+			}
         } else {
             $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_ca_command'));
             $command = str_replace('{PASSWORD}', $antiXss->xss_clean($_POST['password']), $command);

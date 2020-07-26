@@ -78,6 +78,13 @@ require_once 'header.php'; ?>
                                             <input type="password" class="form-control" placeholder="Re-Password"
                                                    name="repassword">
                                         </div>
+										<?php if (get_config('enable_2FA') && (get_config('default_lock_type') == 1 || get_config('default_lock_type') == 10)) { ?>
+											<div class="input-group">
+												<span class="input-group">2FA lock pin</span>
+												<input type="text" class="form-control" placeholder="6~7 numberic pin"
+													   name="lockpin">
+											</div>
+										<?php } ?>
                                         <div class="input-group">
                                             <span class="input-group">Captcha</span>
                                             <input type="text" class="form-control" placeholder="Captcha"

@@ -5,7 +5,8 @@
  * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
-
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 // base config
 $config['baseurl'] = "http://localhost";                            // Site URL
 $config['page_title'] = "Simple Register";                          // Site Title
@@ -32,7 +33,7 @@ $config['template'] = 'light';                                      // Change te
 
 $config['smtp_host'] = 'smtp1.example.com';                         // Specify main and backup SMTP servers
 $config['smtp_port'] = 587;                                         // TCP port to connect to
-$config['smtp_auth'] = true;                                        // Enable SMTP authentication
+$config['smtp_auth'] = false;                                       // Enable SMTP authentication
 $config['smtp_user'] = 'user@example.com';                          // SMTP username
 $config['smtp_pass'] = 'SECRET';                                    // SMTP password
 $config['smtp_secure'] = 'tls';                                     // Enable TLS encryption, `ssl` also accepted
@@ -128,12 +129,12 @@ enable 2FA specially for vmangos/light's hope and oregoncore
 pin: 6~7 numberic eg: 123456
 TOTP secret: 16 alphabet eg: ABCD EFGH IJLK LMNO
 */
-$config['enable_2FA']           = true;                                // enable 2FA reg option including pin method and TOTP method
+$config['enable_2FA']           = false;                                // enable 2FA reg option including pin method and TOTP method
 $config['db_lock_type']         = 'security_flag';                     // lock type field inside account table. for oregon:security_flag; for vmangos/lightshope:lock. 
 $config['default_lock_type']    = 1;                                   // for oregon, PIN: security_flag = 1; TOTP: security_flag = 4 for vmangos, PIN: lock = 10; TOTP: lock = 12
 $config['db_lock_pin']          = 'token_key';                         // where you should insert the pin key inside account table. for oregon:token_key; for vmangos/lightshope:geolock_pin. 
-$config['default_lock_pin']     = '123456';                            // lock pin
+//$config['default_lock_pin']     = '123456';                            // default lock pin, not in use because it was set by POST
 $config['db_totp_secret']       = 'token_key';                         // where you should insert the totp secret inside account table. for oregon:token_key; for vmangos/lightshope:security. 
-$config['default_totp_secret']  = 'ABCDEFGHIJLKMNOP';                  // default totp secret
+$config['default_totp_secret']  = 'ABCDEFGHIJLKMNOP';                  // default totp secret. there is someway to generate random 16 bit alphabet for each user but lets just use this as default for now
 
 $config['script_version'] = '1.9.5';
