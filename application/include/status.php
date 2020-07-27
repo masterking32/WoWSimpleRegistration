@@ -14,8 +14,8 @@ class status
     public static function get_character_by_guid($realmID, $guid)
     {
         if (!empty($guid)) {
-            $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level"), ["AND" => ["guid[=]" => $guid, "name[!]" => '']]);
-            if (!empty($datas[0]["name"])) {
+            $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level"), ["AND" => ["guid[=]" => $guid]]);
+            if (!empty($datas[0]["level"])) {
                 return $datas[0];
             }
         }
@@ -34,7 +34,7 @@ class status
     public static function get_top_arenateams($realmID)
     {
         $datas = database::$chars[$realmID]->select("arena_team", array("arenaTeamId", "name", "captainGuid", "rating"), ['LIMIT' => 10, "ORDER" => ["rating" => "DESC"]]);
-        if (!empty($datas[0]["name"])) {
+        if (!empty($datas[0]["arenaTeamId"])) {
             return $datas;
         }
         return false;
@@ -42,8 +42,8 @@ class status
 
     public static function get_top_killers($realmID)
     {
-        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totalKills"), ['LIMIT' => 10, "ORDER" => ["totalKills" => "DESC"], "name[!]" => '']);
-        if (!empty($datas[0]["name"])) {
+        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totalKills"), ['LIMIT' => 10, "ORDER" => ["totalKills" => "DESC"]]);
+        if (!empty($datas[0]["totalKills"])) {
             return $datas;
         }
         return false;
@@ -51,8 +51,8 @@ class status
 
     public static function get_top_arenapoints($realmID)
     {
-        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "arenaPoints"), ['LIMIT' => 10, "ORDER" => ["arenaPoints" => "DESC"], "name[!]" => '']);
-        if (!empty($datas[0]["name"])) {
+        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "arenaPoints"), ['LIMIT' => 10, "ORDER" => ["arenaPoints" => "DESC"]]);
+        if (!empty($datas[0]["arenaPoints"])) {
             return $datas;
         }
         return false;
@@ -60,14 +60,13 @@ class status
 
     public static function get_top_honorpoints($realmID)
     {
-		if(get_config('expansion') >= 6)
-		{
-			$datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "honorLevel", "honor"), ['LIMIT' => 10, "ORDER" => ["honorLevel" => "DESC", "honor" => "DESC"], "name[!]" => '']);
-		}else{
-			$datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totalHonorPoints"), ['LIMIT' => 10, "ORDER" => ["totalHonorPoints" => "DESC"], "name[!]" => '']);
-		}
-		
-        if (!empty($datas[0]["name"])) {
+        if (get_config('expansion') >= 6) {
+            $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "honorLevel", "honor"), ['LIMIT' => 10, "ORDER" => ["honorLevel" => "DESC", "honor" => "DESC"]]);
+        } else {
+            $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totalHonorPoints"), ['LIMIT' => 10, "ORDER" => ["totalHonorPoints" => "DESC"]]);
+        }
+
+        if (!empty($datas[0]["level"])) {
             return $datas;
         }
         return false;
@@ -75,8 +74,8 @@ class status
 
     public static function get_top_playtime($realmID)
     {
-        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totaltime"), ['LIMIT' => 10, "ORDER" => ["totaltime" => "DESC"], "name[!]" => '']);
-        if (!empty($datas[0]["name"])) {
+        $datas = database::$chars[$realmID]->select("characters", array("name", "race", "class", "gender", "level", "totaltime"), ["ORDER" => ["totaltime" => "DESC"], 'LIMIT' => 10]);
+        if (!empty($datas[0]["totaltime"])) {
             return $datas;
         }
         return false;
