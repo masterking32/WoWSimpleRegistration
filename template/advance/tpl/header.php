@@ -31,6 +31,7 @@
           rel="stylesheet">
     <link href="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/css/style.css"
           rel="stylesheet">
+    <?php echo getCaptchaJS(); ?>
 </head>
 <body>
 <section id="hero"

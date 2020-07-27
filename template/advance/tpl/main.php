@@ -45,13 +45,7 @@ require_once 'rules.php';
                                 <input type="password" class="form-control" placeholder="Re-Password"
                                        name="repassword">
                             </div>
-                            <div class="input-group">
-                                <span class="input-group">Captcha</span>
-                                <input type="text" class="form-control" placeholder="Captcha" name="captcha">
-                            </div>
-                            <p style="text-align: center;margin-top: 10px;">
-                                <img src="<?php echo user::$captcha->inline(); ?>" style="border-radius: 5px;"/>
-                            </p>
+                            <?php echo GetCaptchaHTML();?>
                             <input name="submit" type="hidden" value="register">
                             <div class="text-center" style="margin-top: 10px;"><input type="submit"
                                                                                       class="btn btn-success"
@@ -146,16 +140,8 @@ require_once 'rules.php';
                                                 <input type="text" class="form-control" placeholder="Username"
                                                        name="username">
                                             </div>
-                                        <?php } ?>
-                                        <div class="input-group">
-                                            <span class="input-group">Captcha</span>
-                                            <input type="text" class="form-control" placeholder="Captcha"
-                                                   name="captcha">
-                                        </div>
-                                        <p style="text-align: center;margin-top: 10px;">
-                                            <img src="<?php echo user::$captcha->inline(); ?>"
-                                                 style="border-radius: 5px;"/>
-                                        </p>
+                                        <?php }
+                                        echo GetCaptchaHTML();?>
                                         <input name="submit" type="hidden" value="restorepassword">
                                         <div class="text-center" style="margin-top: 10px;"><input
                                                     type="submit"
@@ -213,15 +199,7 @@ require_once 'rules.php';
                                                    placeholder="Re-Password"
                                                    name="repassword">
                                         </div>
-                                        <div class="input-group">
-                                            <span class="input-group">Captcha</span>
-                                            <input type="text" class="form-control" placeholder="Captcha"
-                                                   name="captcha">
-                                        </div>
-                                        <p style="text-align: center;margin-top: 10px;">
-                                            <img src="<?php echo user::$captcha->inline(); ?>"
-                                                 style="border-radius: 5px;"/>
-                                        </p>
+                                        <?php echo GetCaptchaHTML();?>
                                         <input name="submit" type="hidden" value="changepass">
                                         <div class="text-center" style="margin-top: 10px;"><input
                                                     type="submit"

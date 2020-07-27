@@ -29,9 +29,16 @@ If you got blank screen, You can enable `debug_mode` in config file.
  6. Change Password (4/10/2019).
  7. Restore Password (5/31/2019).
  8. Vote System (4/03/2020).
+ 9. Support HCaptcha/Recaptcha v2 (7/27/2020).
 
 ## Changelogs
 
+ **1.9.6 (7/27/2020):**
+ 1. Support HCaptcha/Recaptcha/Image captcha.
+ 2. Fixed page load speed!
+ 3. Add more description for config file.
+ 3. Update composer packages.
+ 
  **1.9.5 (4/17/2020):**
  1. Register/Restore Password via SOAP. (Support CMangos)
  

@@ -28,15 +28,19 @@ class user
                 self::normal_changepass();
             }
             self::restorepassword();
-            unset($_SESSION['captcha']);
-            self::$captcha = new CaptchaBuilder;
-            self::$captcha->build();
-            $_SESSION['captcha'] = self::$captcha->getPhrase();
+            if (empty($config['captcha_type'])) {
+                unset($_SESSION['captcha']);
+                self::$captcha = new CaptchaBuilder;
+                self::$captcha->build();
+                $_SESSION['captcha'] = self::$captcha->getPhrase();
+            }
         } else {
-            unset($_SESSION['captcha']);
-            self::$captcha = new CaptchaBuilder;
-            self::$captcha->build();
-            $_SESSION['captcha'] = self::$captcha->getPhrase();
+            if (empty($config['captcha_type'])) {
+                unset($_SESSION['captcha']);
+                self::$captcha = new CaptchaBuilder;
+                self::$captcha->build();
+                $_SESSION['captcha'] = self::$captcha->getPhrase();
+            }
         }
     }
 
@@ -47,16 +51,13 @@ class user
     public static function bnet_register()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['repassword']) && !empty($_POST['email']))) {
             return false;
         }
 
-        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
-            error_msg('Captcha is not valid.');
+        if (!captcha_validation()) {
             return false;
         }
-
-        unset($_SESSION['captcha']);
 
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             error_msg('Use valid email.');
@@ -106,16 +107,14 @@ class user
     public static function normal_register()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['username']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['username']) && !empty($_POST['repassword']) && !empty($_POST['email']))) {
             return false;
         }
 
-        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
-            error_msg('Captcha is not valid.');
+        if (!captcha_validation()) {
             return false;
         }
 
-        unset($_SESSION['captcha']);
         if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
             error_msg('Use valid characters for username.');
             return false;
@@ -191,15 +190,13 @@ class user
             return false;
         }
 
-        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']))) {
             return false;
         }
 
-        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
-            error_msg('Captcha is not valid.');
+        if (!captcha_validation()) {
             return false;
         }
-        unset($_SESSION['captcha']);
 
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             error_msg('Use valid email.');
@@ -264,18 +261,11 @@ class user
             return false;
         }
 
-        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['username']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['username']))) {
             return false;
         }
 
-        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
-            error_msg('Captcha is not valid.');
-            return false;
-        }
-
-        unset($_SESSION['captcha']);
-        if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
-            error_msg('Use valid characters for username.');
+        if (!captcha_validation()) {
             return false;
         }
 
@@ -322,7 +312,7 @@ class user
     public static function restorepassword()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'restorepassword' && !empty($_POST['captcha']) && !empty($_SESSION['captcha']))) {
+        if ($_POST['submit'] != 'restorepassword') {
             return false;
         }
 
@@ -332,12 +322,10 @@ class user
             return false;
         }
 
-        if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
-            error_msg('Captcha is not valid.');
+        if (!captcha_validation()) {
             return false;
         }
 
-        unset($_SESSION['captcha']);
         if (get_config('battlenet_support')) {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 error_msg('Use a valid email.');
