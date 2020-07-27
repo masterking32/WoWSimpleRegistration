@@ -266,9 +266,9 @@ function getCaptchaJS()
     global $config;
     if (!empty($config['captcha_type'])) {
         if ($config['captcha_type'] == 1) {
-            return '<script src="https://hcaptcha.com/1/api.js?hl=' . $config['captcha_language'] . '" async defer></script>';
+            return '<script src="https://hcaptcha.com/1/api.js?hl=' . $config['captcha_language'] . '" async defer></script><style>.h-captcha { display: inline-block;}</style>';
         } else if ($config['captcha_type'] == 2) {
-            return '<script src="https://www.google.com/recaptcha/api.js?hl=' . $config['captcha_language'] . '" async defer></script>';
+            return '<script src="https://www.google.com/recaptcha/api.js?hl=' . $config['captcha_language'] . '" async defer></script><style>.g-recaptcha { display: inline-block;}</style>';
         }
     }
 
@@ -280,9 +280,9 @@ function GetCaptchaHTML()
     global $config;
     if (!empty($config['captcha_type'])) {
         if ($config['captcha_type'] == 1) {
-            return '<div class="row text-center"><div class="h-captcha" data-sitekey="' . $config['captcha_key'] . '" style=\'margin:10px auto\'></div></div>';
+            return '<div class="row text-center"><div class="col-md-12 text-center"><div class="h-captcha" data-sitekey="' . $config['captcha_key'] . '" style=\'margin:10px auto\'></div></div></div>';
         } else if ($config['captcha_type'] == 2) {
-            return '<div class="row text-centerxs-center"><div class="g-recaptcha" data-sitekey="' . $config['captcha_key'] . '" style=\'margin:10px auto\'></div></div>';
+            return '<div class="row text-center"><div class="col-md-12 text-center"><div class="g-recaptcha" data-sitekey="' . $config['captcha_key'] . '" style=\'margin:10px auto\'></div></div></div>';
         } else {
             return '';
         }
