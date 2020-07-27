@@ -6,56 +6,212 @@
  * @Description : It's not masterking32 framework !
  **/
 
-// base config
-$config['baseurl'] = "http://localhost";                            // Site URL
-$config['page_title'] = "Simple Register";                          // Site Title
-
-$config['db_auth_host'] = '127.0.0.1';                              // Auth Database Host
-$config['db_auth_port'] = '3306';                                   // Auth Database Port
-$config['db_auth_user'] = 'root';                                   // Auth Database Username
-$config['db_auth_pass'] = 'root';                                   // Auth Database Password
-$config['db_auth_dbname'] = 'realmd';                               // Auth Database DBName
-$config['realmlist'] = 'logon.myserver.com';                        // Server Realmlist
-$config['patch_location'] = 'http://mypatch.com/patch.mpq';         // If have patch set URL to download our patch here or make that empty
-$config['game_version'] = '3.3.5a (12340)';                         // Your game version
-$config['expansion'] = '2';                                         // 0 = Classic, 1 = The Burning Crusade (TBC), 2 = Wrath of the Lich King (WotLK), 3 = Cataclysm, 4 = Mist of Pandaria (MOP), 5 = Warlords of Draenor (WOD), 6 = Legion
-// If you want to use advance template, Your images and backgrounds will be changed for your expansion.
-
-$config['battlenet_support'] = false;                               // Change it to true, If you want use it for WoD/Legion/BFA
-$config['disable_top_players'] = false;                             // Disable server top players page [true: Hide top players page]
-$config['disable_online_players'] = false;                          // Disable online players page [true: Hide online players page]
-
-$config['multiple_email_use'] = false;                              // Allow to users make account with an email for several accounts (Just work for non-battle.net servers)
-
-$config['debug_mode'] = false;                                      // Enable debug mode to display system errors.
-$config['template'] = 'light';                                      // Change template name ( 'light' or 'icecrown' or 'kaelthas' or 'advance' )
-
-$config['smtp_host'] = 'smtp1.example.com';                         // Specify main and backup SMTP servers
-$config['smtp_port'] = 587;                                         // TCP port to connect to
-$config['smtp_auth'] = true;                                        // Enable SMTP authentication
-$config['smtp_user'] = 'user@example.com';                          // SMTP username
-$config['smtp_pass'] = 'SECRET';                                    // SMTP password
-$config['smtp_secure'] = 'tls';                                     // Enable TLS encryption, `ssl` also accepted
-$config['smtp_mail'] = 'no-reply@example.com';                      // Send emails by ...
-
-$config['hcaptcha'] = false;                                     // If you want to use hcaptcha you need to enable that. (If you don't want to use HCaptcha, We will use image as captcha)
-$config['hcaptcha_key'] = '';                                      // Go to https://hCaptcha.com/?r=6d4f9117ba12 to get key.
-$config['hcaptcha_secret'] = '';                                   // Go to https://hCaptcha.com/?r=6d4f9117ba12 to get key.
-$config['hcaptcha_language'] = 'en';                               // Go to https://docs.hcaptcha.com/languages to find language code.
-
+/*===================================================================
+baseurl
+    That's your website URL. Example: "https://DOMAIN.COM"
+page_title
+    That's your website title. Example: "My WOW Private server!"
+=====================================================================*/
+$config['baseurl'] = "http://localhost";
+$config['page_title'] = "Simple Register";
+/*===================================================================
+If you see a white screen or have an issue, you can enable it to see the errors.
+Note that after testing, be sure to disable this option.
+=====================================================================*/
+$config['debug_mode'] = false;
+/*===================================================================
+Your server information.
+realmlist
+    Server Realmlist
+patch_location
+    If have patch set URL to download our patch here or make that empty
+game_version
+    Your game version
+=====================================================================*/
+$config['realmlist'] = 'logon.myserver.com';
+$config['patch_location'] = 'http://mypatch.com/patch.mpq';
+$config['game_version'] = '3.3.5a (12340)';
+/*===================================================================
+Select your server expansion.
+If you want to use advance template, Your images and backgrounds will be changed for your expansion.
+0 = Classic
+1 = The Burning Crusade (TBC)
+2 = Wrath of the Lich King (WotLK)
+3 = Cataclysm
+4 = Mist of Pandaria (MOP)
+5 = Warlords of Draenor (WOD)
+6 = Legion
+7 = BFA (I'm not sure about this one!)
+=====================================================================*/
+$config['expansion'] = '2';
+/*===================================================================
+If your server is WoD/Legion/BFA you should enable it!
+=====================================================================*/
+$config['battlenet_support'] = false;
+/*===================================================================
+If you have an issue with top players or online players you can disable them!
+disable_top_players
+    Disable server top players page [true: Hide top players page]
+disable_online_players
+    Disable online players page [true: Hide online players page]
+disable_changepassword
+    Disable change password - [Enable it for CMangos and servers with SRP6]
+    For CMangos and servers with SRP6 you can enable change password command for players (in-game)
+=====================================================================*/
+$config['disable_top_players'] = false;
+$config['disable_online_players'] = false;
+$config['disable_changepassword'] = false;
+/*===================================================================
+Allow to users make account with an email for several accounts (Just work for non-battle.net servers)
+=====================================================================*/
+$config['multiple_email_use'] = false;
+/*===================================================================
+Template name, You can change it to:
+light
+advance
+icecrown
+kaelthas
+=====================================================================*/
+$config['template'] = 'light';
+/*===================================================================
+SMTP config.
+We need this part to send an email. (used for restore password and 2FA)
+You can use your own SMTP or Gmail/Yahoo/Hotmail and etc
+smtp_host
+    Specify main and backup SMTP servers
+smtp_port
+    TCP port to connect to
+smtp_auth
+    Enable SMTP authentication
+smtp_user
+    SMTP username
+smtp_pass
+    SMTP password
+smtp_secure
+    Enable TLS encryption, `ssl` also accepted
+smtp_mail
+    Send emails by ...
+=====================================================================*/
+$config['smtp_host'] = 'smtp1.example.com';
+$config['smtp_port'] = 587;
+$config['smtp_auth'] = true;
+$config['smtp_user'] = 'user@example.com';
+$config['smtp_pass'] = 'SECRET';
+$config['smtp_secure'] = 'tls';
+$config['smtp_mail'] = 'no-reply@example.com';
+/*===================================================================
+vote_system
+    You can enable/disable vote system.
+    Vote system is a simple and don't have postback or something like that to verify the votes
+    If you use Cloudflare and you have issue with IPs and voting, Read this: https://support.cloudflare.com/hc/en-us/articles/200170786
+vote_sites
+    Your vote sites and images, must be array.
+=====================================================================*/
+$config['vote_system'] = true;
+$config['vote_sites'] = array(
+    array(
+        'image' => 'http://www.top100arena.com/hit.asp?id=93137&c=WoW&t=2',
+        'site_url' => 'http://www.top100arena.com/in.asp?id=93137'
+    ),
+    array(
+        'image' => 'https://topg.org/topg.gif',
+        'site_url' => 'https://topg.org/wow-private-servers/in-479394'
+    ),
+    array(
+        'image' => 'http://www.xtremeTop100.com/votenew.jpg',
+        'site_url' => 'http://www.xtremetop100.com/in.php?site=1132364316'
+    )
+);
+/*===================================================================
+You can use Image captcha or HCaptcha or Recaptcha v2.
+** We recommend using HCaptcha. **
+captcha_type
+    1) Image Captcha
+    2) HCaptcha
+    3) ReCaptcha v2
+For image captcha, you don't need to put anything for captcha_key captcha_secret or captcha_language.
+captcha_secret/captcha_secret
+    To get key and secret for HCaptcha go to https://hCaptcha.com/?r=6d4f9117ba12
+    To get key and secret for Recaptcha go to https://www.google.com/recaptcha
+captcha_language
+    https://docs.hcaptcha.com/languages
+    https://developers.google.com/recaptcha/docs/language
+=====================================================================*/
+$config['captcha_type'] = 0;
+$config['captcha_key'] = '';
+$config['captcha_secret'] = '';
+$config['captcha_language'] = 'en';
+/*===================================================================
+use_soap
+    Enable it if you have CMangos-Classic/MangosZero or Some of TBC servers.
+    Don't Enable it for AzerothCore/TrinityCore/SkyFire and AshamaneCore.
+soap_host
+    SOAP server address
+soap_port
+    SOAP server port.
+soap_uri
+    urn:TC for TrinityCore
+    urn:AC for AzerothCore
+    urn:MaNGOS for Mangos
+soap_style
+    SOAP style
+soap_username
+    SOAP account username
+soap_password
+    SOAP account password
+soap_ca_command
+    Create account command
+    You can use it like this too: '.account create {USERNAME} {PASSWORD} {PASSWORD} {EMAIL}'
+    Check create account command in your server!
+soap_cp_command
+    Change password command
+    account set password {USERNAME} {PASSWORD} {PASSWORD}
+    Check change password command in your server
+=====================================================================*/
+$config['use_soap'] = false;
+$config['soap_host'] = '127.0.0.1';
+$config['soap_port'] = '7878';
+$config['soap_uri'] = 'urn:MaNGOS';
+$config['soap_style'] = 'SOAP_RPC';
+$config['soap_username'] = 'admin_soap';
+$config['soap_password'] = 'admin_soap';
+$config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}';
+$config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}';
+/*===================================================================
+You Auth/Realmd MySQL information.
+db_auth_host
+    Auth Database Host
+db_auth_port
+    Auth Database Port
+db_auth_user
+    Auth Database Username
+db_auth_pass
+    Auth Database Password
+db_auth_dbname
+    Auth Database DBName
+=====================================================================*/
+$config['db_auth_host'] = '127.0.0.1';
+$config['db_auth_port'] = '3306';
+$config['db_auth_user'] = 'root';
+$config['db_auth_pass'] = 'root';
+$config['db_auth_dbname'] = 'realmd';
+/*===================================================================
+Your character's databases.
+If your server has a lot of realms you can check the example at the bottom of the file.
+=====================================================================*/
 $config['realmlists'] = array(
-	"1" => array(
-		'realmid' => 1, // Realm ID
-		'realmname' => "Realm 1", // Realm Name
-		'db_host' => "127.0.0.1", // MySQL Host IP
-		'db_port' => "3306", // MySQL Host Port
-		'db_user' => "root", // MySQL username
-		'db_pass' => 'root', // MySQL password
-		'db_name' => "rm1_chars" // Characters database name
-	)
+    "1" => array(
+        'realmid' => 1, // Realm ID
+        'realmname' => "Realm 1", // Realm Name
+        'db_host' => "127.0.0.1", // MySQL Host IP
+        'db_port' => "3306", // MySQL Host Port
+        'db_user' => "root", // MySQL username
+        'db_pass' => 'root', // MySQL password
+        'db_name' => "realm1_characters" // Characters database name
+    )
 );
 
-/* 
+/*
  **********************************
  * EXMAPLE OF MORE THAN ONE REALM *
  **********************************
@@ -91,42 +247,6 @@ $config['realmlists'] = array( // Add your realmlist here
 );
 */
 
-$config['vote_system'] = true;                                      // Enable or disable vote system (Vote system is a simple and don't have postback or something like that to verify the votes.)
-/**
-If you use Cloudflare and you have issue with IPs and voting, Read this: https://support.cloudflare.com/hc/en-us/articles/200170786
-*/
-$config['vote_sites'] = array(
-    array(
-        'image' => 'http://www.top100arena.com/hit.asp?id=93137&c=WoW&t=2',
-         'site_url' => 'http://www.top100arena.com/in.asp?id=93137'
-     ),
-    array(
-        'image' => 'https://topg.org/topg.gif',
-         'site_url' => 'https://topg.org/wow-private-servers/in-479394'
-     ),
-    array(
-        'image' => 'http://www.xtremeTop100.com/votenew.jpg',
-         'site_url' => 'http://www.xtremetop100.com/in.php?site=1132364316'
-     )
-);
-
-$config['disable_changepassword'] = false;                          // Disable change password - [Enable it for CMangos and servers with SRP6]
-
-/*
-Don't Enable the `use_soap` for AzerothCore/TrinityCore and AshamaneCore.
-That's for old servers like CMangos-Classic and MangosZero or some of TBC servers.
-Careful about using this function.
-*/
-
-$config['use_soap'] = false;                                        // Enable it if you use servers like CMangos. (Not work on Battle.net servers)
-$config['soap_host'] = '127.0.0.1';                                 // SOAP server address.
-$config['soap_port'] = '7878';                                      // SOAP server port.
-$config['soap_uri'] = 'urn:MaNGOS';                                 // urn:TC for TrinityCore, urn:AC for AzerothCore, urn:MaNGOS for Mangos
-$config['soap_style'] = 'SOAP_RPC';                                 // SOAP style
-$config['soap_username'] = 'admin_soap';                            // SOAP account username.
-$config['soap_password'] = 'admin_soap';                            // SOAP account password.
-$config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}'; // Create account command, You can use it like this too: '.account create {USERNAME} {PASSWORD} {PASSWORD} {EMAIL}'
-$config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}'; // Change password command
 
 
 $config['script_version'] = '1.9.6';
