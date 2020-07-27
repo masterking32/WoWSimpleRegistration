@@ -38,7 +38,7 @@ $config['smtp_pass'] = 'SECRET';                                    // SMTP pass
 $config['smtp_secure'] = 'tls';                                     // Enable TLS encryption, `ssl` also accepted
 $config['smtp_mail'] = 'no-reply@example.com';                      // Send emails by ...
 
-$config['hcaptcha'] = 'false';                                     // If you want to use hcaptcha you need to enable that. (If you don't want to use HCaptcha, We will use image as captcha)
+$config['hcaptcha'] = false;                                     // If you want to use hcaptcha you need to enable that. (If you don't want to use HCaptcha, We will use image as captcha)
 $config['hcaptcha_key'] = '';                                      // Go to https://hCaptcha.com/?r=6d4f9117ba12 to get key.
 $config['hcaptcha_secret'] = '';                                   // Go to https://hCaptcha.com/?r=6d4f9117ba12 to get key.
 $config['hcaptcha_language'] = 'en';                               // Go to https://docs.hcaptcha.com/languages to find language code.
