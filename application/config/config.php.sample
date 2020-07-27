@@ -128,4 +128,4 @@ $config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}'; // Create a
 $config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}'; // Change password command
 
 
-$config['script_version'] = '1.9.5';
+$config['script_version'] = '1.9.6';
