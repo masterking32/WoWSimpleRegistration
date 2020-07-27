@@ -124,6 +124,7 @@ $config['vote_sites'] = array(
 );
 /*===================================================================
 You can use Image captcha or HCaptcha or Recaptcha v2.
+If you want to use Recaptcha v2 or HCaptcha required to enable cURL in your PHP.
 ** We recommend using HCaptcha. **
 captcha_type
     0) Image Captcha
