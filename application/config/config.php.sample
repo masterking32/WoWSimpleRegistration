@@ -126,9 +126,10 @@ $config['vote_sites'] = array(
 You can use Image captcha or HCaptcha or Recaptcha v2.
 ** We recommend using HCaptcha. **
 captcha_type
-    1) Image Captcha
-    2) HCaptcha
-    3) ReCaptcha v2
+    0) Image Captcha
+    1) HCaptcha
+    2) ReCaptcha v2
+    +2) Disable captcha. (DON'T DO THAT!)
 For image captcha, you don't need to put anything for captcha_key captcha_secret or captcha_language.
 captcha_secret/captcha_secret
     To get key and secret for HCaptcha go to https://hCaptcha.com/?r=6d4f9117ba12
