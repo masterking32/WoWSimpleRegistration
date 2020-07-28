@@ -192,10 +192,9 @@ function RemoteCommandWithSOAP($COMMAND)
 
 function validate_hcaptcha($value)
 {
-    global $config;
     try {
         $data = array(
-            'secret' => $config['captcha_secret'],
+            'secret' => get_config('captcha_secret'),
             'response' => $_POST['h-captcha-response']
         );
         $verify = curl_init();
@@ -216,10 +215,9 @@ function validate_hcaptcha($value)
 
 function validate_recaptcha($value)
 {
-    global $config;
     try {
         $verify = curl_init();
-        curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify?secret=" . $config['captcha_secret'] . "&response=" . $_POST['g-recaptcha-response']);
+        curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify?secret=" . get_config('captcha_secret') . "&response=" . $_POST['g-recaptcha-response']);
         curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($verify);
         $responseData = json_decode($response, true);
@@ -234,21 +232,20 @@ function validate_recaptcha($value)
 
 function captcha_validation()
 {
-    global $config;
-    if (empty($config['captcha_type']) && !empty($_POST['captcha']) && !empty($_SESSION['captcha'])) {
+    if (empty(get_config('captcha_type')) && !empty($_POST['captcha']) && !empty($_SESSION['captcha'])) {
         if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
             error_msg('Captcha is not valid.');
             return false;
         }
         unset($_SESSION['captcha']);
-    } else if (!empty($config['captcha_type']) && $config['captcha_type'] > 2) {
+    } else if (!empty(get_config('captcha_type')) && get_config('captcha_type') > 2) {
         return true;
-    } elseif (!empty($config['captcha_type']) && $config['captcha_type'] == 1 && !empty($_POST['h-captcha-response'])) {
+    } elseif (!empty(get_config('captcha_type')) && get_config('captcha_type') == 1 && !empty($_POST['h-captcha-response'])) {
         if (!validate_hcaptcha($_POST['h-captcha-response'])) {
             error_msg('HCaptcha is not valid.');
             return false;
         }
-    } elseif (!empty($config['captcha_type']) && $config['captcha_type'] == 2 && !empty($_POST['g-recaptcha-response'])) {
+    } elseif (!empty(get_config('captcha_type')) && get_config('captcha_type') == 2 && !empty($_POST['g-recaptcha-response'])) {
         if (!validate_recaptcha($_POST['g-recaptcha-response'])) {
             error_msg('ReCaptcha is not valid.');
             return false;
@@ -263,12 +260,11 @@ function captcha_validation()
 
 function getCaptchaJS()
 {
-    global $config;
-    if (!empty($config['captcha_type'])) {
-        if ($config['captcha_type'] == 1) {
-            return '<script src="https://hcaptcha.com/1/api.js?hl=' . $config['captcha_language'] . '" async defer></script><style>.h-captcha { display: inline-block;}</style>';
-        } else if ($config['captcha_type'] == 2) {
-            return '<script src="https://www.google.com/recaptcha/api.js?hl=' . $config['captcha_language'] . '" async defer></script><style>.g-recaptcha { display: inline-block;}</style>';
+    if (!empty(get_config('captcha_type'))) {
+        if (get_config('captcha_type') == 1) {
+            return '<script src="https://hcaptcha.com/1/api.js?hl=' . get_config('captcha_language') . '" async defer></script><style>.h-captcha { display: inline-block;}</style>';
+        } else if (get_config('captcha_type') == 2) {
+            return '<script src="https://www.google.com/recaptcha/api.js?hl=' . get_config('captcha_language') . '" async defer></script><style>.g-recaptcha { display: inline-block;}</style>';
         }
     }
 
@@ -277,12 +273,11 @@ function getCaptchaJS()
 
 function GetCaptchaHTML()
 {
-    global $config;
-    if (!empty($config['captcha_type'])) {
-        if ($config['captcha_type'] == 1) {
-            return '<div class="row text-center"><div class="col-md-12 text-center"><div class="h-captcha" data-sitekey="' . $config['captcha_key'] . '" style=\'margin:10px auto\'></div></div></div>';
-        } else if ($config['captcha_type'] == 2) {
-            return '<div class="row text-center"><div class="col-md-12 text-center"><div class="g-recaptcha" data-sitekey="' . $config['captcha_key'] . '" style=\'margin:10px auto\'></div></div></div>';
+    if (!empty(get_config('captcha_type'))) {
+        if (get_config('captcha_type') == 1) {
+            return '<div class="row text-center"><div class="col-md-12 text-center"><div class="h-captcha" data-sitekey="' . get_config('captcha_key') . '" style=\'margin:10px auto\'></div></div></div>';
+        } else if (get_config('captcha_type') == 2) {
+            return '<div class="row text-center"><div class="col-md-12 text-center"><div class="g-recaptcha" data-sitekey="' . get_config('captcha_key') . '" style=\'margin:10px auto\'></div></div></div>';
         } else {
             return '';
         }
