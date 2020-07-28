@@ -165,6 +165,12 @@ class user
             $command = str_replace('{PASSWORD}', $antiXss->xss_clean($_POST['password']), $command);
             $command = str_replace('{EMAIL}', $antiXss->xss_clean(strtoupper($_POST['email'])), $command);
             if (RemoteCommandWithSOAP($command)) {
+                if (!empty(get_config('soap_asa_command'))) {
+                    $command_addon = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_asa_command'));
+                    $command_addon = str_replace('{EXPANSION}', get_config('expansion'), $command_addon);
+                    RemoteCommandWithSOAP($command_addon);
+                }
+
                 database::$auth->update('account', [
                     'email' => $antiXss->xss_clean(strtoupper($_POST['email']))
                 ], ['username' => Medoo::raw('UPPER(:username)', [':username' => $antiXss->xss_clean(strtoupper($_POST['username']))])]);
