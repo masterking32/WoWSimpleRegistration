@@ -196,7 +196,7 @@ $config['soap_asa_command'] = 'account set addon {USERNAME} {EXPANSION}';
 Two-Factor Authentication (2FA)
 Your core must support 2fa.
 This feature just works for cores that have 2fa command.
-If your core support 2fa but don't have any command, you can check this: https://github.com/masterking32/WoWSimpleRegistration/pull/20
+If your core support 2fa but don't have any command, you can check this: https://github.com/masterking32/WoWSimpleRegistration/pull/20 (Support some of the cores, Required to use 2fa for registration.)
 
 You need to config SOAP too but you don't need to enable 'soap_for_register'.
 For security reasons, We used email to enable 2fa, You need to enable SMTP config.
