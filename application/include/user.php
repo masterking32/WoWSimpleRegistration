@@ -19,6 +19,10 @@ class user
             self::restorepassword_setnewpw($_GET['restore'], $_GET['key']);
         }
 
+        if (!empty($_GET['enabletfa']) && !empty($_GET['account'])) {
+            self::account_set_2fa($_GET['enabletfa'], $_GET['account']);
+        }
+
         if (!empty($_POST['submit'])) {
             self::tfa_enable();
             if (get_config('battlenet_support')) {
@@ -346,7 +350,7 @@ class user
             }
 
             $field_acc = $userinfo['email'];
-        } else if (!get_config('battlenet_support')) {
+        } else {
             if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
                 error_msg('Use a valid username.');
                 return false;
@@ -386,8 +390,7 @@ class user
             return false;
         }
 
-        if($restore_key == 1 || strlen($restore_key) < 30)
-        {
+        if ($restore_key == 1 || strlen($restore_key) < 30) {
             return false;
         }
 
@@ -397,7 +400,7 @@ class user
             }
 
             $userinfo = self::get_user_by_email(strtoupper($user_data));
-        } else if (!get_config('battlenet_support')) {
+        } else {
             if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($user_data))) {
                 error_msg('Use a valid username.');
                 return false;
@@ -548,7 +551,7 @@ class user
         database::$auth->query("ALTER TABLE `account` ADD COLUMN `restore_key` varchar(255) NULL DEFAULT '1';");
         return true;
     }
-    
+
     /**
      * Enable 2fa
      * @return bool
@@ -593,8 +596,7 @@ class user
         ]);
 
         $account = $userinfo['email'];
-        if(empty(get_config('battlenet_support')))
-        {
+        if (empty(get_config('battlenet_support'))) {
             $account = $userinfo['username'];
         }
 
@@ -603,5 +605,64 @@ class user
         send_phpmailer(strtolower($userinfo['email']), 'Enable Account 2FA', $message);
         success_msg('Check your email, (Check SPAM/Junk too).');
         return true;
+    }
+
+    public static function account_set_2fa($verify_key, $account)
+    {
+        global $antiXss;
+        if (empty($verify_key) || empty($account)) {
+            return false;
+        }
+
+        if ($verify_key == 1 || strlen($verify_key) < 30) {
+            return false;
+        }
+
+        $acc_name = "";
+        if (get_config('battlenet_support')) {
+            if (!filter_var($account, FILTER_VALIDATE_EMAIL)) {
+                return false;
+            }
+
+            $userinfo = self::get_user_by_email(strtoupper($account));
+            $acc_name = $userinfo['email'];
+        } else {
+            if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($account))) {
+                return false;
+            }
+
+            $userinfo = self::get_user_by_username(strtoupper($account));
+            $acc_name = $userinfo['username'];
+        }
+
+        if (empty($userinfo['email'])) {
+            return false;
+        }
+
+        if ($userinfo['restore_key'] != $verify_key) {
+            return false;
+        }
+
+        $tfa_key = strtoupper(generateRandomString(16));
+
+        database::$auth->update('account', [
+            'restore_key' => '1'
+        ], [
+            'id[=]' => $userinfo['id']
+        ]);
+
+        $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($userinfo['username'])), get_config('soap_2d_command'));
+        RemoteCommandWithSOAP($command);
+        $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($userinfo['username'])), get_config('soap_2e_command'));
+        $command = str_replace('{SECRET}', $tfa_key, $command);
+        RemoteCommandWithSOAP($command);
+
+        $message = 'Two-Factor Authentication (2FA) enabled on your account.<br>Please scan the barcode with Google Authenticator.<BR>';
+        $message .= '<img src="https://api.qrserver.com/v1/create-qr-code/?data=otpauth://totp/' . get_config('page_title') . '-' . $acc_name . '?secret=' . $tfa_key . '&size=200x200&ecc=M"><BR>';
+        $message .= 'or you can add this code to Google Authenticator: <B>' . $tfa_key . '</B>.<BR>';
+
+        send_phpmailer(strtolower($userinfo['email']), 'Account 2FA enabled', $message);
+
+        success_msg('Account 2FA enabled please check your email, (Check SPAM/Junk too).');
     }
 }
