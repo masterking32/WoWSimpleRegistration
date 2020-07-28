@@ -151,6 +151,9 @@ soap_for_register
     Servers using SRP6 for the password must enable this option and disabled change password.
     If you want to enable Two-Factor Authentication (2FA) you don't need to enable this option.
     For Two-Factor Authentication (2FA)  just need to config other parts of the SOAP.
+
+SOAP features need to enable soap in your PHP.
+
 soap_host
     SOAP server address
 soap_port
@@ -189,6 +192,28 @@ $config['soap_password'] = 'admin_soap';
 $config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}';
 $config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}';
 $config['soap_asa_command'] = 'account set addon {USERNAME} {EXPANSION}';
+/*===================================================================
+Two-Factor Authentication (2FA)
+Your core must support 2fa.
+This feature just works for cores that have 2fa command.
+If your core support 2fa but don't have any command, you can check this: https://github.com/masterking32/WoWSimpleRegistration/pull/20
+
+You need to config SOAP too but you don't need to enable 'soap_for_register'.
+For security reasons, We used email to enable 2fa, You need to enable SMTP config.
+
+2fa_support
+    You can enable or disable it. (true/false)
+soap_2d_command
+    Command to disable 2fa.
+    account set 2fa {USERNAME} off
+soap_2e_command
+    Command to enable 2fa.
+    account set 2fa {USERNAME} off
+    account set 2fa {USERNAME} {SECRET}
+=====================================================================*/
+$config['2fa_support'] = false;
+$config['soap_2d_command'] = 'account set 2fa {USERNAME} off';
+$config['soap_2e_command'] = 'account set 2fa {USERNAME} {SECRET}';
 /*===================================================================
 You Auth/Realmd MySQL information.
 db_auth_host
