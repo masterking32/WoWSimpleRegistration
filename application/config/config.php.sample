@@ -173,6 +173,11 @@ soap_cp_command
     Change password command
     account set password {USERNAME} {PASSWORD} {PASSWORD}
     Check change password command in your server
+soap_asa_command
+    If you use soap_for_register, You need to set this command.
+    This command will be run after soap_ca_command.
+    If you don't want to run any command after soap_ca_command you can make it empty like this: ''
+    account set addon {USERNAME} {EXPANSION}
 =====================================================================*/
 $config['soap_for_register'] = false;
 $config['soap_host'] = '127.0.0.1';
@@ -183,6 +188,7 @@ $config['soap_username'] = 'admin_soap';
 $config['soap_password'] = 'admin_soap';
 $config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}';
 $config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}';
+$config['soap_asa_command'] = 'account set addon {USERNAME} {EXPANSION}';
 /*===================================================================
 You Auth/Realmd MySQL information.
 db_auth_host
