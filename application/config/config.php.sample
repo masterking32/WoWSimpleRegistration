@@ -208,7 +208,6 @@ soap_2d_command
     account set 2fa {USERNAME} off
 soap_2e_command
     Command to enable 2fa.
-    account set 2fa {USERNAME} off
     account set 2fa {USERNAME} {SECRET}
 =====================================================================*/
 $config['2fa_support'] = false;

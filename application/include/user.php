@@ -20,6 +20,7 @@ class user
         }
 
         if (!empty($_POST['submit'])) {
+            self::tfa_enable();
             if (get_config('battlenet_support')) {
                 self::bnet_register();
                 self::bnet_changepass();
@@ -545,6 +546,62 @@ class user
     static function add_password_key_to_acctbl()
     {
         database::$auth->query("ALTER TABLE `account` ADD COLUMN `restore_key` varchar(255) NULL DEFAULT '1';");
+        return true;
+    }
+    
+    /**
+     * Enable 2fa
+     * @return bool
+     */
+    public static function tfa_enable()
+    {
+        global $antiXss;
+
+        if (empty(get_config('2fa_support'))) {
+            return false;
+        }
+
+        if (empty($_POST['submit']) || $_POST['submit'] != 'etfa' || empty($_POST['email']) || (empty(get_config('battlenet_support')) && empty($_POST['username']))) {
+            return false;
+        }
+
+        if (!captcha_validation()) {
+            return false;
+        }
+
+        $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
+        if (empty($userinfo['id'])) {
+            error_msg('Account is not valid.');
+            return false;
+        }
+
+        if (empty(get_config('battlenet_support')) && strtolower($userinfo['username']) != strtolower($_POST['username'])) {
+            error_msg('Account is not valid.');
+            return false;
+        }
+
+        $verify_key = md5(strtolower($userinfo['email']) . "_" . time() . rand(1, 999999));
+
+        if (!isset($userinfo['restore_key'])) {
+            self::add_password_key_to_acctbl();
+        }
+
+        database::$auth->update('account', [
+            'restore_key' => $antiXss->xss_clean($verify_key)
+        ], [
+            'id[=]' => $userinfo['id']
+        ]);
+
+        $account = $userinfo['email'];
+        if(empty(get_config('battlenet_support')))
+        {
+            $account = $userinfo['username'];
+        }
+
+        $restorepass_URL = get_config('baseurl') . '/index.php?enabletfa=' . strtolower($verify_key) . '&account=' . strtolower($account);
+        $message = "Hey, to enable Two-Factor Authentication (2FA), Please open  <a href='$restorepass_URL' target='_blank'>this link</a>: <BR>$restorepass_URL";
+        send_phpmailer(strtolower($userinfo['email']), 'Enable Account 2FA', $message);
+        success_msg('Check your email, (Check SPAM/Junk too).');
         return true;
     }
 }
