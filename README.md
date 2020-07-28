@@ -70,7 +70,7 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
 
 RESTORE PASSWORD DOESN'T WORK IN DEMO VERSIONS.
 
-LIVE DEMO IS FOR OLD VERSION!
+### LIVE DEMO IS FOR OLD VERSION!
 
 [Light Template](http://wowsimpleregistration.gigfa.com/light/)
 
@@ -85,38 +85,19 @@ Advance Template - NO HAVE LIVE DEMO!
 ## Advance Template
 
 ![BFA](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-bfa-min.jpg)
-![LEGION](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-legion-min.jpg)
-![WOD](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-wod-min.jpg)
-![MOP](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-mop-min.jpg)
-![Cata](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-cata-min.jpg)
-![Lich King](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-lichking-min.jpg)
-![TBC](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-tbc-min.jpg)
-![Classic](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-vanilla-min.jpg)
 
 ## Light Template
 
 ![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/1.jpg)
-![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/2.jpg)
-![How to Connect Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/3.jpg)
-![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/4.jpg)
-![TOPS](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/5.jpg)
 
 ## IceCrown Template
 
 ![Home Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i1.jpg)
-![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i2.jpg)
-![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i3.jpg)
-![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i4.jpg)
-![TOP](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i5.jpg)
-
 ## Kael'thas Template
 
 ![Home Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k1.jpg)
-![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k2.jpg)
-![How to Connect Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k3.jpg)
-![Status Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k4.jpg)
-![Contact us Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k5.jpg)
-![TOP](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k6.jpg)
+
+Need more screenshots? [Check here](https://github.com/masterking32/WoWSimpleRegistration/tree/master/screenshots)
 
 ## Programmers
 
