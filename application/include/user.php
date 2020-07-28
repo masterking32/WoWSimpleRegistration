@@ -610,6 +610,11 @@ class user
     public static function account_set_2fa($verify_key, $account)
     {
         global $antiXss;
+
+        if (empty(get_config('2fa_support'))) {
+            return false;
+        }
+
         if (empty($verify_key) || empty($account)) {
             return false;
         }
