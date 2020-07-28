@@ -51,7 +51,7 @@ class user
     public static function bnet_register()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['repassword']) && !empty($_POST['email']))) {
+        if ($_POST['submit'] != 'register' || empty($_POST['password']) || empty($_POST['repassword']) || empty($_POST['email'])) {
             return false;
         }
 
@@ -107,7 +107,7 @@ class user
     public static function normal_register()
     {
         global $antiXss;
-        if (!($_POST['submit'] == 'register' && !empty($_POST['password']) && !empty($_POST['username']) && !empty($_POST['repassword']) && !empty($_POST['email']))) {
+        if ($_POST['submit'] != 'register' || empty($_POST['password']) || empty($_POST['username']) || empty($_POST['repassword']) || empty($_POST['email'])) {
             return false;
         }
 
@@ -196,7 +196,7 @@ class user
             return false;
         }
 
-        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['email']))) {
+        if ($_POST['submit'] != 'changepass' || empty($_POST['password']) || empty($_POST['old_password']) || empty($_POST['repassword']) || empty($_POST['email'])) {
             return false;
         }
 
@@ -267,7 +267,7 @@ class user
             return false;
         }
 
-        if (!($_POST['submit'] == 'changepass' && !empty($_POST['password']) && !empty($_POST['old_password']) && !empty($_POST['repassword']) && !empty($_POST['username']))) {
+        if ($_POST['submit'] != 'changepass' || empty($_POST['password']) || empty($_POST['old_password']) || empty($_POST['repassword']) || empty($_POST['username'])) {
             return false;
         }
 
