@@ -30,13 +30,20 @@ If you got blank screen, You can enable `debug_mode` in config file.
  7. Restore Password (5/31/2019).
  8. Vote System (4/03/2020).
  9. Support HCaptcha/Recaptcha v2 (7/27/2020).
+ 9. Support Two-Factor Authentication (2FA) (7/28/2020).
 
 ## Changelogs
 
+ **1.9.7 (7/28/2020):**
+ 1. Support Two-Factor Authentication (2FA)
+ 2. Fixed a low level vulnerability. (UPDATE TO THIS VERSION)
+ 3. Fixed some of bugs.
+ 3. Allow to run `account set addon` command after registration. (SOAP registration)
+ 
  **1.9.6 (7/27/2020):**
  1. Support HCaptcha/Recaptcha/Image captcha.
  2. Fixed page load speed!
- 3. Add more description for config file.
+ 3. Add more description for the config file.
  3. Update composer packages.
  
  **1.9.5 (4/17/2020):**
