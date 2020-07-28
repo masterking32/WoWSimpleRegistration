@@ -28,14 +28,14 @@ class user
                 self::normal_changepass();
             }
             self::restorepassword();
-            if (empty($config['captcha_type'])) {
+            if (empty(get_config('captcha_type'))) {
                 unset($_SESSION['captcha']);
                 self::$captcha = new CaptchaBuilder;
                 self::$captcha->build();
                 $_SESSION['captcha'] = self::$captcha->getPhrase();
             }
         } else {
-            if (empty($config['captcha_type'])) {
+            if (empty(get_config('captcha_type'))) {
                 unset($_SESSION['captcha']);
                 self::$captcha = new CaptchaBuilder;
                 self::$captcha->build();
