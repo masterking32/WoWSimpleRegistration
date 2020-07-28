@@ -144,9 +144,13 @@ $config['captcha_key'] = '';
 $config['captcha_secret'] = '';
 $config['captcha_language'] = 'en';
 /*===================================================================
-use_soap
+soap_for_register
     Enable it if you have CMangos-Classic/MangosZero or Some of TBC servers.
     Don't Enable it for AzerothCore/TrinityCore/SkyFire and AshamaneCore.
+    If your core database is different you can use SOAP for registration.
+    Servers using SRP6 for the password must enable this option and disabled change password.
+    If you want to enable Two-Factor Authentication (2FA) you don't need to enable this option.
+    For Two-Factor Authentication (2FA)  just need to config other parts of the SOAP.
 soap_host
     SOAP server address
 soap_port
@@ -170,7 +174,7 @@ soap_cp_command
     account set password {USERNAME} {PASSWORD} {PASSWORD}
     Check change password command in your server
 =====================================================================*/
-$config['use_soap'] = false;
+$config['soap_for_register'] = false;
 $config['soap_host'] = '127.0.0.1';
 $config['soap_port'] = '7878';
 $config['soap_uri'] = 'urn:MaNGOS';
