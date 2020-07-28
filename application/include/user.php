@@ -385,6 +385,11 @@ class user
             return false;
         }
 
+        if($restore_key == 1 || strlen($restore_key) < 30)
+        {
+            return false;
+        }
+
         if (get_config('battlenet_support')) {
             if (!filter_var($user_data, FILTER_VALIDATE_EMAIL)) {
                 return false;
