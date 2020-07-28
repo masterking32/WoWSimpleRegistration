@@ -150,7 +150,7 @@ class user
             return false;
         }
 
-        if (empty(get_config('use_soap'))) {
+        if (empty(get_config('soap_for_register'))) {
             $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
             database::$auth->insert('account', [
                 'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
@@ -425,7 +425,7 @@ class user
             ]);
         } else {
             $message = 'Your new account information : <br>Username: ' . strtolower($userinfo['username']) . '<br>Password: ' . $new_password;
-            if (empty(get_config('use_soap'))) {
+            if (empty(get_config('soap_for_register'))) {
                 $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
                 database::$auth->update('account', [
                     'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
