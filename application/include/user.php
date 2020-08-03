@@ -714,7 +714,8 @@ class user
             return false;
         }
 
-        $tfa_key = strtoupper(generateRandomString(16));
+        $ga = new PHPGangsta_GoogleAuthenticator();
+        $tfa_key = $ga->createSecret();
 
         database::$auth->update('account', [
             'restore_key' => '1'
@@ -728,12 +729,16 @@ class user
         $command = str_replace('{SECRET}', $tfa_key, $command);
         RemoteCommandWithSOAP($command);
 
+        $acc_name = str_replace('-', '', $acc_name);
+        $acc_name = str_replace('.', '', $acc_name);
+        $acc_name = str_replace('_', '', $acc_name);
+        $acc_name = str_replace('@', '', $acc_name);
+
         $message = 'Two-Factor Authentication (2FA) enabled on your account.<br>Please scan the barcode with Google Authenticator.<BR>';
-        $message .= '<img src="https://api.qrserver.com/v1/create-qr-code/?data=otpauth://totp/' . get_config('page_title') . '-' . $acc_name . '?secret=' . $tfa_key . '&size=200x200&ecc=M"><BR>';
+        $message .= '<img src="' . $ga->getQRCodeGoogleUrl($acc_name, $tfa_key) . '"><BR>';
         $message .= 'or you can add this code to Google Authenticator: <B>' . $tfa_key . '</B>.<BR>';
 
         send_phpmailer(strtolower($userinfo['email']), 'Account 2FA enabled', $message);
-
         success_msg('Account 2FA enabled please check your email, (Check SPAM/Junk too).');
     }
 }
