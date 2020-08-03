@@ -34,7 +34,10 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
 
 ## Changelogs
 
- **1.9.7 (7/28/2020):**
+ **1.9.7.5 (8/03/2020):**
+ 1. Support SRP6.
+ 
+  **1.9.7 (7/28/2020):**
  1. Support Two-Factor Authentication (2FA)
  2. Fixed a low-level vulnerability. (UPDATE TO THIS VERSION)
  3. Fixed some of the bugs.
