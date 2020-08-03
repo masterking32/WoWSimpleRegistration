@@ -49,6 +49,11 @@ If your server is WoD/Legion/BFA you should enable it!
 =====================================================================*/
 $config['battlenet_support'] = false;
 /*===================================================================
+If your core password encryption is SRP6, you need to enable it.
+For last versions of the TrinityCore(3.3.5) you need to enable it. https://git.io/JJRH4
+=====================================================================*/
+$config['srp6_support'] = false;
+/*===================================================================
 If you have an issue with top players or online players you can disable them!
 disable_top_players
     Disable server top players page [true: Hide top players page]
@@ -145,10 +150,8 @@ $config['captcha_secret'] = '';
 $config['captcha_language'] = 'en';
 /*===================================================================
 soap_for_register
-    Enable it if you have CMangos-Classic/MangosZero or Some of TBC servers.
     Don't Enable it for AzerothCore/TrinityCore/SkyFire and AshamaneCore.
-    If your core database is different you can use SOAP for registration.
-    Servers using SRP6 for the password must enable this option and disabled change password.
+    If you enable that you need to disabled change password feature.
     If you want to enable Two-Factor Authentication (2FA) you don't need to enable this option.
     For Two-Factor Authentication (2FA)  just need to config other parts of the SOAP.
 
