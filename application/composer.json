@@ -5,6 +5,7 @@
         "rmccue/requests": "^1.7",
         "phpmailer/phpmailer": "^6.0",
         "gregwar/captcha": "^1.1",
-        "catfan/medoo": "^1.6"
+        "catfan/medoo": "^1.6",
+        "phpgangsta/googleauthenticator": "dev-master"
     }
 }

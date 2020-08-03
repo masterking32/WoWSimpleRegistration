@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+    'PHPGangsta_GoogleAuthenticator' => $vendorDir . '/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php',
     'SebastianBergmann\\Timer\\Exception' => $vendorDir . '/phpunit/php-timer/src/Exception.php',
     'SebastianBergmann\\Timer\\RuntimeException' => $vendorDir . '/phpunit/php-timer/src/RuntimeException.php',
     'SebastianBergmann\\Timer\\Timer' => $vendorDir . '/phpunit/php-timer/src/Timer.php',
