@@ -84,6 +84,29 @@ class user
             return false;
         }
 
+        if (empty(get_config('srp6_support'))) {
+            $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($_POST['email'])) . ':' . strtoupper($_POST['password']))))))));
+            database::$auth->insert('battlenet_accounts', [
+                'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass)
+            ]);
+
+            $bnet_account_id = database::$auth->id();
+            $username = $bnet_account_id . '#1';
+            $hashed_pass = strtoupper(sha1(strtoupper($username . ':' . $_POST['password'])));
+            database::$auth->insert('account', [
+                'username' => $antiXss->xss_clean(strtoupper($username)),
+                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                'expansion' => $antiXss->xss_clean(get_config('expansion')),
+                'battlenet_account' => $bnet_account_id,
+                'battlenet_index' => 1
+            ]);
+            success_msg('Your account has been created.');
+            return true;
+        }
+
+        list($salt, $verifier) = getRegistrationData(strtoupper($_POST['username']), $_POST['password']);
         $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($_POST['email'])) . ':' . strtoupper($_POST['password']))))))));
         database::$auth->insert('battlenet_accounts', [
             'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
@@ -92,10 +115,10 @@ class user
 
         $bnet_account_id = database::$auth->id();
         $username = $bnet_account_id . '#1';
-        $hashed_pass = strtoupper(sha1(strtoupper($username . ':' . $_POST['password'])));
         database::$auth->insert('account', [
             'username' => $antiXss->xss_clean(strtoupper($username)),
-            'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+            'salt' => $salt,
+            'verifier' => $verifier,
             'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
             'expansion' => $antiXss->xss_clean(get_config('expansion')),
             'battlenet_account' => $bnet_account_id,
@@ -156,34 +179,49 @@ class user
         }
 
         if (empty(get_config('soap_for_register'))) {
-            $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
+            if (empty(get_config('srp6_support'))) {
+                $hashed_pass = strtoupper(sha1(strtoupper($_POST['username'] . ':' . $_POST['password'])));
+                database::$auth->insert('account', [
+                    'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
+                    'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    //'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'expansion' => $antiXss->xss_clean(get_config('expansion'))
+                ]);
+                success_msg('Your account has been created.');
+                return true;
+            }
+
+            list($salt, $verifier) = getRegistrationData(strtoupper($_POST['username']), $_POST['password']);
             database::$auth->insert('account', [
                 'username' => $antiXss->xss_clean(strtoupper($_POST['username'])),
-                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'salt' => $salt,
+                'verifier' => $verifier,
                 'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
                 //'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
                 'expansion' => $antiXss->xss_clean(get_config('expansion'))
             ]);
             success_msg('Your account has been created.');
-        } else {
-            $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_ca_command'));
-            $command = str_replace('{PASSWORD}', $antiXss->xss_clean($_POST['password']), $command);
-            $command = str_replace('{EMAIL}', $antiXss->xss_clean(strtoupper($_POST['email'])), $command);
-            if (RemoteCommandWithSOAP($command)) {
-                if (!empty(get_config('soap_asa_command'))) {
-                    $command_addon = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_asa_command'));
-                    $command_addon = str_replace('{EXPANSION}', get_config('expansion'), $command_addon);
-                    RemoteCommandWithSOAP($command_addon);
-                }
+            return true;
+        }
 
-                database::$auth->update('account', [
-                    'email' => $antiXss->xss_clean(strtoupper($_POST['email']))
-                ], ['username' => Medoo::raw('UPPER(:username)', [':username' => $antiXss->xss_clean(strtoupper($_POST['username']))])]);
-
-                success_msg('Your account has been created.');
-            } else {
-                error_msg('ERROR!, Please try again!');
+        $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_ca_command'));
+        $command = str_replace('{PASSWORD}', $antiXss->xss_clean($_POST['password']), $command);
+        $command = str_replace('{EMAIL}', $antiXss->xss_clean(strtoupper($_POST['email'])), $command);
+        if (RemoteCommandWithSOAP($command)) {
+            if (!empty(get_config('soap_asa_command'))) {
+                $command_addon = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($_POST['username'])), get_config('soap_asa_command'));
+                $command_addon = str_replace('{EXPANSION}', get_config('expansion'), $command_addon);
+                RemoteCommandWithSOAP($command_addon);
             }
+
+            database::$auth->update('account', [
+                'email' => $antiXss->xss_clean(strtoupper($_POST['email']))
+            ], ['username' => Medoo::raw('UPPER(:username)', [':username' => $antiXss->xss_clean(strtoupper($_POST['username']))])]);
+
+            success_msg('Your account has been created.');
+        } else {
+            error_msg('ERROR!, Please try again!');
         }
 
         return true;
@@ -421,26 +459,7 @@ class user
 
         if (get_config('battlenet_support')) {
             $message = 'Your new account information : <br>Email: ' . strtolower($userinfo['email']) . '<br>Password: ' . $new_password;
-            $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
-            database::$auth->update('account', [
-                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-                'sessionkey' => '',
-                'v' => '',
-                's' => '',
-                'restore_key' => '1'
-            ], [
-                'id[=]' => $userinfo['id']
-            ]);
-
-            $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($new_password))))))));
-            database::$auth->update('battlenet_accounts', [
-                'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass)
-            ], [
-                'id[=]' => $userinfo['battlenet_account']
-            ]);
-        } else {
-            $message = 'Your new account information : <br>Username: ' . strtolower($userinfo['username']) . '<br>Password: ' . $new_password;
-            if (empty(get_config('soap_for_register'))) {
+            if (empty(get_config('srp6_support'))) {
                 $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
                 database::$auth->update('account', [
                     'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
@@ -451,6 +470,53 @@ class user
                 ], [
                     'id[=]' => $userinfo['id']
                 ]);
+            } else {
+                list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $new_password);
+                database::$auth->update('account', [
+                    'salt' => $salt,
+                    'verifier' => $verifier,
+                    'sessionkey' => '',
+                    'v' => '',
+                    's' => '',
+                    'restore_key' => '1'
+                ], [
+                    'id[=]' => $userinfo['id']
+                ]);
+            }
+
+            $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($new_password))))))));
+            database::$auth->update('battlenet_accounts', [
+                'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass)
+            ], [
+                'id[=]' => $userinfo['battlenet_account']
+            ]);
+        } else {
+            $message = 'Your new account information : <br>Username: ' . strtolower($userinfo['username']) . '<br>Password: ' . $new_password;
+            if (empty(get_config('soap_for_register'))) {
+                if (empty(get_config('srp6_support'))) {
+                    $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $new_password)));
+                    database::$auth->update('account', [
+                        'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                        'sessionkey' => '',
+                        'v' => '',
+                        's' => '',
+                        'restore_key' => '1'
+                    ], [
+                        'id[=]' => $userinfo['id']
+                    ]);
+                } else {
+                    list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $new_password);
+                    database::$auth->update('account', [
+                        'salt' => $salt,
+                        'verifier' => $verifier,
+                        'sessionkey' => '',
+                        'v' => '',
+                        's' => '',
+                        'restore_key' => '1'
+                    ], [
+                        'id[=]' => $userinfo['id']
+                    ]);
+                }
             } else {
                 $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($userinfo['username'])), get_config('soap_cp_command'));
                 $command = str_replace('{PASSWORD}', $antiXss->xss_clean($new_password), $command);

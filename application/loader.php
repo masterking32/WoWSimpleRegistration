@@ -37,7 +37,7 @@ require_once app_path . 'include/status.php';
 $antiXss = new AntiXSS();
 if (!empty(get_config('script_version'))) {
     /* @TODO Add online version check! */
-	if(version_compare(get_config('script_version'), '1.9.7', '<') )
+	if(version_compare(get_config('script_version'), '1.9.8', '<') )
 	{
 		echo 'Use last version of config.php file.';
 		exit();

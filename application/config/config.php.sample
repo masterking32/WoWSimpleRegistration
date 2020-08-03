@@ -288,4 +288,4 @@ $config['realmlists'] = array( // Add your realmlist here
 
 
 
-$config['script_version'] = '1.9.7';
+$config['script_version'] = '1.9.7.5';
