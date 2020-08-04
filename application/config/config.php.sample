@@ -50,7 +50,7 @@ If your server is WoD/Legion/BFA you should enable it!
 $config['battlenet_support'] = false;
 /*===================================================================
 If your core password encryption is SRP6, you need to enable it.
-For last versions of the TrinityCore(3.3.5) you need to enable it. https://git.io/JJRH4
+For last versions of the TrinityCore(3.3.5/master) you need to enable it. https://git.io/JJRH4 and https://git.io/JJrxq
 =====================================================================*/
 $config['srp6_support'] = false;
 /*===================================================================

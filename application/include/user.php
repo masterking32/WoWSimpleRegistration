@@ -269,22 +269,40 @@ class user
             return false;
         }
 
-        $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
-        $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
+        if (empty(get_config('srp6_support'))) {
+            $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
+            $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
 
-        if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
-            error_msg('Old password is not valid.');
-            return false;
+            if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
+                error_msg('Old password is not valid.');
+                return false;
+            }
+
+            database::$auth->update('account', [
+                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'sessionkey' => '',
+                'v' => '',
+                's' => ''
+            ], [
+                'id[=]' => $userinfo['id']
+            ]);
+        } else {
+            if (verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
+                error_msg('Old password is not valid.');
+                return false;
+            }
+
+            list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $_POST['password']);
+            database::$auth->update('account', [
+                'salt' => $salt,
+                'verifier' => $verifier,
+                'sessionkey' => '',
+                'v' => '',
+                's' => ''
+            ], [
+                'id[=]' => $userinfo['id']
+            ]);
         }
-
-        database::$auth->update('account', [
-            'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-            'sessionkey' => '',
-            'v' => '',
-            's' => ''
-        ], [
-            'id[=]' => $userinfo['id']
-        ]);
 
         $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($_POST['password']))))))));
 
@@ -334,21 +352,40 @@ class user
             return false;
         }
 
-        $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
-        $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
-        if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
-            error_msg('Old password is not valid.');
-            return false;
-        }
 
-        database::$auth->update('account', [
-            'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-            'sessionkey' => '',
-            'v' => '',
-            's' => ''
-        ], [
-            'id[=]' => $userinfo['id']
-        ]);
+        if (empty(get_config('srp6_support'))) {
+            $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
+            $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
+            if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
+                error_msg('Old password is not valid.');
+                return false;
+            }
+
+            database::$auth->update('account', [
+                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                'sessionkey' => '',
+                'v' => '',
+                's' => ''
+            ], [
+                'id[=]' => $userinfo['id']
+            ]);
+        } else {
+            if (verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
+                error_msg('Old password is not valid.');
+                return false;
+            }
+
+            list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $_POST['password']);
+            database::$auth->update('account', [
+                'salt' => $salt,
+                'verifier' => $verifier,
+                'sessionkey' => '',
+                'v' => '',
+                's' => ''
+            ], [
+                'id[=]' => $userinfo['id']
+            ]);
+        }
 
         success_msg('Password has been changed.');
         return true;
