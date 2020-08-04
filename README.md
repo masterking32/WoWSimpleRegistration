@@ -4,16 +4,17 @@ With this script, You can make a website for your game server.
 
 Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/), [CMangos](https://github.com/cmangos/).
 
+
+## Requirement : PHP >= 7.0
+
+Enable gmp, gd, soap, mbstring, pdo and pdo-mysql.
+
 # Installation
 
  - Download project & unzip.
  - Go to `application/config/` folder and change `config.php.sample` file name to `config.php`
  - Open the config file and set your server data.
  - Enjoy that.
-
-## Requirement : PHP >= 7.0
-
-Enable gmp, gd, soap, mbstring, pdo and pdo-mysql.
 
 # Debug
 
