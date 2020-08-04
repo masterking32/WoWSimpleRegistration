@@ -13,7 +13,7 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
 
 ## Requirement : PHP >= 7.0
 
-Enable gd, soap, mbstring, pdo and pdo-mysql.
+Enable gmp, gd, soap, mbstring, pdo and pdo-mysql.
 
 # Debug
 
