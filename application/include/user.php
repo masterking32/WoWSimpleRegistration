@@ -295,10 +295,7 @@ class user
             list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $_POST['password']);
             database::$auth->update('account', [
                 'salt' => $salt,
-                'verifier' => $verifier,
-                'sessionkey' => '',
-                'v' => '',
-                's' => ''
+                'verifier' => $verifier
             ], [
                 'id[=]' => $userinfo['id']
             ]);
@@ -378,10 +375,7 @@ class user
             list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $_POST['password']);
             database::$auth->update('account', [
                 'salt' => $salt,
-                'verifier' => $verifier,
-                'sessionkey' => '',
-                'v' => '',
-                's' => ''
+                'verifier' => $verifier
             ], [
                 'id[=]' => $userinfo['id']
             ]);
@@ -512,9 +506,6 @@ class user
                 database::$auth->update('account', [
                     'salt' => $salt,
                     'verifier' => $verifier,
-                    'sessionkey' => '',
-                    'v' => '',
-                    's' => '',
                     'restore_key' => '1'
                 ], [
                     'id[=]' => $userinfo['id']
@@ -546,9 +537,6 @@ class user
                     database::$auth->update('account', [
                         'salt' => $salt,
                         'verifier' => $verifier,
-                        'sessionkey' => '',
-                        'v' => '',
-                        's' => '',
                         'restore_key' => '1'
                     ], [
                         'id[=]' => $userinfo['id']
