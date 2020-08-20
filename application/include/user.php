@@ -287,7 +287,7 @@ class user
                 'id[=]' => $userinfo['id']
             ]);
         } else {
-            if (verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
+            if (!verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
                 error_msg('Old password is not valid.');
                 return false;
             }
@@ -367,7 +367,7 @@ class user
                 'id[=]' => $userinfo['id']
             ]);
         } else {
-            if (verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
+            if (!verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
                 error_msg('Old password is not valid.');
                 return false;
             }
