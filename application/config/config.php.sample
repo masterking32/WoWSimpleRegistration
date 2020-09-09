@@ -53,6 +53,8 @@ If your core password encryption is SRP6, you need to enable it.
 For last versions of the TrinityCore(3.3.5/master) you need to enable it. https://git.io/JJRH4 and https://git.io/JJrxq
 Enable that if you use the last version of TC.
 You need to enable the GMP extension for PHP.
+=====================================================================
+******Uncomment extension=gmp in your php.ini******
 =====================================================================*/
 $config['srp6_support'] = false;
 /*===================================================================
@@ -145,6 +147,8 @@ captcha_secret/captcha_secret
 captcha_language
     https://docs.hcaptcha.com/languages
     https://developers.google.com/recaptcha/docs/language
+=====================================================================
+******Uncomment extension=gd2 in your php.ini******
 =====================================================================*/
 $config['captcha_type'] = 0;
 $config['captcha_key'] = '';
@@ -186,6 +190,8 @@ soap_asa_command
     This command will be run after soap_ca_command.
     If you don't want to run any command after soap_ca_command you can make it empty like this: ''
     account set addon {USERNAME} {EXPANSION}
+=====================================================================
+******Uncomment extension=soap in your php.ini******
 =====================================================================*/
 $config['soap_for_register'] = false;
 $config['soap_host'] = '127.0.0.1';
