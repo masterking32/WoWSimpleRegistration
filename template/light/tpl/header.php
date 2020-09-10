@@ -25,6 +25,9 @@
     <script src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/js/popper.min.js"></script>
     <?php echo getCaptchaJS(); ?>
+
+    <?php echo(!empty(lang('custom_css')) ? '<style>' . lang('custom_css') . '</style>' : ''); ?>
+    <?php echo(!empty(lang('tpl_light_custom_css')) ? '<style>' . lang('tpl_light_custom_css') . '</style>' : ''); ?>
 </head>
 <body>
 <div class="container">
