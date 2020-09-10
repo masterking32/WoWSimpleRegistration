@@ -35,7 +35,7 @@ require_once app_path . 'include/user.php';
 require_once app_path . 'include/vote.php';
 require_once app_path . 'include/status.php';
 
-if (!preg_match('/^([a-z]+)$/i', get_config('language')) || !file_exists(app_path . 'language/' . get_config('language') . '.php')) {
+if (!preg_match('/^([a-z-]+)$/i', get_config('language')) || !file_exists(app_path . 'language/' . get_config('language') . '.php')) {
     die('Language is not valid!');
 }
 
