@@ -1,5 +1,20 @@
 # Changelog
 
+### 4.1.28 (2020-08-28)
+
+- fix allow base64 encoded images in <img>-tags (issue #61)
+- fix performance issue of regex with "preg_match_all"
+
+### 4.1.27 (2020-08-23)
+
+- allow e.g. "< $2.20" (issue #60)
+- optimize protection against HTML "script" tag stripping evasion
+- auto-generate the api documentation into the README
+
+### 4.1.26 (2020-08-08)
+
+- allow base64 encoded images in <img>-tags (issue #59)
+
 ### 4.1.25 (2020-06-12)
 
 - fix false-positive (issue #58)
