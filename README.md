@@ -2,7 +2,7 @@
 
 With this script, You can make a website for your game server.
 
-Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/ReyDonovan/AshamaneCoreLegacy/), [CMangos](https://github.com/cmangos/).
+Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/AshamaneProject/AshamaneCore/), [CMangos](https://github.com/cmangos/).
 
 
 ## Requirement : PHP >= 7.0
