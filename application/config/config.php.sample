@@ -11,9 +11,12 @@ baseurl
     That's your website URL. Example: "https://DOMAIN.COM"
 page_title
     That's your website title. Example: "My WOW Private server!"
+language
+    Website language (english)
 =====================================================================*/
 $config['baseurl'] = "http://localhost";
 $config['page_title'] = "Simple Register";
+$config['language'] = "english";
 /*===================================================================
 If you see a white screen or have an issue, you can enable it to see the errors.
 Note that after testing, be sure to disable this option.
@@ -296,4 +299,4 @@ $config['realmlists'] = array( // Add your realmlist here
 
 
 
-$config['script_version'] = '1.9.8';
+$config['script_version'] = '1.9.9';

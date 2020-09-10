@@ -341,3 +341,13 @@ function verifySRP6($user, $pass, $salt, $verifier)
     $v = gmp_powm($g, $x, $N);
     return ($verifier === str_pad(gmp_export($v, 1, GMP_LSW_FIRST), 32, chr(0), STR_PAD_RIGHT));
 }
+
+// Get language text
+function lang($val)
+{
+    global $language;
+    if (!empty($language[$val])) {
+        return $language[$val];
+    }
+    return "";
+}

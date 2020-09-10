@@ -34,14 +34,20 @@ require_once app_path . 'include/database.php';
 require_once app_path . 'include/user.php';
 require_once app_path . 'include/vote.php';
 require_once app_path . 'include/status.php';
+
+if (!preg_match('/^([a-z]+)$/i', get_config('language')) || !file_exists(app_path . 'language/' . get_config('language') . '.php')) {
+    die('Language is not valid!');
+}
+
+require_once app_path . 'language/' . get_config('language') . '.php';
+
 $antiXss = new AntiXSS();
 if (!empty(get_config('script_version'))) {
     /* @TODO Add online version check! */
-	if(version_compare(get_config('script_version'), '1.9.8', '<') )
-	{
-		echo 'Use last version of config.php file.';
-		exit();
-	}
+    if (version_compare(get_config('script_version'), '1.9.9', '<')) {
+        echo 'Use last version of config.php file.';
+        exit();
+    }
 } else {
     echo 'Use last version of config.php file.';
     exit();
