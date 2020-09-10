@@ -12,7 +12,7 @@ baseurl
 page_title
     That's your website title. Example: "My WOW Private server!"
 language
-    Website language (english/persian)
+    Website language (english/persian/italian)
 =====================================================================*/
 $config['baseurl'] = "http://localhost";
 $config['page_title'] = "Simple Register";

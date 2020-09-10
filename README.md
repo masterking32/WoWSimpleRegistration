@@ -31,11 +31,15 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
  7. Restore Password (5/31/2019).
  8. Vote System (4/03/2020).
  9. Support HCaptcha/Recaptcha v2 (7/27/2020).
- 9. Support Two-Factor Authentication (2FA) (7/28/2020).
+ 10. Support Two-Factor Authentication (2FA) (7/28/2020).
+ 11. Multi-Language support (9/10/2020).
 
 ## Changelogs
 
- **1.9.7.5 (8/03/2020):**
+ **1.9.9 (8/03/2020):**
+ 1. Multi-Language support.
+ 
+ **1.9.8 (8/03/2020):**
  1. Support SRP6.
  
   **1.9.7 (7/28/2020):**
