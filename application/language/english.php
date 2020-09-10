@@ -61,7 +61,7 @@ $language['two_factor_authentication_tip1'] = 'Install Google Authenticator.';
 $language['two_factor_authentication_enable'] = 'Enable 2FA';
 $language['close'] = 'Close';
 $language['vote'] = 'Vote';
-$language['old_password'] = 'old_password';
+$language['old_password'] = 'Old Password';
 $language['online_players'] = 'Online Players';
 $language['online_players_msg1'] = 'Limited to show 49 player - Online players:';
 $language['online_players_msg2'] = 'No players are currently online';
@@ -84,8 +84,10 @@ $language['frequently_questions'] = 'Frequently Asked Questions';
 $language['question'] = 'Question';
 $language['answer'] = 'Answer';
 $language['location'] = 'Location';
-$language['call'] = 'call';
+$language['call'] = 'Call';
 $language['restore_account_password'] = 'Restore Account Password';
+$language['about_server'] = 'About the server';
+$language['game_version'] = 'Game version';
 
 $language['use_valid_email'] = 'Use valid characters for email.';
 $language['use_valid_username'] = 'Use valid characters for username.';
@@ -105,6 +107,7 @@ $language['check_your_email'] = 'Check your email, (Check SPAM/Junk too).';
 $language['account_is_not_valid'] = 'Account is not valid.';
 $language['vote_site_not_valid'] = 'Vote site is not valid!';
 $language['you_already_voted'] = 'You already voted on this website.';
-
-
-
+$language['captcha_not_valid'] = 'Captcha is not valid.';
+$language['hcaptcha_not_valid'] = 'HCaptcha is not valid.';
+$language['recaptcha_not_valid'] = 'ReCaptcha is not valid.';
+$language['captcha_required'] = 'Captcha is required.';

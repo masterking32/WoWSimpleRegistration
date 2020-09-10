@@ -32,6 +32,9 @@
     <link href="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/css/style.css"
           rel="stylesheet">
     <?php echo getCaptchaJS(); ?>
+
+    <?php echo(!empty(lang('custom_css')) ? '<style>' . lang('custom_css') . '</style>' : ''); ?>
+    <?php echo(!empty(lang('tpl_advance_custom_css')) ? '<style>' . lang('tpl_advance_custom_css') . '</style>' : ''); ?>
 </head>
 <body>
 <section id="hero"
@@ -40,10 +43,10 @@
         <a href="" class="hero-logo" data-aos="zoom-in"><img style="width: 250px; max-width: 80%;"
                                                              src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/logo-1.png"
                                                              alt=""></a>
-        <h1 data-aos="zoom-in" class="text-shadow1">Welcome
-            To <?php echo $antiXss->xss_clean(get_config("page_title")); ?></h1>
-        <h2 data-aos="fade-up" class="text-shadow1">Welcome to our private server, Join us now!</h2>
-        <a data-aos="fade-up" href="#about" class="btn-get-started scrollto">Get Started</a>
+        <h1 data-aos="zoom-in"
+            class="text-shadow1"><?php echo lang('welcome_to') . ' ' . $antiXss->xss_clean(get_config("page_title")); ?></h1>
+        <h2 data-aos="fade-up" class="text-shadow1"><?php elang('welcome_message'); ?></h2>
+        <a data-aos="fade-up" href="#about" class="btn-get-started scrollto"><?php elang('get_started');  ?></a>
     </div>
 </section>
 <header id="header" class="d-flex align-items-center">
@@ -55,15 +58,15 @@
         </div>
         <nav class="nav-menu d-none d-lg-block">
             <ul class="nav-inner">
-                <li class="active"><a href="">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#connect">How to Connect</a></li>
+                <li class="active"><a href=""><?php elang('home');  ?></a></li>
+                <li><a href="#about"><?php elang('about');  ?></a></li>
+                <li><a href="#connect"><?php elang('how_to_connect');  ?></a></li>
                 <li class="nav-logo"><a href="index.php"><img
                                 src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/logo.png"
                                 alt="" class="img-fluid"></a></li>
-                <li><a href="#register">Register</a></li>
-                <li><a href="#server-status">Server status</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#register"><?php elang('register');  ?></a></li>
+                <li><a href="#server-status"><?php elang('server_status');  ?></a></li>
+                <li><a href="#contact"><?php elang('contact');  ?></a></li>
             </ul>
         </nav>
     </div>

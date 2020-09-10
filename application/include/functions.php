@@ -234,7 +234,7 @@ function captcha_validation()
 {
     if (empty(get_config('captcha_type')) && !empty($_POST['captcha']) && !empty($_SESSION['captcha'])) {
         if (strtolower($_SESSION['captcha']) != strtolower($_POST['captcha'])) {
-            error_msg('Captcha is not valid.');
+            error_msg(lang('captcha_not_valid'));
             return false;
         }
         unset($_SESSION['captcha']);
@@ -242,16 +242,16 @@ function captcha_validation()
         return true;
     } elseif (!empty(get_config('captcha_type')) && get_config('captcha_type') == 1 && !empty($_POST['h-captcha-response'])) {
         if (!validate_hcaptcha($_POST['h-captcha-response'])) {
-            error_msg('HCaptcha is not valid.');
+            error_msg(lang('hcaptcha_not_valid'));
             return false;
         }
     } elseif (!empty(get_config('captcha_type')) && get_config('captcha_type') == 2 && !empty($_POST['g-recaptcha-response'])) {
         if (!validate_recaptcha($_POST['g-recaptcha-response'])) {
-            error_msg('ReCaptcha is not valid.');
+            error_msg(lang('recaptcha_not_valid'));
             return false;
         }
     } else {
-        error_msg('Captcha is required.');
+        error_msg(lang('captcha_required'));
         return false;
     }
 
