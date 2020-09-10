@@ -283,7 +283,7 @@ function GetCaptchaHTML()
         }
     }
 
-    return '<div class="input-group"><span class="input-group">Captcha</span><input type="text" class="form-control" placeholder="Captcha" name="captcha"></div><p style="text-align: center;margin-top: 10px;"><img src="' . user::$captcha->inline() . '" style="border - radius: 5px;"/></p>';
+    return '<div class="input-group"><span class="input-group">' . lang('captcha') . '</span><input type="text" class="form-control" placeholder="' . lang('captcha') . '" name="captcha"></div><p style="text-align: center;margin-top: 10px;"><img src="' . user::$captcha->inline() . '" style="border - radius: 5px;"/></p>';
 }
 
 // Its from Trinitycore/account-creator
@@ -350,4 +350,10 @@ function lang($val)
         return $language[$val];
     }
     return "";
+}
+
+// Echo language text
+function elang($val)
+{
+    echo lang($val);
 }

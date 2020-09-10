@@ -65,22 +65,22 @@ class user
         }
 
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            error_msg('Use valid email.');
+            error_msg(lang('use_valid_email'));
             return false;
         }
 
         if ($_POST['password'] != $_POST['repassword']) {
-            error_msg('Passwords is not equal.');
+            error_msg(lang('passwords_not_equal'));
             return false;
         }
 
         if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
-            error_msg('Password length is not valid.');
+            error_msg(lang('passwords_length'));
             return false;
         }
 
         if (!self::check_email_exists(strtoupper($_POST["email"]))) {
-            error_msg('Username or Email is exists.');
+            error_msg(lang('username_or_email_exists'));
             return false;
         }
 
@@ -102,7 +102,7 @@ class user
                 'battlenet_account' => $bnet_account_id,
                 'battlenet_index' => 1
             ]);
-            success_msg('Your account has been created.');
+            success_msg(lang('account_created'));
             return true;
         }
 
@@ -124,7 +124,7 @@ class user
             'battlenet_account' => $bnet_account_id,
             'battlenet_index' => 1
         ]);
-        success_msg('Your account has been created.');
+        success_msg(lang('account_created'));
         return true;
     }
 
@@ -144,37 +144,37 @@ class user
         }
 
         if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
-            error_msg('Use valid characters for username.');
+            error_msg(lang('use_valid_username'));
             return false;
         }
 
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            error_msg('Use valid email.');
+            error_msg(lang('use_valid_email'));
             return false;
         }
 
         if ($_POST['password'] != $_POST['repassword']) {
-            error_msg('Passwords is not equal.');
+            error_msg(lang('passwords_not_equal'));
             return false;
         }
 
         if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
-            error_msg('Password length is not valid.');
+            error_msg(lang('passwords_length'));
             return false;
         }
 
         if (!(strlen($_POST['username']) >= 2 && strlen($_POST['username']) <= 16)) {
-            error_msg('Username length is not valid.');
+            error_msg(lang('username_length'));
             return false;
         }
 
         if (!get_config('multiple_email_use') && !self::check_email_exists(strtoupper($_POST['email']))) {
-            error_msg('Email is exists.');
+            error_msg(lang('email_exists'));
             return false;
         }
 
         if (!self::check_username_exists(strtoupper($_POST['username']))) {
-            error_msg('Username is exists.');
+            error_msg(lang('username_exists'));
             return false;
         }
 
@@ -188,7 +188,7 @@ class user
                     //'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
                     'expansion' => $antiXss->xss_clean(get_config('expansion'))
                 ]);
-                success_msg('Your account has been created.');
+                success_msg(lang('account_created'));
                 return true;
             }
 
@@ -201,7 +201,7 @@ class user
                 //'reg_mail' => $antiXss->xss_clean(strtoupper($_POST['email'])),
                 'expansion' => $antiXss->xss_clean(get_config('expansion'))
             ]);
-            success_msg('Your account has been created.');
+            success_msg(lang('account_created'));
             return true;
         }
 
@@ -219,9 +219,9 @@ class user
                 'email' => $antiXss->xss_clean(strtoupper($_POST['email']))
             ], ['username' => Medoo::raw('UPPER(:username)', [':username' => $antiXss->xss_clean(strtoupper($_POST['username']))])]);
 
-            success_msg('Your account has been created.');
+            success_msg(lang('account_created'));
         } else {
-            error_msg('ERROR!, Please try again!');
+            error_msg(lang('error_try_again'));
         }
 
         return true;
@@ -248,24 +248,24 @@ class user
         }
 
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            error_msg('Use valid email.');
+            error_msg(lang('use_valid_email'));
             return false;
         }
 
         if ($_POST['password'] != $_POST['repassword']) {
 
-            error_msg('Passwords is not equal.');
+            error_msg(lang('passwords_not_equal'));
             return false;
         }
 
         if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
-            error_msg('Password length is not valid.');
+            error_msg(lang('passwords_length'));
             return true;
         }
 
         $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
         if (empty($userinfo['username'])) {
-            error_msg('Email is not valid.');
+            error_msg(lang('email_not_correct'));
             return false;
         }
 
@@ -274,7 +274,7 @@ class user
             $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
 
             if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
-                error_msg('Old password is not valid.');
+                error_msg(lang('old_password_not_valid'));
                 return false;
             }
 
@@ -288,7 +288,7 @@ class user
             ]);
         } else {
             if (!verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
-                error_msg('Old password is not valid.');
+                error_msg(lang('old_password_not_valid'));
                 return false;
             }
 
@@ -309,7 +309,7 @@ class user
             'id[=]' => $userinfo['battlenet_account']
         ]);
 
-        success_msg('Password has been changed.');
+        success_msg(lang('password_changed'));
         return true;
     }
 
@@ -334,18 +334,18 @@ class user
         }
 
         if ($_POST['password'] != $_POST['repassword']) {
-            error_msg('Passwords is not equal.');
+            error_msg(lang('passwords_not_equal'));
             return false;
         }
 
         if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
-            error_msg('Password length is not valid.');
+            error_msg(lang('passwords_length'));
             return false;
         }
 
         $userinfo = self::get_user_by_username(strtoupper($_POST['username']));
         if (empty($userinfo['username'])) {
-            error_msg('Username is not valid.');
+            error_msg(lang('username_not_correct'));
             return false;
         }
 
@@ -354,7 +354,7 @@ class user
             $Old_hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['old_password'])));
             $hashed_pass = strtoupper(sha1(strtoupper($userinfo['username'] . ':' . $_POST['password'])));
             if (strtoupper($userinfo['sha_pass_hash']) != $Old_hashed_pass) {
-                error_msg('Old password is not valid.');
+                error_msg(lang('old_password_not_valid'));
                 return false;
             }
 
@@ -368,7 +368,7 @@ class user
             ]);
         } else {
             if (!verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo['salt'], $userinfo['verifier'])) {
-                error_msg('Old password is not valid.');
+                error_msg(lang('old_password_not_valid'));
                 return false;
             }
 
@@ -381,7 +381,7 @@ class user
             ]);
         }
 
-        success_msg('Password has been changed.');
+        success_msg(lang('password_changed'));
         return true;
     }
 
@@ -408,26 +408,26 @@ class user
 
         if (get_config('battlenet_support')) {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                error_msg('Use a valid email.');
+                error_msg(lang('use_valid_email'));
                 return false;
             }
 
             $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
             if (empty($userinfo['email'])) {
-                error_msg('Email is not valid.');
+                error_msg(lang('email_not_correct'));
                 return false;
             }
 
             $field_acc = $userinfo['email'];
         } else {
             if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($_POST['username']))) {
-                error_msg('Use a valid username.');
+                error_msg(lang('use_valid_username'));
                 return false;
             }
 
             $userinfo = self::get_user_by_username(strtoupper($_POST['username']));
             if (empty($userinfo['email'])) {
-                error_msg('Username is not valid.');
+                error_msg(lang('username_not_correct'));
                 return false;
             }
 
@@ -447,8 +447,8 @@ class user
 
         $restorepass_URL = get_config('baseurl') . '/index.php?restore=' . strtolower($field_acc) . '&key=' . $restore_key;
         $message = "For restore you game account open <a href='$restorepass_URL' target='_blank'>this link</a>: <BR>$restorepass_URL";
-        send_phpmailer(strtolower($userinfo['email']), 'Restore Account Password', $message);
-        success_msg('Check your email, (Check SPAM/Junk too).');
+        send_phpmailer(strtolower($userinfo['email']), lang('restore_account_password'), $message);
+        success_msg(lang('check_your_email'));
         return true;
     }
 
@@ -471,7 +471,7 @@ class user
             $userinfo = self::get_user_by_email(strtoupper($user_data));
         } else {
             if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($user_data))) {
-                error_msg('Use a valid username.');
+                error_msg(lang('use_valid_username'));
                 return false;
             }
 
@@ -546,21 +546,21 @@ class user
                 $command = str_replace('{USERNAME}', $antiXss->xss_clean(strtoupper($userinfo['username'])), get_config('soap_cp_command'));
                 $command = str_replace('{PASSWORD}', $antiXss->xss_clean($new_password), $command);
                 if (RemoteCommandWithSOAP($command)) {
-                    success_msg('Password has been changed.');
+                    success_msg(lang('password_changed'));
                     database::$auth->update('account', [
                         'restore_key' => '1'
                     ], [
                         'id[=]' => $userinfo['id']
                     ]);
                 } else {
-                    error_msg('ERROR!, Please try again!');
+                    error_msg(lang('error_try_again'));
                     return false;
                 }
             }
         }
 
         send_phpmailer(strtolower($userinfo['email']), 'New Account Password', $message);
-        success_msg('Check your email for new password, (Check SPAM/Junk too).');
+        success_msg(lang('check_your_email'));
         return false;
     }
 
@@ -665,12 +665,12 @@ class user
 
         $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
         if (empty($userinfo['id'])) {
-            error_msg('Account is not valid.');
+            error_msg(lang('account_is_not_valid'));
             return false;
         }
 
         if (empty(get_config('battlenet_support')) && strtolower($userinfo['username']) != strtolower($_POST['username'])) {
-            error_msg('Account is not valid.');
+            error_msg(lang('account_is_not_valid'));
             return false;
         }
 
@@ -694,7 +694,7 @@ class user
         $restorepass_URL = get_config('baseurl') . '/index.php?enabletfa=' . strtolower($verify_key) . '&account=' . strtolower($account);
         $message = "Hey, to enable Two-Factor Authentication (2FA), Please open  <a href='$restorepass_URL' target='_blank'>this link</a>: <BR>$restorepass_URL";
         send_phpmailer(strtolower($userinfo['email']), 'Enable Account 2FA', $message);
-        success_msg('Check your email, (Check SPAM/Junk too).');
+        success_msg(lang('check_your_email'));
         return true;
     }
 
@@ -764,6 +764,6 @@ class user
         $message .= 'or you can add this code to Google Authenticator: <B>' . $tfa_key . '</B>.<BR>';
 
         send_phpmailer(strtolower($userinfo['email']), 'Account 2FA enabled', $message);
-        success_msg('Account 2FA enabled please check your email, (Check SPAM/Junk too).');
+        success_msg(lang('check_your_email'));
     }
 }

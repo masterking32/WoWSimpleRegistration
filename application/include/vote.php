@@ -27,20 +27,20 @@ class vote
         global $antiXss;
         $vote_sites = get_config('vote_sites');
         if (!is_numeric($siteID) || empty($vote_sites[$siteID - 1])) {
-            error_msg('Vote site is not valid!');
+            error_msg(lang('vote_site_not_valid'));
             return false;
         }
 
         if (get_config('battlenet_support')) {
             if (!filter_var($account, FILTER_VALIDATE_EMAIL)) {
-                error_msg('Use valid email.');
+                error_msg(lang('use_valid_email'));
                 return false;
             }
 
             $acc_data = user::get_user_by_email($account);
         } else {
             if (!preg_match('/^[0-9A-Z-_]+$/', strtoupper($account))) {
-                error_msg('Use valid characters for username.');
+                error_msg(lang('use_valid_username'));
                 return false;
             }
 
@@ -48,7 +48,7 @@ class vote
         }
 
         if (empty($acc_data['id'])) {
-            error_msg('Account is not valid.');
+            error_msg(lang('account_is_not_valid'));
             return false;
         }
 
@@ -59,7 +59,7 @@ class vote
         database::$auth->delete('votes', ['votedate[<]' => date("Y-m-d H:i:s", time() - 43200)]);
 
         if (!empty(self::get_vote_by_IP($siteID)) || !empty(self::get_vote_by_account($siteID, $acc_data['id']))) {
-            error_msg('You already voted on this website.');
+            error_msg(lang('you_already_voted'));
             return false;
         }
 
