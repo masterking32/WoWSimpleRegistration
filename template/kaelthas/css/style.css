@@ -18,6 +18,11 @@ html {
     text-align: center;
 }
 
+.content_box1{
+    padding: 10px;
+    text-align: left;
+}
+
 .box-form {
     max-width: 80%;
     margin: 10px auto 10px auto;

@@ -32,6 +32,9 @@
     <script src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/js/bootsnav.js"></script>
     <script src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/js/popper.min.js"></script>
     <?php echo getCaptchaJS(); ?>
+
+    <?php echo(!empty(lang('custom_css')) ? '<style>' . lang('custom_css') . '</style>' : ''); ?>
+    <?php echo(!empty(lang('tpl_icecrown_custom_css')) ? '<style>' . lang('tpl_icecrown_custom_css') . '</style>' : ''); ?>
 </head>
 <body>
 <video autoplay muted loop id="myVideo">
@@ -56,16 +59,16 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li><a href="./index.php">Home</a></li>
-                        <li><a onclick="$('#register').trigger('click')">Register</a></li>
-                        <li><a onclick="$('#howtoconnect').trigger('click')">How to connect</a></li>
+                        <li><a href="./index.php"><?php elang('home'); ?></a></li>
+                        <li><a onclick="$('#register').trigger('click')"><?php elang('register'); ?></a></li>
+                        <li><a onclick="$('#howtoconnect').trigger('click')"><?php elang('how_to_connect'); ?></a></li>
                         <?php if (!get_config('disable_online_players')) { ?>
-                            <li><a onclick="$('#serverstatus').trigger('click')">Server Status</a></li>
+                            <li><a onclick="$('#serverstatus').trigger('click')"><?php elang('server_status'); ?></a></li>
                         <?php }
                         if (!get_config('disable_top_players')) { ?>
-                            <li><a onclick="$('#topplayers').trigger('click')">Top Players</a></li>
+                            <li><a onclick="$('#topplayers').trigger('click')"><?php elang('top_players'); ?></a></li>
                         <?php } ?>
-                        <li><a onclick="$('#contact').trigger('click')">Contact us</a></li>
+                        <li><a onclick="$('#contact').trigger('click')"><?php elang('contact'); ?></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>

@@ -7,7 +7,7 @@
  */
 ?>
 <div class="box1" style="margin-top: 10px;">
-    Welcome to our server !
+    <?php elang('welcome_message'); ?>
     <hr style="border-color: #F1A40F;margin-top: 10px;">
     <p style="text-align: justify">
         This is a sample text, This is a sample text, This is a sample text, This is a sample text, This is a sample
@@ -20,10 +20,10 @@
         sample text, This is a sample text, This is a sample text, This is a sample text, This is a sample text, This is
         a sample text.
     </p>
-    <p>Edit : template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/posts.php</p>
+    <p><?php elang('edit_on'); ?> template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/posts.php</p>
 </div>
 <div class="box1" style="margin-top: 10px;">
-    Welcome to our server !
+    <?php elang('welcome_message'); ?>
     <hr style="border-color: #F1A40F;margin-top: 10px;">
     <p style="text-align: justify">
         This is a sample text, This is a sample text, This is a sample text, This is a sample text, This is a sample
@@ -36,5 +36,5 @@
         sample text, This is a sample text, This is a sample text, This is a sample text, This is a sample text, This is
         a sample text.
     </p>
-    <p>Edit : template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/posts.php</p>
+    <p><?php elang('edit_on'); ?> template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/posts.php</p>
 </div>

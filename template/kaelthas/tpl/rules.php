@@ -8,14 +8,14 @@
 ?>
 
 <p>
-    For registration, you must accept following rules:
+    <?php elang('read_before_register'); ?>
 </p>
 <ul>
-    <li>Rule 1.</li>
-    <li>Rule 2.</li>
-    <li>Rule 3.</li>
-    <li>Rule 4.</li>
-    <li>Rule 5.</li>
-    <li>Rule 6.</li>
-    <li>Edit rules on <b>"/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/rules.php"</b>.</li>
+    <li><?php elang('rule'); ?> 1.</li>
+    <li><?php elang('rule'); ?> 2.</li>
+    <li><?php elang('rule'); ?> 3.</li>
+    <li><?php elang('rule'); ?> 4.</li>
+    <li><?php elang('rule'); ?> 5.</li>
+    <li><?php elang('rule'); ?> 6.</li>
+    <li><?php elang('edit_on'); ?> <b>"/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/tpl/rules.php"</b>.</li>
 </ul>

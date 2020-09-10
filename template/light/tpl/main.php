@@ -222,7 +222,7 @@ require_once 'header.php'; ?>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                                    Close
+                                                    <?php elang('close'); ?>"
                                                 </button>
                                             </div>
                                         </div>

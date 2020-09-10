@@ -88,6 +88,8 @@ $language['call'] = 'Call';
 $language['restore_account_password'] = 'Restore Account Password';
 $language['about_server'] = 'About the server';
 $language['game_version'] = 'Game version';
+$language['server_patch'] = 'Server Patch';
+$language['download'] = 'Download';
 
 $language['use_valid_email'] = 'Use valid characters for email.';
 $language['use_valid_username'] = 'Use valid characters for username.';
