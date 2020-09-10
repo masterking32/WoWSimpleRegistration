@@ -114,5 +114,6 @@ Author : [Amin.MasterkinG](https://masterking32.com)
 
 ## Translate
 
-English/Persian by @Masterking32
-Italian by @Helias
+English/Persian by [Amin.MasterkinG](https://github.com/masterking32)
+
+Italian by [Helias](https://github.com/helias)

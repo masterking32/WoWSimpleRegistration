@@ -88,7 +88,7 @@ $language['call'] = 'Contattaci';
 $language['restore_account_password'] = 'Ripristina password dell\'account';
 $language['about_server'] = 'Informazioni server';
 $language['game_version'] = 'Versione del gioco';
-$language['server_patch'] = 'Patch del server';
+$language['server_patch'] = 'Server Patch';
 $language['download'] = 'Scarica';
 
 $language['use_valid_email'] = 'Usa caratteri validi per l\'email.';
