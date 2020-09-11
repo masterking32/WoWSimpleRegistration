@@ -127,3 +127,5 @@ English/Persian by [Amin.MasterkinG](https://github.com/masterking32)
 Italian by [Helias](https://github.com/helias)
 
 Chinese-simplified/Chinese-traditional by [Coolzoom](https://github.com/coolzoom)
+
+Swedish by [Kitzunu](https://github.com/Kitzunu)
