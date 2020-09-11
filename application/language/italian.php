@@ -12,6 +12,7 @@ $language['tpl_light_custom_css'] = '';
 $language['tpl_advance_custom_css'] = '';
 $language['tpl_icecrown_custom_css'] = '';
 $language['tpl_kaelthas_custom_css'] = '';
+$language['tpl_battleforazeroth_custom_css'] = '';
 
 $language['welcome_to'] = 'Benvenuto in';
 $language['welcome_message'] = 'Benvenuto nel nostro server privato, Partecipa adesso!';

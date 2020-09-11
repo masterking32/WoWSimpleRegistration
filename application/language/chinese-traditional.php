@@ -12,6 +12,7 @@ $language['tpl_light_custom_css'] = '';
 $language['tpl_advance_custom_css'] = '';
 $language['tpl_icecrown_custom_css'] = '';
 $language['tpl_kaelthas_custom_css'] = '';
+$language['tpl_battleforazeroth_custom_css'] = '';
 
 $language['welcome_to'] = '歡迎來到';
 $language['welcome_message'] = '歡迎來到我們的伺服, 趕快加入我們吧! ';

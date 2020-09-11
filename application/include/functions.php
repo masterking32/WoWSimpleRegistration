@@ -271,7 +271,7 @@ function getCaptchaJS()
     return '';
 }
 
-function GetCaptchaHTML()
+function GetCaptchaHTML($bootstrap = true)
 {
     if (!empty(get_config('captcha_type'))) {
         if (get_config('captcha_type') == 1) {
@@ -281,6 +281,11 @@ function GetCaptchaHTML()
         } else {
             return '';
         }
+    }
+
+    if(empty($bootstrap))
+    {
+        return '<div class="input-group"><input type="text" placeholder="' . lang('captcha') . '" name="captcha"></div><p style="text-align: center;margin-top: 10px;"><img src="' . user::$captcha->inline() . '" style="border - radius: 5px;"/></p>';
     }
 
     return '<div class="input-group"><span class="input-group">' . lang('captcha') . '</span><input type="text" class="form-control" placeholder="' . lang('captcha') . '" name="captcha"></div><p style="text-align: center;margin-top: 10px;"><img src="' . user::$captcha->inline() . '" style="border - radius: 5px;"/></p>';
