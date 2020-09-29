@@ -77,20 +77,6 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
  1. Allow using an email for multiple accounts. (For non-battle.net servers)
  2. Replace Email to username for change password and restore password. (For non-battle.net servers)
  3. Add an option to enable or disable top players and online players.
- 
-## DEMO
-
-RESTORE PASSWORD DOESN'T WORK IN DEMO VERSIONS.
-
-### LIVE DEMO IS FOR OLD VERSION!
-
-[Light Template](http://wowsimpleregistration.gigfa.com/light/)
-
-[IceCrown Template](http://wowsimpleregistration.gigfa.com/icecrown/)
-
-[Kaelthas Template](http://wowsimpleregistration.gigfa.com/kaelthas/)
-
-Advance Template/Battle for Azeroth - NO HAVE LIVE DEMO!
 
 ## Screenshots
 

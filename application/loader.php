@@ -18,6 +18,12 @@ require_once app_path . 'vendor/autoload.php';
 require_once app_path . 'config/config.php';
 require_once app_path . 'include/functions.php';
 
+/* Configuration check */
+if(!get_config('disable_changepassword') && get_config('soap_for_register'))
+{
+	$config['disable_changepassword'] = true;
+}
+
 if (get_config('debug_mode')) {
     @error_reporting(-1);
     @ini_set('display_errors', 1);
