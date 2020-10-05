@@ -67,8 +67,8 @@ disable_top_players
 disable_online_players
     Disable online players page [true: Hide online players page]
 disable_changepassword
-    Disable change password - [Enable it for CMangos and servers with SRP6]
-    For CMangos and servers with SRP6 you can enable change password command for players (in-game)
+    Disable change password
+    Change this to true, If you are using SOAP for registration.
 =====================================================================*/
 $config['disable_top_players'] = false;
 $config['disable_online_players'] = false;
