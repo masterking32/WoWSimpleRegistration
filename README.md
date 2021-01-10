@@ -33,7 +33,7 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
  9. Vote System (4/03/2020).
  10. Support HCaptcha/Recaptcha v2 (7/27/2020).
  11. Support Two-Factor Authentication (2FA) (7/28/2020).
- 12. **Multi-Language support** (9/10/2020) (Support: 🇬🇧 English, 🇮🇷 Persian, 🇮🇹 Italian, 🇨🇳 Chinese-simplified, 🇹🇼 Chinese-traditional, 🇸🇪 Swedish, 🇫🇷 French, 🇩🇪 German, 🇪🇸 Spanish. 🇰🇷 Korean).
+ 12. **Multi-Language support** (9/10/2020) (Support: 🇬🇧 English, 🇮🇷 Persian, 🇮🇹 Italian, 🇨🇳 Chinese-simplified, 🇹🇼 Chinese-traditional, 🇸🇪 Swedish, 🇫🇷 French, 🇩🇪 German, 🇪🇸 Spanish, 🇰🇷 Korean).
 
 ## Changelogs
 
