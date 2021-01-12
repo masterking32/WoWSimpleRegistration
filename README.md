@@ -121,3 +121,5 @@ French by [Kalorte](https://github.com/Kalorte)
 German by [DuelistRag3](https://github.com/DuelistRag3)
 
 Spanish by [xjose93](https://github.com/xjose93)
+
+Korean by [KOREAFTP](https://github.com/KOREAFTP)
