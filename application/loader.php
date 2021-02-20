@@ -16,6 +16,7 @@ define('base_path', str_replace('application/loader.php', '', str_replace("\\", 
 define('app_path', str_replace('application/loader.php', '', str_replace("\\", '/', __FILE__)) . 'application/');
 require_once app_path . 'vendor/autoload.php';
 require_once app_path . 'config/config.php';
+require_once app_path . 'include/core_handler.php';
 require_once app_path . 'include/functions.php';
 
 /* Configuration check */
@@ -50,7 +51,7 @@ require_once app_path . 'language/' . strtolower(get_config('language')) . '.php
 $antiXss = new AntiXSS();
 if (!empty(get_config('script_version'))) {
     /* @TODO Add online version check! */
-    if (version_compare(get_config('script_version'), '2.0.0', '<')) {
+    if (version_compare(get_config('script_version'), '2.0.1', '<')) {
         echo 'Use last version of config.php file.';
         exit();
     }
@@ -58,4 +59,15 @@ if (!empty(get_config('script_version'))) {
     echo 'Use last version of config.php file.';
     exit();
 }
+
+if ($config['srp6_support'] == true && !extension_loaded('gmp')) {
+    echo 'Please enable GMP in your php.ini';
+    exit();
+}
+
+if ($config['soap_for_register'] == true && !extension_loaded('soap')) {
+    echo 'Please enable SOAP in your php.ini';
+    exit();
+}
+
 database::db_connect();

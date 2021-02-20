@@ -37,6 +37,17 @@ function get_config($name)
     return false;
 }
 
+function get_core_config($name)
+{
+    global $core_config;
+    if (!empty($name)) {
+        if (isset($core_config[$name])) {
+            return $core_config[$name];
+        }
+    }
+    return false;
+}
+
 function error_msg($input = false)
 {
     global $error_error;

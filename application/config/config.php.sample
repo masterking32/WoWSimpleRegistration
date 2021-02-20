@@ -48,6 +48,17 @@ If you want to use advance template, Your images and backgrounds will be changed
 =====================================================================*/
 $config['expansion'] = '2';
 /*===================================================================
+Core Type:
+0 = TrinityCore
+1 = AzerothCore
+2 = AshamaneCore
+3 = Skyfire Project
+4 = OregonCore
+5 = CMangos
+10 = etc
+=====================================================================*/
+$config['server_core'] = 0;
+/*===================================================================
 If your server is WoD/Legion/BFA you should enable it!
 =====================================================================*/
 $config['battlenet_support'] = false;
@@ -301,4 +312,4 @@ $config['realmlists'] = array( // Add your realmlist here
 
 
 
-$config['script_version'] = '2.0.0';
+$config['script_version'] = '2.0.1';
