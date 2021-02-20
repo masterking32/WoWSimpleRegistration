@@ -129,7 +129,7 @@ final class UTF8
     /**
      * @var array
      *
-     * @psalm-var array{upper: string[], lower: string[]}
+     * @phpstan-var array{upper: string[], lower: string[]}
      */
     private static $COMMON_CASE_FOLD = [
         'upper' => [
@@ -169,77 +169,77 @@ final class UTF8
     /**
      * @var array
      *
-     * @psalm-var array<string, mixed>
+     * @phpstan-var array<string, mixed>
      */
     private static $SUPPORT = [];
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<string, string>|null
+     * @phpstan-var array<string, string>|null
      */
     private static $BROKEN_UTF8_FIX;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<int, string>|null
+     * @phpstan-var array<int, string>|null
      */
     private static $WIN1252_TO_UTF8;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<int ,string>|null
+     * @phpstan-var array<int ,string>|null
      */
     private static $INTL_TRANSLITERATOR_LIST;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<string>|null
+     * @phpstan-var array<string>|null
      */
     private static $ENCODINGS;
 
     /**
      * @var int[]|null
      *
-     * @psalm-var array<string ,int>|null
+     * @phpstan-var array<string ,int>|null
      */
     private static $ORD;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<string, string>|null
+     * @phpstan-var array<string, string>|null
      */
     private static $EMOJI;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<string>|null
+     * @phpstan-var array<string>|null
      */
     private static $EMOJI_VALUES_CACHE;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<string>|null
+     * @phpstan-var array<string>|null
      */
     private static $EMOJI_KEYS_CACHE;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<string>|null
+     * @phpstan-var array<string>|null
      */
     private static $EMOJI_KEYS_REVERSIBLE_CACHE;
 
     /**
      * @var string[]|null
      *
-     * @psalm-var array<int, string>|null
+     * @phpstan-var array<int, string>|null
      */
     private static $CHR;
 
@@ -516,6 +516,7 @@ final class UTF8
 
             // http://php.net/manual/en/book.mbstring.php
             self::$SUPPORT['mbstring'] = self::mbstring_loaded();
+
             self::$SUPPORT['mbstring_func_overload'] = self::mbstring_overloaded();
             if (self::$SUPPORT['mbstring'] === true) {
                 \mb_internal_encoding('UTF-8');
@@ -603,7 +604,7 @@ final class UTF8
             \trigger_error('UTF8::chr() without mbstring cannot handle "' . $encoding . '" encoding', \E_USER_WARNING);
         }
 
-        if ($code_point <= 0) {
+        if (!\is_int($code_point) || $code_point <= 0) {
             return null;
         }
 
@@ -1107,7 +1108,7 @@ final class UTF8
      *
      * @return string
      *
-     * @psalm-param array<string,string> $filter
+     * @phpstan-param array<string,string> $filter
      */
     public static function css_identifier(
         string $str = '',
@@ -1209,7 +1210,7 @@ final class UTF8
      *
      * @param int|string $int
      *
-     * @psalm-param int|numeric-string $int
+     * @phpstan-param int|numeric-string $int
      *
      * @psalm-pure
      *
@@ -1907,8 +1908,8 @@ final class UTF8
      * @return mixed
      *
      * @template TFilter
-     * @psalm-param TFilter $var
-     * @psalm-return TFilter
+     * @phpstan-param TFilter $var
+     * @phpstan-return TFilter
      */
     public static function filter(
         $var,
@@ -1963,7 +1964,7 @@ final class UTF8
         }
 
         /** @noinspection PhpSillyAssignmentInspection */
-        /** @psalm-var TFilter $var */
+        /** @phpstan-var TFilter $var */
         $var = $var;
 
         return $var;
@@ -2897,16 +2898,17 @@ final class UTF8
 
         // INFO: http://stackoverflow.com/questions/35854535/better-explanation-of-convmap-in-mb-encode-numericentity
         if (self::$SUPPORT['mbstring'] === true) {
-            $start_code = 0x00;
             if ($keep_ascii_chars) {
                 $start_code = 0x80;
+            } else {
+                $start_code = 0x00;
             }
 
             if ($encoding === 'UTF-8') {
                 /** @var false|string|null $return - needed for PhpStan (stubs error) */
                 $return = \mb_encode_numericentity(
                     $str,
-                    [$start_code, 0xfffff, 0, 0xfffff, 0]
+                    [$start_code, 0xfffff, 0, 0xfffff]
                 );
                 if ($return !== null && $return !== false) {
                     return $return;
@@ -2916,7 +2918,7 @@ final class UTF8
             /** @var false|string|null $return - needed for PhpStan (stubs error) */
             $return = \mb_encode_numericentity(
                 $str,
-                [$start_code, 0xfffff, 0, 0xfffff, 0],
+                [$start_code, 0xfffff, 0, 0xfffff],
                 $encoding
             );
             if ($return !== null && $return !== false) {
@@ -3403,7 +3405,7 @@ final class UTF8
      *
      * @param int|string $int
      *
-     * @psalm-param int|numeric-string $int
+     * @phpstan-param int|numeric-string $int
      *
      * @psalm-pure
      *
@@ -3687,16 +3689,17 @@ final class UTF8
     /**
      * Returns true if the string contains only printable (non-invisible) chars, false otherwise.
      *
-     * @param string $str <p>The input string.</p>
+     * @param string $str                       <p>The input string.</p>
+     * @param bool   $ignore_control_characters [optional] <p>Ignore control characters like [LRM] or [LSEP].</p>
      *
      * @psalm-pure
      *
      * @return bool
      *              <p>Whether or not $str contains only printable (non-invisible) chars.</p>
      */
-    public static function is_printable(string $str): bool
+    public static function is_printable(string $str, bool $ignore_control_characters = false): bool
     {
-        return self::remove_invisible_characters($str) === $str;
+        return self::remove_invisible_characters($str, false, '', $ignore_control_characters) === $str;
     }
 
     /**
@@ -4791,8 +4794,8 @@ final class UTF8
      *                      <p>e.g.: ISO-8859-1, UTF-8, WINDOWS-1251 etc.<br>Will return a empty string as fallback (by default)</p>
      *
      * @template TNormalizeEncodingFallback
-     * @psalm-param string|TNormalizeEncodingFallback $fallback
-     * @psalm-return string|TNormalizeEncodingFallback
+     * @phpstan-param string|TNormalizeEncodingFallback $fallback
+     * @phpstan-return string|TNormalizeEncodingFallback
      */
     public static function normalize_encoding($encoding, $fallback = '')
     {
@@ -4982,10 +4985,11 @@ final class UTF8
      *
      * EXAMPLE: <code>UTF8::normalize_whitespace("abc-\xc2\xa0-öäü-\xe2\x80\xaf-\xE2\x80\xAC", true); // "abc-\xc2\xa0-öäü- -"</code>
      *
-     * @param string $str                        <p>The string to be normalized.</p>
-     * @param bool   $keep_non_breaking_space    [optional] <p>Set to true, to keep non-breaking-spaces.</p>
-     * @param bool   $keep_bidi_unicode_controls [optional] <p>Set to true, to keep non-printable (for the web)
-     *                                           bidirectional text chars.</p>
+     * @param string $str                          <p>The string to be normalized.</p>
+     * @param bool   $keep_non_breaking_space      [optional] <p>Set to true, to keep non-breaking-spaces.</p>
+     * @param bool   $keep_bidi_unicode_controls   [optional] <p>Set to true, to keep non-printable (for the web)
+     *                                             bidirectional text chars.</p>
+     * @param bool   $normalize_control_characters [optional] <p>Set to true, to convert e.g. LINE-, PARAGRAPH-SEPARATOR with "\n" and LINE TABULATION with "\t".</p>
      *
      * @psalm-pure
      *
@@ -4995,12 +4999,14 @@ final class UTF8
     public static function normalize_whitespace(
         string $str,
         bool $keep_non_breaking_space = false,
-        bool $keep_bidi_unicode_controls = false
+        bool $keep_bidi_unicode_controls = false,
+        bool $normalize_control_characters = false
     ): string {
         return ASCII::normalize_whitespace(
             $str,
             $keep_non_breaking_space,
-            $keep_bidi_unicode_controls
+            $keep_bidi_unicode_controls,
+            $normalize_control_characters
         );
     }
 
@@ -5283,18 +5289,6 @@ final class UTF8
             return '';
         }
 
-        if (
-            \strpos($str, '&') === false
-            &&
-            \strpos($str, '%') === false
-            &&
-            \strpos($str, '+') === false
-            &&
-            \strpos($str, '\u') === false
-        ) {
-            return self::fix_simple_utf8($str);
-        }
-
         $str = self::urldecode_unicode_helper($str);
 
         if ($multi_decode) {
@@ -5304,12 +5298,10 @@ final class UTF8
                 /**
                  * @psalm-suppress PossiblyInvalidArgument
                  */
-                $str = self::fix_simple_utf8(
-                    \rawurldecode(
-                        self::html_entity_decode(
-                            self::to_utf8($str),
-                            \ENT_QUOTES | \ENT_HTML5
-                        )
+                $str = \rawurldecode(
+                    self::html_entity_decode(
+                        self::to_utf8($str),
+                        \ENT_QUOTES | \ENT_HTML5
                     )
                 );
             } while ($str_compare !== $str);
@@ -5317,17 +5309,15 @@ final class UTF8
             /**
              * @psalm-suppress PossiblyInvalidArgument
              */
-            $str = self::fix_simple_utf8(
-                \rawurldecode(
-                    self::html_entity_decode(
-                        self::to_utf8($str),
-                        \ENT_QUOTES | \ENT_HTML5
-                    )
+            $str = \rawurldecode(
+                self::html_entity_decode(
+                    self::to_utf8($str),
+                    \ENT_QUOTES | \ENT_HTML5
                 )
             );
         }
 
-        return $str;
+        return self::fix_simple_utf8($str);
     }
 
     /**
@@ -5493,14 +5483,15 @@ final class UTF8
      *
      * copy&past from https://github.com/bcit-ci/CodeIgniter/blob/develop/system/core/Common.php
      *
-     * @param string $str         <p>The input string.</p>
-     * @param bool   $url_encoded [optional] <p>
-     *                            Try to remove url encoded control character.
-     *                            WARNING: maybe contains false-positives e.g. aa%0Baa -> aaaa.
-     *                            <br>
-     *                            Default: false
-     *                            </p>
-     * @param string $replacement [optional] <p>The replacement character.</p>
+     * @param string $str                           <p>The input string.</p>
+     * @param bool   $url_encoded                   [optional] <p>
+     *                                              Try to remove url encoded control character.
+     *                                              WARNING: maybe contains false-positives e.g. aa%0Baa -> aaaa.
+     *                                              <br>
+     *                                              Default: false
+     *                                              </p>
+     * @param string $replacement                   [optional] <p>The replacement character.</p>
+     * @param bool   $keep_basic_control_characters [optional] <p>Keep control characters like [LRM] or [LSEP].</p>
      *
      * @psalm-pure
      *
@@ -5510,12 +5501,14 @@ final class UTF8
     public static function remove_invisible_characters(
         string $str,
         bool $url_encoded = false,
-        string $replacement = ''
+        string $replacement = '',
+        bool $keep_basic_control_characters = true
     ): string {
         return ASCII::remove_invisible_characters(
             $str,
             $url_encoded,
-            $replacement
+            $replacement,
+            $keep_basic_control_characters
         );
     }
 
@@ -5676,9 +5669,10 @@ final class UTF8
         }
 
         if ($process_invalid_utf8_chars) {
-            $replacement_char_helper = $replacement_char;
             if ($replacement_char === '') {
                 $replacement_char_helper = 'none';
+            } else {
+                $replacement_char_helper = \ord($replacement_char);
             }
 
             if (self::$SUPPORT['mbstring'] === false) {
@@ -6013,6 +6007,11 @@ final class UTF8
         bool $case_sensitive = true
     ): bool {
         if ($case_sensitive) {
+            if (\PHP_VERSION_ID >= 80000) {
+                /** @phpstan-ignore-next-line - only for PHP8 */
+                return \str_contains($haystack, $needle);
+            }
+
             return \strpos($haystack, $needle) !== false;
         }
 
@@ -6347,6 +6346,11 @@ final class UTF8
 
         if ($haystack === '') {
             return false;
+        }
+
+        if (\PHP_VERSION_ID >= 80000) {
+            /** @phpstan-ignore-next-line - only for PHP8 */
+            return \str_ends_with($haystack, $needle);
         }
 
         return \substr($haystack, -\strlen($needle)) === $needle;
@@ -6752,8 +6756,8 @@ final class UTF8
      *                         <p>A string or an array of replacements.</p>
      *
      * @template TStrIReplaceSubject
-     * @psalm-param TStrIReplaceSubject $subject
-     * @psalm-return TStrIReplaceSubject
+     * @phpstan-param TStrIReplaceSubject $subject
+     * @phpstan-return TStrIReplaceSubject
      */
     public static function str_ireplace($search, $replacement, $subject, &$count = null)
     {
@@ -6769,9 +6773,19 @@ final class UTF8
             }
         }
 
+        // fallback
+        /** @phpstan-ignore-next-line - only a fallback for PHP8 */
+        if ($replacement === null) {
+            $replacement = '';
+        }
+        /** @phpstan-ignore-next-line - only a fallback for PHP8 */
+        if ($subject === null) {
+            $subject = '';
+        }
+
         /**
          * @psalm-suppress PossiblyNullArgument
-         * @psalm-var TStrIReplaceSubject $subject
+         * @phpstan-var TStrIReplaceSubject $subject
          */
         $subject = \preg_replace($search, $replacement, $subject, -1, $count);
 
@@ -7891,8 +7905,8 @@ final class UTF8
      *                         <p>This function returns a string or an array with the replaced values.</p>
      *
      * @template TStrReplaceSubject
-     * @psalm-param TStrReplaceSubject $subject
-     * @psalm-return TStrReplaceSubject
+     * @phpstan-param TStrReplaceSubject $subject
+     * @phpstan-return TStrReplaceSubject
      *
      * @deprecated please use \str_replace() instead
      */
@@ -7904,7 +7918,7 @@ final class UTF8
     ) {
         /**
          * @psalm-suppress PossiblyNullArgument
-         * @psalm-var TStrReplaceSubject $return;
+         * @phpstan-var TStrReplaceSubject $return;
          */
         $return = \str_replace(
             $search,
@@ -8451,7 +8465,7 @@ final class UTF8
             $ret = \array_chunk($ret, $length);
 
             return \array_map(
-                static function (array &$item): string {
+                static function (array $item): string {
                     return \implode('', $item);
                 },
                 $ret
@@ -8553,6 +8567,11 @@ final class UTF8
 
         if ($haystack === '') {
             return false;
+        }
+
+        if (\PHP_VERSION_ID >= 80000) {
+            /** @phpstan-ignore-next-line - only for PHP8 */
+            return \str_starts_with($haystack, $needle);
         }
 
         return \strncmp($haystack, $needle, \strlen($needle)) === 0;
@@ -9494,7 +9513,7 @@ final class UTF8
                     (
                         $space_position !== false
                         &&
-                         !$ignore_do_not_split_words_for_one_word
+                        !$ignore_do_not_split_words_for_one_word
                     )
                 ) {
                     $truncated = (string) \mb_substr($truncated, 0, (int) $last_position);
@@ -9885,7 +9904,7 @@ final class UTF8
      *
      * @param int|int[]|string|string[] $intOrHex <p>Integer or Hexadecimal codepoints.</p>
      *
-     * @psalm-param int[]|numeric-string[]|int|numeric-string $intOrHex
+     * @phpstan-param int[]|numeric-string[]|int|numeric-string $intOrHex
      *
      * @psalm-pure
      *
@@ -10032,7 +10051,15 @@ final class UTF8
         string $encoding = 'UTF-8',
         bool $clean_utf8 = false
     ) {
-        if ($haystack === '' || $needle === '') {
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000 && $needle === '') {
+                return 0;
+            }
+
+            return false;
+        }
+
+        if ($needle === '' && \PHP_VERSION_ID < 80000) {
             return false;
         }
 
@@ -10118,7 +10145,11 @@ final class UTF8
         string $encoding = 'UTF-8',
         bool $clean_utf8 = false
     ) {
-        if ($haystack === '' || $needle === '') {
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000 && $needle === '') {
+                return '';
+            }
+
             return false;
         }
 
@@ -10129,8 +10160,12 @@ final class UTF8
             $haystack = self::clean($haystack);
         }
 
-        if (!$needle) {
-            return $haystack;
+        if ($needle === '') {
+            if (\PHP_VERSION_ID >= 80000) {
+                return $haystack;
+            }
+
+            return false;
         }
 
         if (self::$SUPPORT['mbstring'] === true) {
@@ -10540,7 +10575,13 @@ final class UTF8
         bool $clean_utf8 = false
     ) {
         if ($haystack === '') {
-            return false;
+            if (\PHP_VERSION_ID >= 80000) {
+                if ($needle === '') {
+                    return 0;
+                }
+            } else {
+                return false;
+            }
         }
 
         // iconv and mbstring do not support integer $needle
@@ -10549,7 +10590,15 @@ final class UTF8
         }
         $needle = (string) $needle;
 
-        if ($needle === '') {
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000 && $needle === '') {
+                return 0;
+            }
+
+            return false;
+        }
+
+        if ($needle === '' && \PHP_VERSION_ID < 80000) {
             return false;
         }
 
@@ -11032,7 +11081,13 @@ final class UTF8
         bool $clean_utf8 = false
     ) {
         if ($haystack === '') {
-            return false;
+            if (\PHP_VERSION_ID >= 80000) {
+                if ($needle === '') {
+                    return 0;
+                }
+            } else {
+                return false;
+            }
         }
 
         // iconv and mbstring do not support integer $needle
@@ -11041,7 +11096,15 @@ final class UTF8
         }
         $needle = (string) $needle;
 
-        if ($needle === '') {
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000 && $needle === '') {
+                return 0;
+            }
+
+            return false;
+        }
+
+        if ($needle === '' && \PHP_VERSION_ID < 80000) {
             return false;
         }
 
@@ -11190,7 +11253,13 @@ final class UTF8
         bool $clean_utf8 = false
     ) {
         if ($haystack === '') {
-            return false;
+            if (\PHP_VERSION_ID >= 80000) {
+                if ($needle === '') {
+                    return 0;
+                }
+            } else {
+                return false;
+            }
         }
 
         // iconv and mbstring do not support integer $needle
@@ -11199,7 +11268,15 @@ final class UTF8
         }
         $needle = (string) $needle;
 
-        if ($needle === '') {
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000 && $needle === '') {
+                return 0;
+            }
+
+            return false;
+        }
+
+        if ($needle === '' && \PHP_VERSION_ID < 80000) {
             return false;
         }
 
@@ -11421,7 +11498,11 @@ final class UTF8
         string $encoding = 'UTF-8',
         bool $clean_utf8 = false
     ) {
-        if ($haystack === '' || $needle === '') {
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000 && $needle === '') {
+                return '';
+            }
+
             return false;
         }
 
@@ -11430,6 +11511,14 @@ final class UTF8
             // if invalid characters are found in $haystack before $needle
             $needle = self::clean($needle);
             $haystack = self::clean($haystack);
+        }
+
+        if ($needle === '') {
+            if (\PHP_VERSION_ID >= 80000) {
+                return $haystack;
+            }
+
+            return false;
         }
 
         if ($encoding !== 'UTF-8' && $encoding !== 'CP850') {
@@ -12155,8 +12244,16 @@ final class UTF8
         string $encoding = 'UTF-8',
         bool $clean_utf8 = false
     ) {
-        if ($haystack === '' || $needle === '') {
+        if ($needle === '') {
             return false;
+        }
+
+        if ($haystack === '') {
+            if (\PHP_VERSION_ID >= 80000) {
+                return 0;
+            }
+
+            return 0;
         }
 
         if ($length === 0) {
@@ -12271,7 +12368,7 @@ final class UTF8
                 &&
                 ($length + $offset) <= 0
                 &&
-                !Bootup::is_php('7.1') // output from "substr_count()" have changed in PHP 7.1
+                \PHP_VERSION_ID < 71000 // output from "substr_count()" have changed in PHP 7.1
             ) {
                 return false;
             }
@@ -12916,9 +13013,7 @@ final class UTF8
     }
 
     /**
-     * @param bool|int|string $str
-     *
-     * @psalm-param bool|int|numeric-string $str
+     * @param bool|int|float|string $str
      *
      * @psalm-pure
      *
@@ -13052,8 +13147,8 @@ final class UTF8
      *                         <p>The UTF-8 encoded string</p>
      *
      * @template TToUtf8
-     * @psalm-param TToUtf8 $str
-     * @psalm-return TToUtf8
+     * @phpstan-param TToUtf8 $str
+     * @phpstan-return TToUtf8
      *
      * @noinspection SuspiciousBinaryOperationInspection
      */
@@ -13067,7 +13162,7 @@ final class UTF8
             return $str;
         }
 
-        /** @psalm-var TToUtf8 $str */
+        /** @phpstan-var TToUtf8 $str */
         $str = self::to_utf8_string($str, $decode_html_entity_to_utf8);
 
         return $str;
@@ -13516,18 +13611,6 @@ final class UTF8
             return '';
         }
 
-        if (
-            \strpos($str, '&') === false
-            &&
-            \strpos($str, '%') === false
-            &&
-            \strpos($str, '+') === false
-            &&
-            \strpos($str, '\u') === false
-        ) {
-            return self::fix_simple_utf8($str);
-        }
-
         $str = self::urldecode_unicode_helper($str);
 
         if ($multi_decode) {
@@ -13537,12 +13620,10 @@ final class UTF8
                 /**
                  * @psalm-suppress PossiblyInvalidArgument
                  */
-                $str = self::fix_simple_utf8(
-                    \urldecode(
-                        self::html_entity_decode(
-                            self::to_utf8($str),
-                            \ENT_QUOTES | \ENT_HTML5
-                        )
+                $str = \urldecode(
+                    self::html_entity_decode(
+                        self::to_utf8($str),
+                        \ENT_QUOTES | \ENT_HTML5
                     )
                 );
             } while ($str_compare !== $str);
@@ -13550,17 +13631,15 @@ final class UTF8
             /**
              * @psalm-suppress PossiblyInvalidArgument
              */
-            $str = self::fix_simple_utf8(
-                \urldecode(
-                    self::html_entity_decode(
-                        self::to_utf8($str),
-                        \ENT_QUOTES | \ENT_HTML5
-                    )
+            $str = \urldecode(
+                self::html_entity_decode(
+                    self::to_utf8($str),
+                    \ENT_QUOTES | \ENT_HTML5
                 )
             );
         }
 
-        return $str;
+        return self::fix_simple_utf8($str);
     }
 
     /**
@@ -14637,11 +14716,17 @@ final class UTF8
      */
     private static function strtonatfold(string $str)
     {
+        $str = \Normalizer::normalize($str, \Normalizer::NFD);
+        /** @phpstan-ignore-next-line - https://github.com/JetBrains/phpstorm-stubs/pull/949 */
+        if ($str === false) {
+            return '';
+        }
+
         /** @noinspection PhpUndefinedClassInspection */
         return \preg_replace(
             '/\p{Mn}+/u',
             '',
-            \Normalizer::normalize($str, \Normalizer::NFD)
+            $str
         );
     }
 
@@ -14696,6 +14781,10 @@ final class UTF8
      */
     private static function urldecode_unicode_helper(string $str)
     {
+        if (\strpos($str, '%u') === false) {
+            return $str;
+        }
+
         $pattern = '/%u([0-9a-fA-F]{3,4})/';
         if (\preg_match($pattern, $str)) {
             $str = (string) \preg_replace($pattern, '&#x\\1;', $str);
