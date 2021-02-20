@@ -14,14 +14,14 @@ page_title
 language
     Website language (english/persian/italian/chinese-simplified/chinese-traditional/swedish/french/german/spanish/korean)
 =====================================================================*/
-$config['baseurl'] = "http://localhost";
+$config['baseurl'] = "http://localhost"; // MAKE SURE USE VALID URL, If you have any issue loading images and template please check this field
 $config['page_title'] = "Simple Register";
 $config['language'] = "english";
 /*===================================================================
 If you see a white screen or have an issue, you can enable it to see the errors.
 Note that after testing, be sure to disable this option.
 =====================================================================*/
-$config['debug_mode'] = false;
+$config['debug_mode'] = false; // ENABLE Debug mode if you got blank screen or 503 error, to see what happen?
 /*===================================================================
 Your server information.
 realmlist
@@ -57,9 +57,10 @@ For last versions of the TrinityCore(3.3.5/master) you need to enable it. https:
 Enable that if you use the last version of TC.
 You need to enable the GMP extension for PHP.
 =====================================================================
+***************** GMP REQUIRED ********************
 ******Uncomment extension=gmp in your php.ini******
 =====================================================================*/
-$config['srp6_support'] = false;
+$config['srp6_support'] = false; // READ COMMENTS, [Please ENABLE GMP]
 /*===================================================================
 If you have an issue with top players or online players you can disable them!
 disable_top_players
