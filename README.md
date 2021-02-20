@@ -37,7 +37,10 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
 
 ## Changelogs
 
- **2.0.0 (8/03/2020):**
+ **2.0.1 (2/20/2021):**
+ 1. Support SRP6 for CMangos.
+ 
+  **2.0.0 (8/03/2020):**
  1. Added Battle for Azeroth template.
  
  **1.9.9 (8/03/2020):**
