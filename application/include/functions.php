@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright    Copyright (c) 2019 - 2020, MasterkinG32. (https://masterking32.com)
+ * @copyright    Copyright (c) 2019 - 2021, MasterkinG32. (https://masterking32.com)
  * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
@@ -32,6 +32,17 @@ function get_config($name)
     if (!empty($name)) {
         if (isset($config[$name])) {
             return $config[$name];
+        }
+    }
+    return false;
+}
+
+function get_core_config($name)
+{
+    global $core_config;
+    if (!empty($name)) {
+        if (isset($core_config[$name])) {
+            return $core_config[$name];
         }
     }
     return false;
@@ -302,7 +313,12 @@ function calculateSRP6Verifier($username, $password, $salt)
     $h1 = sha1(strtoupper($username . ':' . $password), TRUE);
 
     // calculate second hash
-    $h2 = sha1($salt . $h1, TRUE);
+	if(get_config('server_core') == 5)
+	{
+		$h2 = sha1(strrev($salt) . $h1, TRUE);  // From haukw
+	} else {
+		$h2 = sha1($salt . $h1, TRUE);
+	}
 
     // convert to integer (little-endian)
     $h2 = gmp_import($h2, 1, GMP_LSW_FIRST);
@@ -317,7 +333,12 @@ function calculateSRP6Verifier($username, $password, $salt)
     $verifier = str_pad($verifier, 32, chr(0), STR_PAD_RIGHT);
 
     // done!
-    return $verifier;
+	if(get_config('server_core') == 5)
+	{
+		return strrev($verifier);  // From haukw
+	} else {
+		return $verifier;
+	}
 }
 
 // Returns SRP6 parameters to register this username/password combination with
@@ -330,6 +351,12 @@ function getRegistrationData($username, $password)
     $verifier = calculateSRP6Verifier($username, $password, $salt);
 
     // done - this is what you put in the account table!
+	if(get_config('server_core') == 5)
+	{
+		$salt = strtoupper(bin2hex($salt));         	// From haukw
+		$verifier = strtoupper(bin2hex($verifier));     // From haukw
+	}
+	
     return array($salt, $verifier);
 }
 

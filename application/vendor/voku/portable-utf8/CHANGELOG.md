@@ -1,5 +1,39 @@
 # Changelog
 
+### 5.4.51 (2020-12-02)
+
+- "UTF8::rawurldecode()" -> optimize performance
+- "UTF8::urldecode()" -> optimize performance
+- "UTF8::to_boolean() -> fix phpdoc
+
+### 5.4.50 (2020-11-12)
+
+- "UTF8::normalize_whitespace()" -> can now also normalize "control characters" if needed
+
+### 5.4.49 (2020-11-12)
+
+- "UTF8::remove_invisible_characters()" -> can now also remove "control characters" if needed
+- "UTF8::is_printable()" -> fix for non-printable control characters
+
+### 5.4.48 (2020-11-07)
+
+- fix "UTF8::chr()" handling of non "int" code points
+- fix "UTF8::html_encode()" (parameter mismatch for "mb_encode_numericentity()")
+- fix "UTF8::str_ireplace()" (TypeError of "preg_replace()")
+- fix "UTF8::strtonatfold()" (TypeError of "preg_replace()")
+- fix "UTF8::substr_count()" return type if "$haystack" is an empty string
+- compatibility with PHP 8.0 behaviour for:
+    - UTF::strstr()
+    - UTF::stristr()
+    - UTF::strpos()
+    - UTF::stripos()
+    - UTF::strrpos()
+    - UTF::strripos()
+- use native functions from PHP 8.0
+    - \str_contains()
+    - \str_starts_with()
+    - \str_ends_with()
+
 ### 5.4.47 (2020-07-26)
 
 - optimize performance by re-using the result of "strlen()" 

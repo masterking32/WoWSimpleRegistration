@@ -33,11 +33,14 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
  9. Vote System (4/03/2020).
  10. Support HCaptcha/Recaptcha v2 (7/27/2020).
  11. Support Two-Factor Authentication (2FA) (7/28/2020).
- 12. **Multi-Language support** (9/10/2020) (Support: 🇬🇧 English, 🇮🇷 Persian, 🇮🇹 Italian, 🇨🇳 Chinese-simplified, 🇹🇼 Chinese-traditional, 🇸🇪 Swedish, 🇫🇷 French, 🇩🇪 German, 🇪🇸 Spanish).
+ 12. **Multi-Language support** (9/10/2020) (Support: 🇬🇧 English, 🇮🇷 Persian, 🇮🇹 Italian, 🇨🇳 Chinese-simplified, 🇹🇼 Chinese-traditional, 🇸🇪 Swedish, 🇫🇷 French, 🇩🇪 German, 🇪🇸 Spanish, 🇰🇷 Korean).
 
 ## Changelogs
 
- **2.0.0 (8/03/2020):**
+ **2.0.1 (2/20/2021):**
+ 1. Support SRP6 for CMangos.
+ 
+  **2.0.0 (8/03/2020):**
  1. Added Battle for Azeroth template.
  
  **1.9.9 (8/03/2020):**
@@ -121,3 +124,5 @@ French by [Kalorte](https://github.com/Kalorte)
 German by [DuelistRag3](https://github.com/DuelistRag3)
 
 Spanish by [xjose93](https://github.com/xjose93)
+
+Korean by [KOREAFTP](https://github.com/KOREAFTP)

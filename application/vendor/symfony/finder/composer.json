@@ -1,7 +1,7 @@
 {
     "name": "symfony/finder",
     "type": "library",
-    "description": "Symfony Finder Component",
+    "description": "Finds files and directories via an intuitive fluent interface",
     "keywords": [],
     "homepage": "https://symfony.com",
     "license": "MIT",
@@ -24,10 +24,5 @@
             "/Tests/"
         ]
     },
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "5.1-dev"
-        }
-    }
+    "minimum-stability": "dev"
 }
