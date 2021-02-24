@@ -14,7 +14,22 @@ $language['tpl_icecrown_custom_css'] = '';
 $language['tpl_kaelthas_custom_css'] = '';
 $language['tpl_battleforazeroth_custom_css'] = '';
 
-$language['welcome_to'] = 'Willkommen zu';
+// Lang changer
+$language['change_lang_head'] = 'Sprache ändern';
+$language['change_lang_form_head'] = 'Sprache auswählen';
+$language['lang_en'] = 'Englisch';
+$language['lang_pe'] = 'Persisch';
+$language['lang_it'] = 'Italienisch';
+$language['lang_ch_si'] = 'Simples Chinsesisch';
+$language['lang_ch_tr'] = 'Traditionelles Chinesisch';
+$language['lang_sw'] = 'Schwedisch';
+$language['lang_fr'] = 'Französisch';
+$language['lang_de'] = 'Deutsch';
+$language['lang_sp'] = 'Spanisch';
+$language['lang_ko'] = 'Koreanisch';
+$language['change_lang_sub'] = 'Ändern';
+
+$language['welcome_to'] = 'Willkommen bei';
 $language['welcome_message'] = 'Willkommen bei unserem Privat Server, Tritt uns bei!';
 $language['get_started'] = 'Starte jetzt';
 $language['home'] = 'Start';
