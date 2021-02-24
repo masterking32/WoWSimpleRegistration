@@ -14,6 +14,21 @@ $language['tpl_icecrown_custom_css'] = '';
 $language['tpl_kaelthas_custom_css'] = '';
 $language['tpl_battleforazeroth_custom_css'] = '.hero-section, .hero-slider, .progressBar, .owl-stage-outer, .owl-nav, .owl-dots, .owl-stage{ direction: ltr;} p, .site-btn, .site-btn-login{font-family: vazir;}';
 
+// Lang changer
+$language['change_lang_head'] = 'Language Changer';
+$language['change_lang_form_head'] = 'Select Language';
+$language['lang_en'] = 'English';
+$language['lang_pe'] = 'Persian';
+$language['lang_it'] = 'Italian';
+$language['lang_ch_si'] = 'Chinese Simplified';
+$language['lang_ch_tr'] = 'Chinese Traditional';
+$language['lang_sw'] = 'Swedish';
+$language['lang_fr'] = 'French';
+$language['lang_de'] = 'German';
+$language['lang_sp'] = 'Spanish';
+$language['lang_ko'] = 'Korean';
+$language['change_lang_sub'] = 'Change';
+
 $language['welcome_to'] = 'خوش آمدید به';
 $language['welcome_message'] = 'به سرور شخصی ما خوش آمدید، هم اکنون به جمع ما بپیوندید.';
 $language['get_started'] = 'شروع کنید';

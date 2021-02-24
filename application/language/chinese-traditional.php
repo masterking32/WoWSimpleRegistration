@@ -14,6 +14,21 @@ $language['tpl_icecrown_custom_css'] = '';
 $language['tpl_kaelthas_custom_css'] = '';
 $language['tpl_battleforazeroth_custom_css'] = '';
 
+// Lang changer
+$language['change_lang_head'] = 'Language Changer';
+$language['change_lang_form_head'] = 'Select Language';
+$language['lang_en'] = 'English';
+$language['lang_pe'] = 'Persian';
+$language['lang_it'] = 'Italian';
+$language['lang_ch_si'] = 'Chinese Simplified';
+$language['lang_ch_tr'] = 'Chinese Traditional';
+$language['lang_sw'] = 'Swedish';
+$language['lang_fr'] = 'French';
+$language['lang_de'] = 'German';
+$language['lang_sp'] = 'Spanish';
+$language['lang_ko'] = 'Korean';
+$language['change_lang_sub'] = 'Change';
+
 $language['welcome_to'] = '歡迎來到';
 $language['welcome_message'] = '歡迎來到我們的伺服, 趕快加入我們吧! ';
 $language['get_started'] = '新手上路';

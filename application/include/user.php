@@ -23,6 +23,10 @@ class user
             self::account_set_2fa($_GET['enabletfa'], $_GET['account']);
         }
 
+        if (!empty($_POST['langchangever'])) {
+            self::lang_cookie_changer($_POST['langchange']);
+        }
+
         if (!empty($_POST['submit'])) {
             self::tfa_enable();
             if (get_config('battlenet_support')) {
@@ -47,6 +51,16 @@ class user
                 $_SESSION['captcha'] = self::$captcha->getPhrase();
             }
         }
+    }
+
+    /**
+     * Language Changer
+     */
+    public static function lang_cookie_changer($getlang)
+    {
+        $cookie_name = "langcookie";
+        setcookie($cookie_name, $getlang); //sets the language cookie to selected language
+        header("Refresh:0");
     }
 
     /**

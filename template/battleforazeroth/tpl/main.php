@@ -171,6 +171,12 @@ require_once 'header.php'; ?>
                                                 <?php elang('vote_for_us'); ?>
                                             </button>
                                         </div>
+                                        <div class="text-center" style="margin-top: 10px;">
+                                            <button type="button" class="site-btn-login" data-toggle="modal"
+                                                    data-target="#lang-modal">
+                                                <?php elang('change_lang_head'); ?>
+                                            </button>
+                                        </div>
                                         <div class="modal" id="vote-modal">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -483,5 +489,43 @@ require_once 'header.php'; ?>
         </div>
     </div>
 </div>
+
+<div class="modal" id="lang-modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title"><?php elang('change_lang_head'); ?></h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form action="" method="post">
+                                                    <div class="form-group">
+                                                        <label for="lang"><?php elang('change_lang_form_head'); ?></label>
+                                                        <select class="form-control" id="langchange" name="langchange">
+                                                            <option value="english" <?php if($lang == 'english'){ echo 'selected';} else {} ?>><?php elang('lang_en'); ?></option>
+                                                            <option value="persian" <?php if($lang == 'persian'){ echo 'selected';} else {}?>><?php elang('lang_pe'); ?></option>
+                                                            <option value="italian" <?php if($lang == 'italian'){ echo 'selected';} else {}?>><?php elang('lang_it'); ?></option>
+                                                            <option value="chinese-simplified" <?php if($lang == 'chinese-simplified'){ echo 'selected';} else {}?>><?php elang('lang_ch_si'); ?></option>
+                                                            <option value="chinese-traditional" <?php if($lang == 'chinese-traditional'){ echo 'selected';} else {}?>><?php elang('lang_ch_tr'); ?></option>
+                                                            <option value="swedish" <?php if($lang == 'swedish'){ echo 'selected';} else {}?>><?php elang('lang_sw'); ?></option>
+                                                            <option value="french" <?php if($lang == 'french'){ echo 'selected';} else {}?>><?php elang('lang_fr'); ?></option>
+                                                            <option value="german" <?php if($lang == 'german'){ echo 'selected';} else {}?>><?php elang('lang_de'); ?></option>
+                                                            <option value="spanish" <?php if($lang == 'spanish'){ echo 'selected';} else {}?>><?php elang('lang_sp'); ?></option>
+                                                            <option value="korean" <?php if($lang == 'korean'){ echo 'selected';} else {}?>><?php elang('lang_ko'); ?></option>
+                                                        </select>
+                                                    </div>
+                                                    <input name="langchangever" type="hidden" value="langchanger">
+                                                    <button type="submit" class="btn btn-primary"><?php elang('change_lang_sub'); ?></button>
+                                                </form>
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 <?php } ?>
 <?php require_once 'footer.php'; ?>
