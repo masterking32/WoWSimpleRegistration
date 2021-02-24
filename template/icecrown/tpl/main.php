@@ -504,16 +504,16 @@ require_once 'header.php'; ?>
                 <div class="form-group">
                     <label for="lang"><?php elang('change_lang_form_head'); ?></label>
                         <select class="form-control" id="langchange" name="langchange">
-                            <option value="english"><?php elang('lang_en'); ?></option>
-                            <option value="persian"><?php elang('lang_pe'); ?></option>
-                            <option value="italian"><?php elang('lang_it'); ?></option>
-                            <option value="chinese-simplified"><?php elang('lang_ch_si'); ?></option>
-                            <option value="chinese-traditional"><?php elang('lang_ch_tr'); ?></option>
-                            <option value="swedish"><?php elang('lang_sw'); ?></option>
-                            <option value="french"><?php elang('lang_fr'); ?></option>
-                            <option value="german"><?php elang('lang_de'); ?></option>
-                            <option value="spanish"><?php elang('lang_sp'); ?></option>
-                            <option value="korean"><?php elang('lang_ko'); ?></option>
+                        <option value="english" <?php if($lang == 'english'){ echo 'selected';} else {} ?>><?php elang('lang_en'); ?></option>
+                        <option value="persian" <?php if($lang == 'persian'){ echo 'selected';} else {}?>><?php elang('lang_pe'); ?></option>
+                        <option value="italian" <?php if($lang == 'italian'){ echo 'selected';} else {}?>><?php elang('lang_it'); ?></option>
+                        <option value="chinese-simplified" <?php if($lang == 'chinese-simplified'){ echo 'selected';} else {}?>><?php elang('lang_ch_si'); ?></option>
+                        <option value="chinese-traditional" <?php if($lang == 'chinese-traditional'){ echo 'selected';} else {}?>><?php elang('lang_ch_tr'); ?></option>
+                        <option value="swedish" <?php if($lang == 'swedish'){ echo 'selected';} else {}?>><?php elang('lang_sw'); ?></option>
+                        <option value="french" <?php if($lang == 'french'){ echo 'selected';} else {}?>><?php elang('lang_fr'); ?></option>
+                        <option value="german" <?php if($lang == 'german'){ echo 'selected';} else {}?>><?php elang('lang_de'); ?></option>
+                        <option value="spanish" <?php if($lang == 'spanish'){ echo 'selected';} else {}?>><?php elang('lang_sp'); ?></option>
+                        <option value="korean" <?php if($lang == 'korean'){ echo 'selected';} else {}?>><?php elang('lang_ko'); ?></option>
                         </select>
                 </div>
                     <input name="langchangever" type="hidden" value="langchanger">
