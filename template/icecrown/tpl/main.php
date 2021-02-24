@@ -43,8 +43,6 @@ require_once 'header.php'; ?>
                         <li><a data-toggle="tab" href="#pills-topplayers" id="topplayers"><?php elang('top_players'); ?></a></li>
                     <?php } ?>
                     <li><a data-toggle="tab" href="#pills-contact" id="contact"><?php elang('contact'); ?></a></li>
-                    <li><a class="nav-item nav-link" id="nav-contact-tab" data-toggle="modal" data-target="#lang-modal"
-                       role="tab" aria-controls="nav-contact" aria-selected="false"><?php elang('change_lang_head'); ?></a></li>
                 </ul>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade in <?php echo((empty($error_error) && empty($success_msg)) ? 'active' : ''); ?>"
