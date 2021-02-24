@@ -12,11 +12,26 @@ baseurl
 page_title
     That's your website title. Example: "My WOW Private server!"
 language
-    Website language (english/persian/italian/chinese-simplified/chinese-traditional/swedish/french/german/spanish/korean)
+    Default website language (english/persian/italian/chinese-simplified/chinese-traditional/swedish/french/german/spanish/korean)
+supported_langs
+	List of languages supported, You can remove each language you don't want!
+	if you want to disable language changer, Change it to: $config['supported_langs'] = false;
 =====================================================================*/
 $config['baseurl'] = "http://localhost"; // MAKE SURE USE VALID URL, If you have any issue loading images and template please check this field
 $config['page_title'] = "Simple Register";
 $config['language'] = "english";
+$config['supported_langs'] = [
+	'english' => 'English',
+	'persian' => 'Persian',
+	'italian' => 'Italian',
+	'chinese-simplified' => 'Chinese Simplified',
+	'chinese-traditional' => 'Chinese Traditional',
+	'swedish' => 'Swedish',
+	'french' => 'French',
+	'german' => 'German',
+	'spanish' => 'Spanish',
+	'korean' => 'Korean'
+];
 /*===================================================================
 If you see a white screen or have an issue, you can enable it to see the errors.
 Note that after testing, be sure to disable this option.
@@ -312,4 +327,4 @@ $config['realmlists'] = array( // Add your realmlist here
 
 
 
-$config['script_version'] = '2.0.1';
+$config['script_version'] = '2.0.2';

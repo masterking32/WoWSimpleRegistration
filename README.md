@@ -37,6 +37,9 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
 
 ## Changelogs
 
+ **2.0.2 (2/24/2021):**
+ 1. Language changer added. (Thanks to [DuelistRag3](https://github.com/DuelistRag3))
+ 
  **2.0.1 (2/20/2021):**
  1. Support SRP6 for CMangos.
  

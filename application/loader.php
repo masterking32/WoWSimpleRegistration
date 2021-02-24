@@ -46,12 +46,19 @@ if (!preg_match('/^([a-z-]+)$/i', strtolower(get_config('language'))) || !file_e
     die('Language is not valid!');
 }
 
-require_once app_path . 'language/' . strtolower(get_config('language')) . '.php';
+if(!empty($_COOKIE['website_lang']) && !empty($config['supported_langs'][$_COOKIE['website_lang']]) && file_exists(app_path . 'language/' . strtolower($_COOKIE['website_lang']) . '.php'))
+{
+	require_once app_path . 'language/' . strtolower($_COOKIE['website_lang']) . '.php';
+}else{
+	require_once app_path . 'language/' . strtolower(get_config('language')) . '.php';
+}
+
+
 
 $antiXss = new AntiXSS();
 if (!empty(get_config('script_version'))) {
     /* @TODO Add online version check! */
-    if (version_compare(get_config('script_version'), '2.0.1', '<')) {
+    if (version_compare(get_config('script_version'), '2.0.2', '<')) {
         echo 'Use last version of config.php file.';
         exit();
     }

@@ -499,27 +499,25 @@ require_once 'header.php'; ?>
                 <?php echo(!empty(get_config("game_version")) ? '<p>' . lang('game_version') . ': <span style="color: yellow;">' . get_config("game_version") . '</span></p>' : ''); ?>
                 <?php echo(!empty(get_config("patch_location")) ? '<p>' . lang('server_patch') . ': <a href="' . get_config("patch_location") . '" style="color: yellow;">' . lang('download') . '</a></p>' : ''); ?>
             </div>
+            <?php if(!empty(get_config('supported_langs'))) { ?>
             <div class="box1">
             <form action="" method="post">
                 <div class="form-group">
                     <label for="lang"><?php elang('change_lang_form_head'); ?></label>
                         <select class="form-control" id="langchange" name="langchange">
-                        <option value="english" <?php if($lang == 'english'){ echo 'selected';} else {} ?>><?php elang('lang_en'); ?></option>
-                        <option value="persian" <?php if($lang == 'persian'){ echo 'selected';} else {}?>><?php elang('lang_pe'); ?></option>
-                        <option value="italian" <?php if($lang == 'italian'){ echo 'selected';} else {}?>><?php elang('lang_it'); ?></option>
-                        <option value="chinese-simplified" <?php if($lang == 'chinese-simplified'){ echo 'selected';} else {}?>><?php elang('lang_ch_si'); ?></option>
-                        <option value="chinese-traditional" <?php if($lang == 'chinese-traditional'){ echo 'selected';} else {}?>><?php elang('lang_ch_tr'); ?></option>
-                        <option value="swedish" <?php if($lang == 'swedish'){ echo 'selected';} else {}?>><?php elang('lang_sw'); ?></option>
-                        <option value="french" <?php if($lang == 'french'){ echo 'selected';} else {}?>><?php elang('lang_fr'); ?></option>
-                        <option value="german" <?php if($lang == 'german'){ echo 'selected';} else {}?>><?php elang('lang_de'); ?></option>
-                        <option value="spanish" <?php if($lang == 'spanish'){ echo 'selected';} else {}?>><?php elang('lang_sp'); ?></option>
-                        <option value="korean" <?php if($lang == 'korean'){ echo 'selected';} else {}?>><?php elang('lang_ko'); ?></option>
+                        <?php
+                            $supported_langs = get_config('supported_langs');
+                            foreach($supported_langs as $val => $lang) {
+                                echo '<option value="' . $val . '">' . $lang . '</option>';
+                            }
+                        ?>
                         </select>
                 </div>
                     <input name="langchangever" type="hidden" value="langchanger">
                     <button type="submit" class="btn btn-primary"><?php elang('change_lang_sub'); ?></button>
             </form>
             </div>
+             <?php } ?>
             <div class="box1">
                 Discord
                 <hr style="border-color: #00CCFF;">

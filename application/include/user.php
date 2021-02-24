@@ -58,9 +58,13 @@ class user
      */
     public static function lang_cookie_changer($getlang)
     {
-        $cookie_name = "langcookie";
-        setcookie($cookie_name, $getlang); //sets the language cookie to selected language
-        header("Refresh:0");
+		$supported_langs = get_config('supported_langs');
+		if(!empty($supported_langs) && !empty($supported_langs[$getlang]))
+		{
+			setcookie('website_lang', $getlang); //sets the language cookie to selected language
+			header("location: " . get_config("baseurl"));
+			exit();
+		}
     }
 
     /**
