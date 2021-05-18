@@ -152,6 +152,7 @@ function send_phpmailer($email, $subject, $message)
         $mail->addReplyTo(get_config('smtp_mail'));
 
         // Content
+	$mail->CharSet = 'UTF-8';
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $message;
