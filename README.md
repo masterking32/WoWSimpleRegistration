@@ -13,7 +13,7 @@ Enable gmp, gd, soap, mbstring, pdo and pdo-mysql.
 
  - Download project & unzip.
  - Go to `application/config/` folder and change `config.php.sample` file name to `config.php`
- - Open the config file and set your server data.
+ - Open the config file and set your server data. If the "Image Captcha" type is used, then the GD2 module for PHP must be installed.
  - Enjoy that.
 
 # Debug
