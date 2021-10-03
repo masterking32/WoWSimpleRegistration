@@ -32,7 +32,7 @@ require_once 'rules.php';
                         <?php if (!get_config('battlenet_support')) { ?>
                             <div class="input-group">
                                 <span class="input-group"><?php elang('username'); ?></span>
-                                <input type="text" class="form-control" minlength="2" maxlength="16" pattern="_[a-zA-Z]+" required placeholder="<?php elang('username'); ?>"
+                                <input type="text" class="form-control" pattern="[A-Za-z]{2,16}" required placeholder="<?php elang('username'); ?>"
                                        name="username">
                             </div>
                         <?php } ?>
