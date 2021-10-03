@@ -26,24 +26,24 @@ require_once 'rules.php';
                         success_msg(); //Display message. ?>
                         <div class="input-group">
                             <span class="input-group"><?php elang('email'); ?></span>
-                            <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
+                            <input type="email" class="form-control" required placeholder="<?php elang('email'); ?>"
                                    name="email">
                         </div>
                         <?php if (!get_config('battlenet_support')) { ?>
                             <div class="input-group">
                                 <span class="input-group"><?php elang('username'); ?></span>
-                                <input type="text" class="form-control" placeholder="<?php elang('username'); ?>"
+                                <input type="text" class="form-control" minlength="2" maxlength="16" pattern="_[a-zA-Z]+" required placeholder="<?php elang('username'); ?>"
                                        name="username">
                             </div>
                         <?php } ?>
                         <div class="input-group">
                             <span class="input-group"><?php elang('password'); ?></span>
-                            <input type="password" class="form-control" placeholder="<?php elang('password'); ?>"
+                            <input type="password" class="form-control" minlength="4" maxlength="16" required placeholder="<?php elang('password'); ?>"
                                    name="password">
                         </div>
                         <div class="input-group">
                             <span class="input-group"><?php elang('retype_password'); ?></span>
-                            <input type="password" class="form-control" placeholder="<?php elang('retype_password'); ?>"
+                            <input type="password" class="form-control" minlength="4" maxlength="16" required placeholder="<?php elang('retype_password'); ?>"
                                    name="repassword">
                         </div>
                         <?php echo GetCaptchaHTML(); ?>
@@ -362,7 +362,7 @@ require_once 'rules.php';
                         if (!is_array($data2show)) {
                             echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
                         } else {
-                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('rank') . '</th>';
+                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th>';
 
                             if (get_config('expansion') >= 6) {
                                 echo '<th scope="col">' . lang('honor_level') . '</th>';
