@@ -27,6 +27,7 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Server core: [e.g. TrinityCore]
+ - Core repository: [e.g https://github.com/Example_Core/WoWServer]
  - Game version: [e.g 3.3.5]
  - PHP version: [e.g 7.1.0]
  - Browser [e.g. chrome, safari]
