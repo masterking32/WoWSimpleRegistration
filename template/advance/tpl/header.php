@@ -38,7 +38,7 @@
 </head>
 <body>
 <section id="hero"
-         style="background-image: url('<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/wow-bg/<?php echo get_config('expansion') . '-' . rand(1, 6); ?>.jpg')">
+         style="background-image: url('<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/wow-bg/<?php echo get_config('expansion') . '-' . rand(1, 6); ?>.jpg');background-size: cover;">
     <div class="hero-container">
         <a href="" class="hero-logo" data-aos="zoom-in"><img style="width: 250px; max-width: 80%;"
                                                              src="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/logo-1.png"

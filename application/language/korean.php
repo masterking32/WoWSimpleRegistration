@@ -77,6 +77,7 @@ $language['class'] = '클래스';
 $language['level'] = '레벨';
 $language['top_players'] = '상위 플레이어';
 $language['play_time'] = '게임 플레이 시간';
+$language['gold'] = '금';
 $language['killers'] = '킬 현황';
 $language['kills'] = '죽인 수';
 $language['honor_points'] = '명예 포인트';

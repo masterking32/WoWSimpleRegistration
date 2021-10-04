@@ -77,6 +77,7 @@ $language['class'] = 'Klasse';
 $language['level'] = 'Level';
 $language['top_players'] = 'Top Spieler';
 $language['play_time'] = 'Spielzeit';
+$language['gold'] = 'Gold';
 $language['killers'] = 'Meiste PVP kills';
 $language['kills'] = 'Kills';
 $language['honor_points'] = 'Ehren Punkte';

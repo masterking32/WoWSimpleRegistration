@@ -324,7 +324,7 @@ require_once 'rules.php';
                         if (!is_array($data2show)) {
                             echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
                         } else {
-                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th><th scope="col">' . lang('play_time') . '</th></tr></thead><tbody>';
+                            echo '<table class="table table-striped table-responsive-sm"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th><th scope="col">' . lang('play_time') . '</th></tr></thead><tbody>';
                             $m = 1;
                             foreach ($data2show as $one_char) {
                                 if (empty($one_char['name'])) {
@@ -337,13 +337,32 @@ require_once 'rules.php';
                         echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
                         $i++;
 
+                        $data2show = status::get_top_gold($onerealm['realmid']);
+                        echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">" . lang('gold') . "</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
+                                            <div class=\"modal-header\"><h4 class=\"modal-title\">" . lang('top_players') . " - " . lang('gold') . "</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
+                        if (!is_array($data2show)) {
+                            echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
+                        } else {
+                            echo '<table class="table table-striped table-responsive-sm"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('level') . '</th> <th scope="col">' . lang('play_time') . '</th><th scope="col">' . lang('gold') . '</th></tr></thead><tbody>';
+                            $m = 1;
+                            foreach ($data2show as $one_char) {
+                                if (empty($one_char['name'])) {
+                                    continue;
+                                }
+                                echo '<tr><td>' . $m++ . '<th scope="row">' . $antiXss->xss_clean($one_char['name']) . '</th><td>' . $antiXss->xss_clean($one_char["level"]) . '</td><td>' . $antiXss->xss_clean(get_human_time_from_sec($one_char['totaltime'])) . '</td><td>' . $antiXss->xss_clean(substr($one_char["money"], 0, -4)) . '<img src=\'' . get_config("baseurl") . '/template/' . $antiXss->xss_clean(get_config("template")) . '/images/goldcoin.png\'></td></tr>';
+                            }
+                            echo '</table>';
+                        }
+                        echo "</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button></div></div></div></div>";
+                        $i++;
+
                         $data2show = status::get_top_killers($onerealm['realmid']);
                         echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\"  data-aos=\"fade-up\" data-aos-delay=\"100\"data-target=\"#modal-id$i\">" . lang('killers') . "</button><div class=\"modal\" id=\"modal-id$i\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\">
                                             <div class=\"modal-header\"><h4 class=\"modal-title\">" . lang('top_players') . " - " . lang('killers') . "</h4><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button></div><div class=\"modal-body\">";
                         if (!is_array($data2show)) {
                             echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
                         } else {
-                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th><th scope="col">' . lang('kills') . '</th></tr></thead><tbody>';
+                            echo '<table class="table table-striped  table-responsive-sm"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th><th scope="col">' . lang('kills') . '</th></tr></thead><tbody>';
                             $m = 1;
                             foreach ($data2show as $one_char) {
                                 if (empty($one_char['name'])) {
@@ -362,7 +381,7 @@ require_once 'rules.php';
                         if (!is_array($data2show)) {
                             echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
                         } else {
-                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th>';
+                            echo '<table class="table table-striped table-responsive-sm"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th>';
 
                             if (get_config('expansion') >= 6) {
                                 echo '<th scope="col">' . lang('honor_level') . '</th>';
@@ -396,7 +415,7 @@ require_once 'rules.php';
                         if (!is_array($data2show)) {
                             echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
                         } else {
-                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th><th scope="col">' . lang('arena_points') . '</th></tr></thead><tbody>';
+                            echo '<table class="table table-striped table-responsive-sm"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('race') . '</th> <th scope="col">' . lang('class') . '</th><th scope="col">' . lang('level') . '</th><th scope="col">' . lang('arena_points') . '</th></tr></thead><tbody>';
                             $m = 1;
                             foreach ($data2show as $one_char) {
                                 if (empty($one_char['name'])) {
@@ -415,7 +434,7 @@ require_once 'rules.php';
                         if (!is_array($data2show)) {
                             echo "<span style='color: #0d99e5;'>" . lang('online_players_msg2') . "</span>";
                         } else {
-                            echo '<table class="table table-striped"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('rating') . '</th><th scope="col">' . lang('captain_name') . '</th></tr></thead><tbody>';
+                            echo '<table class="table table-striped table-responsive-sm"><thead><tr><th scope="col">' . lang('rank') . '</th><th scope="col">' . lang('name') . '</th><th scope="col">' . lang('rating') . '</th><th scope="col">' . lang('captain_name') . '</th></tr></thead><tbody>';
                             $m = 1;
                             foreach ($data2show as $one_char) {
                                 $character_data = status::get_character_by_guid($onerealm['realmid'], $one_char['captainGuid']);

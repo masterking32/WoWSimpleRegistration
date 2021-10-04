@@ -77,6 +77,7 @@ $language['class'] = 'کلاس';
 $language['level'] = 'سطح';
 $language['top_players'] = 'بازیکنان برتر';
 $language['play_time'] = 'مدت بازی';
+$language['gold'] = 'طلا';
 $language['killers'] = 'قاتلین';
 $language['kills'] = 'کشته ها';
 $language['honor_points'] = 'هانور پوینت';

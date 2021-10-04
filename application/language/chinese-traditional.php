@@ -77,6 +77,7 @@ $language['class'] = '職業';
 $language['level'] = '等級';
 $language['top_players'] = '英雄榜';
 $language['play_time'] = '遊戲時間';
+$language['gold'] = '金子';
 $language['killers'] = '擊殺榜';
 $language['kills'] = '擊殺';
 $language['honor_points'] = '榮譽點數';
