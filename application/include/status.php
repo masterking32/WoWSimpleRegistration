@@ -81,6 +81,15 @@ class status
         return false;
     }
 
+    public static function get_top_gold($realmID)
+    {
+        $datas = database::$chars[$realmID]->select("characters", array("name", "level", "totaltime", "money"), ["ORDER" => ["money" => "DESC"], 'LIMIT' => 10]);
+        if (!empty($datas[0]["money"])) {
+            return $datas;
+        }
+        return false;
+    }
+
     public static function get_top_guild_by_member($realmID)
     {
         $datas = database::$chars[$realmID]->query("SELECT guildid,name,leaderguid FROM guild WHERE guildid IN (SELECT guildid from guild_member GROUP by guildid ORDER by COUNT(*) DESC) LIMIT 10;")->fetchAll();

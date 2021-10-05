@@ -12,7 +12,7 @@ baseurl
 page_title
     That's your website title. Example: "My WOW Private server!"
 language
-    Default website language (english/persian/italian/chinese-simplified/chinese-traditional/swedish/french/german/spanish/korean)
+    Default website language (english/persian/italian/chinese-simplified/chinese-traditional/swedish/french/german/spanish/korean/russian)
 supported_langs
 	List of languages supported, You can remove each language you don't want!
 	if you want to disable language changer, Change it to: $config['supported_langs'] = false;
@@ -30,7 +30,8 @@ $config['supported_langs'] = [
 	'french' => 'French',
 	'german' => 'German',
 	'spanish' => 'Spanish',
-	'korean' => 'Korean'
+	'korean' => 'Korean',
+	'russian' => 'Russian'
 ];
 /*===================================================================
 If you see a white screen or have an issue, you can enable it to see the errors.
