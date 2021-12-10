@@ -80,14 +80,15 @@ If your server is WoD/Legion/BFA you should enable it!
 $config['battlenet_support'] = false;
 /*===================================================================
 If your core password encryption is SRP6, you need to enable it.
-For last versions of the TrinityCore(3.3.5/master) you need to enable it. https://git.io/JJRH4 and https://git.io/JJrxq
+For the last versions of the TrinityCore(3.3.5/master)/AzerothCore, you need to enable it. https://git.io/JJRH4 and https://git.io/JJrxq
 Enable that if you use the last version of TC.
+For old versions, Make sure this feature is disabled.
 You need to enable the GMP extension for PHP.
 =====================================================================
 ***************** GMP REQUIRED ********************
 ******Uncomment extension=gmp in your php.ini******
 =====================================================================*/
-$config['srp6_support'] = false; // READ COMMENTS, [Please ENABLE GMP]
+$config['srp6_support'] = true; // READ COMMENTS, [Please ENABLE GMP]
 /*===================================================================
 If you have an issue with top players or online players you can disable them!
 disable_top_players
