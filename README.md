@@ -1,3 +1,4 @@
+
 # Simple Register Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
 
 With this script, You can make a website for your game server.
@@ -7,10 +8,11 @@ Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCor
 
 ## Requirement : PHP >= 7.0
 
-Enable gmp, gd, soap, mbstring, pdo and pdo-mysql.
+Enable **[gmp](https://www.google.com/search?client=firefox-b-d&q=enable%20gmp%20extension%20php%207)**, **[gd](https://www.google.com/search?client=firefox-b-d&q=enable%20gd%20extension%20php%207)**, **[soap](https://www.google.com/search?client=firefox-b-d&q=enable%20soap%20extension%20php%207)**, **[mbstring](https://www.google.com/search?client=firefox-b-d&q=enable%20mbstring%20extension%20php%207)**, **[pdo](https://www.google.com/search?client=firefox-b-d&q=enable%20pdo%20extension%20php%207)** and **[pdo-mysql](https://www.google.com/search?client=firefox-b-d&q=enable%20pdo-mysql%20extension%20php%207)**.
 
 # Installation
 
+- Install requirments.
  - Download project & unzip.
  - Go to `application/config/` folder and change `config.php.sample` file name to `config.php`
  - Open the config file and set your server data.
