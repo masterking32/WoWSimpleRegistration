@@ -26,10 +26,10 @@ If you got a blank screen, You can enable `debug_mode` in the config file.
 
  1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
  2. Online Players Status (Multi-Realm support).
- 3. Show TOPs by Playtime, Kills, Honor Point, Arena Point, Arena Team (Multi-Realm support).
+ 3. Show TOPs by Playtime, Kills, Honor Point, Arena Point, and Arena Team (Multi-Realm support).
  4. How to connect Page.
  5. Contact us page.
- 6. Multiple template (Light, Icecrown, Kaelthas, Advance, Battle for Azeroth).
+ 6. Multiple templates (Light, Icecrown, Kaelthas, Advance, Battle for Azeroth).
  7. Change Password (4/10/2019).
  8. Restore Password (5/31/2019).
  9. Vote System (4/03/2020).
