@@ -72,6 +72,11 @@ if ($config['srp6_support'] == true && !extension_loaded('gmp')) {
     exit();
 }
 
+if ($config['captcha_type'] == 0 && !extension_loaded('gd')) {
+    echo 'Please enable gd or gd2 in your php.ini';
+    exit();
+}
+
 if ($config['soap_for_register'] == true && !extension_loaded('soap')) {
     echo 'Please enable SOAP in your php.ini';
     exit();
