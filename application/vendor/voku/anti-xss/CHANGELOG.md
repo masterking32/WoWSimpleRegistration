@@ -1,5 +1,48 @@
 # Changelog
 
+### 4.1.41 (2023-02-12)
+
+- remove debug call (thx @gharlan [Gregor Harlan]
+
+### 4.1.40 (2023-02-11)
+
+- fix xss bypass (issue 115 | thx @thanosgn [Thanos Giannopoulos])
+- add more blacklisted js calls (thx @peter-mw [Peter Ivanov])
+- fix false positive on self-close tags (issue 111 | thx @genetus [Maxim Antonov])
+
+### 4.1.39 (2022-03-08)
+
+- "To people of Russia": There is a war in Ukraine right now. The forces of the Russian Federation are attacking civilians.
+
+### 4.1.38 (2022-03-07)
+
+- optimize "_sanitize_naughty_javascript" (issue 99 | thx @Fahl-Design)
+- optimize "_do_never_allowed_afterwards", at least for strings in tags
+
+### 4.1.37 (2022-02-15)
+
+- move more static data into the object
+  - allow to modify the "_never_allowed_call_strings"-data"
+  - allow to modify the "_never_allowed_js_callback_regex"-data"
+
+### 4.1.36 (2022-01-27)
+
+- update "portable-utf8"
+
+### 4.1.35 (2021-12-08)
+
+- update "portable-utf8"
+
+### 4.1.34 (2021-11-29)
+
+- allow e.g. "< 1 year" (issue 83)
+- fix false-positive issue (issue 85 | thx @gharlan)
+
+### 4.1.33 (2021-10-04)
+
+- fix errors in large strings
+- fix "_xss_found" if xss string was found in array value
+
 ### 4.1.32 (2021-03-29)
 
 - micro-optimize performance

@@ -1,5 +1,111 @@
 # Changelog
 
+### 6.0.13 (2023-03-08)
+
+- added "UTF8::str_limit_in_byte()"
+
+### 6.0.12 (2023-01-11)
+
+- added "UTF8::remove_iright()" 
+- added "UTF8::remove_ileft()"
+
+### 6.0.11 (2022-12-16)
+
+- test with PHP 8.2
+- added "UTF8::getUrlParamFromArray()": Get data from an array via array like string.
+
+### 6.0.10 (2022-10-06)
+
+- optimize phpdocs (use positive-int)
+
+### 6.0.9 (2022-09-01)
+
+- optimize phpdocs (use int-range)
+
+### 6.0.8 (2022-09-01)
+
+- optimize phpdocs (use Conditional Return Types) v2
+
+### 6.0.7 (2022-09-01)
+
+- optimize phpdocs (use Conditional Return Types)
+
+### 6.0.6 (2022-08-31)
+
+- optimize phpdocs
+- optimize "from"-encoding in "UTF8::encode()"
+- fix error handling in "UTF8::str_split()" for PHP >= 8.0
+- fix error handling in "UTF8::str_capitalize_name_helper()" for PHP >= 8.0
+
+### 6.0.5 (2022-08-10)
+
+- PHP 8.2: Fix ${var} string interpolation deprecation | thanks @Ayesh
+
+### 6.0.4 (2022-03-08)
+
+- "To people of Russia": There is a war in Ukraine right now. The forces of the Russian Federation are attacking civilians.
+
+### 6.0.3 (2022-01-30)
+
+- optimize phpdocs
+
+### 6.0.2 (2022-01-24)
+
+- update vendor (ASCII) lib
+
+### 6.0.1 (2022-01-24)
+
+- add "UTF8::levenshtein()" | thanks @NewEXE
+- update vendor (ASCII) lib
+
+### 6.0.0 (2021-12-08)
+
+Removed:
+- Bootup::filterRequestInputs();
+- Bootup::filterRequestUri();
+- UTF8::GRAPHEME_CLUSTER_RX
+- UTF8::chr_to_int() (please use UTF8::chr_to_decimal())
+- UTF8::hasBom() (please use UTF8::string_has_bom())
+- UTF8::html_decode() (please use UTF8::html_entity_decode())
+- UTF8::int_to_chr() (please use UTF8::decimal_to_chr())
+- UTF8::isAscii() (please use UTF8::is_ascii())
+- UTF8::isBase64() (please use UTF8::is_base64())
+- UTF8::isBinary() (please use UTF8::is_binary())
+- UTF8::isBom() (please use UTF8::is_bom())
+- UTF8::isHtml() (please use UTF8::is_html())
+- UTF8::isJson() (please use UTF8::is_json())
+- UTF8::isUtf16() (please use UTF8::is_utf16())
+- UTF8::isUtf32() (please use UTF8::is_utf32())
+- UTF8::isUtf8() (please use UTF8::is_utf8())
+- UTF8::lcword() (please use UTF8::lcfirst())
+- UTF8::lowerCaseFirst() (please use UTF8::lcfirst())
+- UTF8::normalizeEncoding() (please use UTF8::normalize_encoding())
+- UTF8::removeBOM() (please use UTF8::remove_bom())
+- UTF8::split() (please use UTF8::str_split())
+- UTF8::str_begins() (please use UTF8::str_starts_with())
+- UTF8::str_ends() (please use UTF8::str_ends_with())
+- UTF8::str_ibegins() (please use UTF8::str_istarts_with())
+- UTF8::str_iends() (please use UTF8::str_iends_with())
+- UTF8::str_iindex_first() (please use UTF8::stripos())
+- UTF8::str_iindex_last() (please use UTF8::strripos())
+- UTF8::str_index_first() (please use UTF8::strpos())
+- UTF8::str_index_last() (please use UTF8::strrpos())
+- UTF8::str_transliterate() (please use UTF8::to_ascii())
+- UTF8::str_upper_first() (please use UTF8::ucfirst())
+- UTF8::strchr() (please use UTF8::strstr()) 
+- UTF8::strichr() (please use UTF8::stristr())
+- UTF8::toAscii() (please use UTF8::to_ascii())
+- UTF8::toIso8859() (please use UTF8::to_iso8859())
+- UTF8::toLatin1() (please use UTF8::to_iso8859())
+- UTF8::to_latin1() (please use UTF8::to_iso8859())
+- UTF8::toUTF8() (please use UTF8::to_utf8())
+- UTF8::ucword() (please use UTF8::ucfirst())
+- UTF8::urldecode_fix_win1252_chars() (please use UTF8::urldecode())
+- UTF8::utf8_fix_win1252_chars() (please use UTF8::fix_simple_utf8())
+
+Fixed:
+- "UTF8::is_binary()" -> fix for strict usage
+
 ### 5.4.51 (2020-12-02)
 
 - "UTF8::rawurldecode()" -> optimize performance
