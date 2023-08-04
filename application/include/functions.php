@@ -364,15 +364,13 @@ function getRegistrationData($username, $password)
 //From TrinityCore/AOWOW
 function verifySRP6($user, $pass, $salt, $verifier)
 {
-    $g = gmp_init(7);
-    $N = gmp_init('894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7', 16);
-    $x = gmp_import(
-        sha1($salt . sha1(strtoupper($user . ':' . $pass), TRUE), TRUE),
-        1,
-        GMP_LSW_FIRST
-    );
-    $v = gmp_powm($g, $x, $N);
-    return ($verifier === str_pad(gmp_export($v, 1, GMP_LSW_FIRST), 32, chr(0), STR_PAD_RIGHT));
+    $s = $salt;
+    if(get_config('server_core') == 5)
+    {
+        $s = pack("H*",strtolower($salt));
+    }
+    $v = strtoupper(bin2hex(calculateSRP6Verifier($user, $pass, $s)));
+    return ($verifier === $v);
 }
 
 // Get language text
