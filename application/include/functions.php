@@ -368,8 +368,10 @@ function verifySRP6($user, $pass, $salt, $verifier)
     if(get_config('server_core') == 5)
     {
         $s = pack("H*",strtolower($salt));
+        $v = strtoupper(bin2hex(calculateSRP6Verifier($user, $pass, $s)));
+        return ($verifier === $v);
     }
-    $v = strtoupper(bin2hex(calculateSRP6Verifier($user, $pass, $s)));
+    $v = calculateSRP6Verifier($user, $pass, $s);
     return ($verifier === $v);
 }
 
