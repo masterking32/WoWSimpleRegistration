@@ -120,7 +120,7 @@ English/Persian by [Amin.MasterkinG](https://github.com/masterking32)
 
 Italian by [Helias](https://github.com/helias)
 
-Chinese-simplified/Chinese-traditional by [Coolzoom](https://github.com/coolzoom)
+Chinese-simplified/Chinese-traditional by [Coolzoom](https://github.com/coolzoom), [oiuv](https://github.com/oiuv)
 
 Swedish by [Kitzunu](https://github.com/Kitzunu)
 
