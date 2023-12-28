@@ -166,5 +166,6 @@ Looking for more visuals? [Browse additional screenshots here.](https://github.c
 - **Spanish**: [xjose93](https://github.com/xjose93)
 - **Korean**: [KOREAFTP](https://github.com/KOREAFTP)
 - **Russian**: [Haeniken](https://github.com/Haeniken)
+- **Portuguese**: [xnexuiz](https://github.com/xnexuiz)
 
 Heartfelt thanks to all the contributors for their invaluable support and contributions to this project.
