@@ -1,135 +1,170 @@
+# Simple Registration Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
 
-# Simple Register Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
+Create a versatile website for your game server with this easy-to-use script, featuring compatibility with major server cores.
 
-With this script, You can make a website for your game server.
+Supported Cores: 
+- [AzerothCore](http://azerothcore.org)
+- [TrinityCore](http://TrinityCore.org)
+- [AshamaneCore](https://github.com/AshamaneProject/AshamaneCore/)
+- [CMangos](https://github.com/cmangos/)
 
-Support : [AzerothCore](http://azerothcore.org), [TrinityCore](http://TrinityCore.org), [AshamaneCore](https://github.com/AshamaneProject/AshamaneCore/), [CMangos](https://github.com/cmangos/).
+⭐ If you liked the project, feel free to give it a shining star. ⭐
 
+## Prerequisites
 
-## Requirement : PHP >= 7.0
+Ensure PHP version 8.0 or higher is installed and the following extensions are enabled:
 
-Enable **[gmp](https://www.google.com/search?client=firefox-b-d&q=enable%20gmp%20extension%20php%207)**, **[gd](https://www.google.com/search?client=firefox-b-d&q=enable%20gd%20extension%20php%207)**, **[soap](https://www.google.com/search?client=firefox-b-d&q=enable%20soap%20extension%20php%207)**, **[mbstring](https://www.google.com/search?client=firefox-b-d&q=enable%20mbstring%20extension%20php%207)**, **[pdo](https://www.google.com/search?client=firefox-b-d&q=enable%20pdo%20extension%20php%207)** and **[pdo-mysql](https://www.google.com/search?client=firefox-b-d&q=enable%20pdo-mysql%20extension%20php%207)**.
+- [GMP Extension](https://www.php.net/manual/en/book.gmp.php)
+- [GD Extension](https://www.php.net/manual/en/book.image.php)
+- [Soap Extension](https://www.php.net/manual/en/book.soap.php)
+- [Mbstring Extension](https://www.php.net/manual/en/book.mbstring.php)
+- [PDO Extension](https://www.php.net/manual/en/book.pdo.php)
+- [PDO-MySQL Extension](https://www.php.net/manual/en/ref.pdo-mysql.php)
 
-# Installation
+## Installation Guide (Last version - PHP 8)
 
-- Install requirments.
- - Download project & unzip.
- - Go to `application/config/` folder and change `config.php.sample` file name to `config.php`
- - Open the config file and set your server data. If the "Image Captcha" type is used, then the GD2 module for PHP must be installed.
- - Enjoy that.
+1. Fulfill the above prerequisites on your server.
 
-# Debug
+2. Obtain the project files:
+   - Download and unzip the project, or clone it using Git:
+     ```
+     git clone https://github.com/masterking32/WoWSimpleRegistration
+     ```
+  
+3. Navigate to the `application/config/` directory and rename the file `config.php.sample` to `config.php`.
 
-If you got a blank screen, You can enable `debug_mode` in the config file.
+4. Edit the newly renamed `config.php` file, inserting your server details. Note that if using the "Image Captcha" feature, PHP's GD2 module must be enabled.
+
+5. Once configuration is complete, your registration page should be operational.
+
+## PHP 7 Version Download
+
+For those requiring PHP 7 support, please use the [last compatible commit for PHP 7](https://github.com/masterking32/WoWSimpleRegistration/tree/32a1e7e6bc31f2ed6ed1d83f64d1ae62aeab9d32). Follow these steps to clone the repository at the specific commit:
+
+```sh
+git clone https://github.com/masterking32/WoWSimpleRegistration
+cd WoWSimpleRegistration
+git checkout 32a1e7e6bc31f2ed6ed1d83f64d1ae62aeab9d32
+```
+
+# Debugging
+
+Encountering a blank page can be a common issue, typically indicating a hidden error that needs to be diagnosed. To facilitate troubleshooting, enable `debug_mode` in the configuration file.
+
+Here’s how to enable debug mode:
+- Open the `config.php` file.
+- Locate the `$config['debug_mode']` parameter.
+- Set it to `true` to enable debug mode.
+
+⚠️ **Important: Remember to disable debug mode** once you have resolved the issues. Debug mode should be set to `false` before deploying the website in a production environment or going live. This helps to ensure security and performance are not compromised.
 
 ## Features
 
- 1. Register Page (Support Vanilla/TBC/WotLK/MoP/WoD/Legion/BFA)
- 2. Online Players Status (Multi-Realm support).
- 3. Show TOPs by Playtime, Kills, Honor Point, Arena Point, and Arena Team (Multi-Realm support).
- 4. How to connect Page.
- 5. Contact us page.
- 6. Multiple templates (Light, Icecrown, Kaelthas, Advance, Battle for Azeroth).
- 7. Change Password (4/10/2019).
- 8. Restore Password (5/31/2019).
- 9. Vote System (4/03/2020).
- 10. Support HCaptcha/Recaptcha v2 (7/27/2020).
- 11. Support Two-Factor Authentication (2FA) (7/28/2020).
- 12. **Multi-Language support** (9/10/2020) (Support: 🇬🇧 English, 🇮🇷 Persian, 🇮🇹 Italian, 🇨🇳 Chinese-simplified, 🇹🇼 Chinese-traditional, 🇸🇪 Swedish, 🇫🇷 French, 🇩🇪 German, 🇪🇸 Spanish, 🇰🇷 Korean, 🇷🇺 Russian).
+1. **Registration Page**: Accommodating a wide range of game versions including Vanilla, TBC, WotLK, MoP, WoD, Legion, and BFA.
+2. **Online Players Status**: Check who's online at the server, with support for multiple realms.
+3. **Leaderboards**: Display top players based on Playtime, Kills, Honor Points, Arena Points, and Arena Teams across different realms.
+4. **Connection Guide**: Step-by-step ‘How to connect’ page for new players.
+5. **Contact Form**: Accessible ‘Contact us’ page for inquiries and support.
+6. **Multiple Themes**: Choose from various templates such as Light, Icecrown, Kaelthas, Advance, and Battle for Azeroth.
+7. **Password Management**: Facilities to change (as of April 10, 2019) and recover passwords (as of May 31, 2019).
+8. **Vote System**: Engage your community with a voting system (added on April 3, 2020).
+9. **Captcha Integration**: Protect your site with HCaptcha/Recaptcha v2 (since July 27, 2020).
+10. **Two-Factor Authentication (2FA)**: Add an extra layer of security with 2FA (introduced on July 28, 2020).
+11. **Multilingual Support**: Making the site accessible to a global audience with support for various languages (added on September 10, 2020), including:
+    - 🇬🇧 English
+    - 🇮🇷 Persian
+    - 🇮🇹 Italian
+    - 🇨🇳 Chinese Simplified
+    - 🇹🇼 Chinese Traditional
+    - 🇸🇪 Swedish
+    - 🇫🇷 French
+    - 🇩🇪 German
+    - 🇪🇸 Spanish
+    - 🇰🇷 Korean
+    - 🇷🇺 Russian
 
-## Changelogs
+## Changelog
 
- **2.0.2 (2/24/2021):**
- 1. Language changer added. (Thanks to [DuelistRag3](https://github.com/DuelistRag3))
- 
- **2.0.1 (2/20/2021):**
- 1. Support SRP6 for CMangos.
- 
-  **2.0.0 (8/03/2020):**
- 1. Added Battle for Azeroth template.
- 
- **1.9.9 (8/03/2020):**
- 1. Multi-Language support.
- 
- **1.9.8 (8/03/2020):**
- 1. Support SRP6.
- 
-  **1.9.7 (7/28/2020):**
- 1. Support Two-Factor Authentication (2FA)
- 2. Fixed a low-level vulnerability. (UPDATE TO THIS VERSION)
- 3. Fixed some of the bugs.
- 3. Allow running `account set addon` command after registration. (SOAP registration)
- 
- **1.9.6 (7/27/2020):**
- 1. Support HCaptcha/Recaptcha/Image captcha.
- 2. Fixed page load speed!
- 3. Add more description for the config file.
- 3. Update composer packages.
- 
- **1.9.5 (4/17/2020):**
- 1. Register/Restore Password via SOAP. (Support CMangos)
- 
- **1.9.4 (4/03/2020):**
- 1. Vote Added.
- 
- **1.9.3 (4/02/2020):**
- 1. Added a new template.
+### 2.0.2 (2/24/2021)
+- Added a language changer feature. (Thanks to [DuelistRag3](https://github.com/DuelistRag3))
 
- **1.9.2 (3/31/2020):**
- 1. Fixed some of the issues.
+### 2.0.1 (2/20/2021)
+- Introduced SRP6 support for CMangos.
 
- **1.9.1 (3/12/2020):**
- 1. Check the PHP version.
- 
- **1.9 (3/12/2020):**
- 1. Allow using an email for multiple accounts. (For non-battle.net servers)
- 2. Replace Email to username for change password and restore password. (For non-battle.net servers)
- 3. Add an option to enable or disable top players and online players.
+### 2.0.0 (8/03/2020)
+- New Battle for Azeroth template added.
+
+### 1.9.9 (8/03/2020)
+- Multi-language support introduced.
+
+### 1.9.8 (8/03/2020)
+- Implemented SRP6 support.
+
+### 1.9.7 (7/28/2020)
+- Added Two-Factor Authentication (2FA) support.
+- Patched a low-level security vulnerability. **(Important: Please upgrade to this version)**
+- Resolved various bugs.
+- Included the `account set addon` command as a post-registration step for SOAP registrations.
+
+### 1.9.6 (7/27/2020)
+- Added HCaptcha/Recaptcha/Image captcha support.
+- Enhanced page load performance.
+- Expanded descriptions within the config file for better clarity.
+- Updated composer packages.
+
+### 1.9.5 (4/17/2020)
+- Enabled Register/Restore Password feature via SOAP, with CMangos support.
+
+### 1.9.4 (4/03/2020)
+- Vote system feature added.
+
+### 1.9.3 (4/02/2020)
+- Introduced a new template.
+
+### 1.9.2 (3/31/2020)
+- Fixed reported issues.
+
+### 1.9.1 (3/12/2020)
+- Added PHP version check.
+
+### 1.9 (3/12/2020)
+- Allowed multiple accounts to share one email address for non-battle.net servers.
+- Changed the user identification method from email to username for password change and restoration features on non-battle.net servers.
+- Added the option to enable or disable the display of top players and online players.
 
 ## Screenshots
 
-## Advance Template
+### Advance Template
+![Advance Template Screenshot](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-bfa-min.jpg)
 
-![Advance](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-bfa-min.jpg)
+### Battle for Azeroth Template
+![Battle for Azeroth Template Screenshot](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/b1.jpg)
 
-## Battle for Azeroth
+### Light Template
+![Light Template Register Page Screenshot](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/1.jpg)
 
-![BFA](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/b1.jpg)
+### IceCrown Template
+![IceCrown Template Home Page Screenshot](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i1.jpg)
 
-## Light Template
+### Kael'thas Template
+![Kael'thas Template Home Page Screenshot](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k1.jpg)
 
-![Register Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/1.jpg)
+Looking for more visuals? [Browse additional screenshots here.](https://github.com/masterking32/WoWSimpleRegistration/tree/master/screenshots)
 
-## IceCrown Template
+## Credits
 
-![Home Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/i1.jpg)
-## Kael'thas Template
+### Programming
+- **Lead Developer**: [Amin.MasterkinG](https://masterking32.com)
 
-![Home Page](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/k1.jpg)
+### Translations
+- **English/Persian**: [Amin.MasterkinG](https://github.com/masterking32)
+- **Italian**: [Helias](https://github.com/helias)
+- **Chinese Simplified/Traditional**: [Coolzoom](https://github.com/coolzoom), [oiuv](https://github.com/oiuv)
+- **Swedish**: [Kitzunu](https://github.com/Kitzunu)
+- **French**: [Kalorte](https://github.com/Kalorte)
+- **German**: [DuelistRag3](https://github.com/DuelistRag3)
+- **Spanish**: [xjose93](https://github.com/xjose93)
+- **Korean**: [KOREAFTP](https://github.com/KOREAFTP)
+- **Russian**: [Haeniken](https://github.com/Haeniken)
 
-Need more screenshots? [Check here](https://github.com/masterking32/WoWSimpleRegistration/tree/master/screenshots)
-
-## Programmers
-
-Author : [Amin.MasterkinG](https://masterking32.com)
-
-
-## Translate
-
-English/Persian by [Amin.MasterkinG](https://github.com/masterking32)
-
-Italian by [Helias](https://github.com/helias)
-
-Chinese-simplified/Chinese-traditional by [Coolzoom](https://github.com/coolzoom), [oiuv](https://github.com/oiuv)
-
-Swedish by [Kitzunu](https://github.com/Kitzunu)
-
-French by [Kalorte](https://github.com/Kalorte)
-
-German by [DuelistRag3](https://github.com/DuelistRag3)
-
-Spanish by [xjose93](https://github.com/xjose93)
-
-Korean by [KOREAFTP](https://github.com/KOREAFTP)
-
-Russian by [Haeniken](https://github.com/Haeniken)
+Heartfelt thanks to all the contributors for their invaluable support and contributions to this project.
