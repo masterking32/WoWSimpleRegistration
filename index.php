@@ -1,32 +1,32 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright    Copyright (c) 2019 - 2021, MasterkinG32 Team, Inc. (https://masterking32.com)
+ * @copyright    Copyright (c) 2019 - 2024, MasterkinG32 Team, Inc. (https://masterking32.com)
  * @link    https://masterking32.com
  * @Description : It's not masterking32 framework !
  **/
 
-if (version_compare(PHP_VERSION, '7.0', '<')) {
-    echo "<p>You need to use PHP >= 7.0.0</p>";
-    echo "<hr>";
-    echo "<p><a href='https://www.apachefriends.org/index.html' target='_blank'>XAMPP - Windows/Mac/Linux</a></p>";
-    echo "<p><a href='http://www.wampserver.com/en/' target='_blank'>WAMP Server - Windows</a></p>";
-    echo "<hr>";
-    echo "<p><a href='https://www.vultr.com/docs/how-to-install-and-configure-php-70-or-php-71-on-ubuntu-16-04' target='_blank'>Install PHP 7 on Ubuntu 16.04</a></p>";
-    echo "<p><a href='https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-php-7-on-ubuntu-14-04' target='_blank'>Install PHP 7 on Ubuntu 14.04</a></p>";
-    echo "<hr>";
-    echo "<p><a href='https://tecadmin.net/install-php-7-on-ubuntu/' target='_blank'>Install PHP 7 on Ubuntu 18.04</a></p>";
-    echo "<p><a href='https://www.vultr.com/docs/how-to-install-and-configure-php-70-or-php-71-on-ubuntu-16-04' target='_blank'>Install PHP 7 on Ubuntu 16.04</a></p>";
-    echo "<p><a href='https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-php-7-on-ubuntu-14-04' target='_blank'>Install PHP 7 on Ubuntu 14.04</a></p>";
-    echo "<hr>";
-    echo "<p><a href='https://computingforgeeks.com/install-php-on-debian-10-buster/' target='_blank'>Install PHP 7 on Debian 10</a></p>";
-    echo "<p><a href='https://computingforgeeks.com/how-to-install-php-7-3-on-debian-9-debian-8/' target='_blank'>Install PHP 7 on Debian 8/9</a></p>";
-    echo "<hr>";
-    echo "<p><a href='https://linuxize.com/post/install-php-7-on-centos-7/' target='_blank'>Install PHP 7 on CentOS 7</a></p>";
-    echo "<p><a href='https://www.tecmint.com/install-php-7-in-centos-6/' target='_blank'>Install PHP 7 on CentOS 6</a></p>";
-    echo "<hr>";
-    echo "<p><a href='https://www.a2hosting.com/kb/cpanel/cpanel-software/changing-php-versions-and-settings-in-cpanel' target='_blank'>CPanel change PHP version</a></p>";
-    echo "<p><a href='https://www.liquidweb.com/kb/installing-additional-php-versions-using-easyapache-4/' target='_blank'>CPanel EasyApache4 install PHP 7</a></p>";
+$osType = PHP_OS;
+if (version_compare(PHP_VERSION, '8.0', '<')) {
+    echo "<p>Your server needs to run PHP version 8.0.0 or higher.</p>";
+    
+    if (stripos($osType, 'win') !== false) {
+        // Windows OS
+        echo "<p>For Windows, you can download PHP from:</p>";
+        echo "<ul>";
+        echo "<li><a href='https://www.apachefriends.org/index.html' target='_blank'>XAMPP for Windows/Mac/Linux</a></li>";
+        echo "<li><a href='http://www.wampserver.com/en/' target='_blank'>WAMP Server for Windows</a></li>";
+        echo "</ul>";
+    } elseif (stripos($osType, 'linux') !== false) {
+        // Linux OS
+        echo "<p>For Linux, you can follow these guides to install PHP:</p>";
+        echo "<ul>";
+        echo "<li><a href='https://computingforgeeks.com/how-to-install-php-8-2-on-debian/' target='_blank'>Installing PHP 8.2 on Debian 12/11/10</a></li>";
+        echo "<li><a href='https://techvblogs.com/blog/install-php-8-2-ubuntu-22-04' target='_blank'>Installing PHP 8.2 on Ubuntu 22.04</a></li>";
+        echo "<li><a href='https://linuxgenie.net/how-to-install-php-8-2-on-almalinux-8-9/' target='_blank'>Installing PHP 8.2 on AlmaLinux 8/9</a></li>";
+        echo "</ul>";
+    }
+    
     exit();
 }
 
