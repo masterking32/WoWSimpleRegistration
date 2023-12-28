@@ -1,9 +1,8 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright    Copyright (c) 2019 - 2021, MasterkinG32. (https://masterking32.com)
+ * @copyright    Copyright (c) 2019 - 2024, MasterkinG32. (https://masterking32.com)
  * @link    https://masterking32.com
- * @Description : It's not masterking32 framework !
  **/
 
 $language['lang'] = 'german';
