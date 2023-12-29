@@ -14,8 +14,8 @@ header('X-Powered-CMS: MasterkinG-CMS');
 ob_start();
 session_start();
 
-define('base_path', str_replace('application/loader.php', '', __FILE__));
-define('app_path', base_path . 'application/');
+define('base_path', str_replace('application/loader.php', '', str_replace("\\", '/', __FILE__)));
+define('app_path', str_replace('application/loader.php', '', str_replace("\\", '/', __FILE__)) . 'application/');
 
 require app_path . 'vendor/autoload.php';
 require_once app_path . 'config/config.php';
@@ -44,10 +44,11 @@ require_once app_path . 'include/user.php';
 require_once app_path . 'include/vote.php';
 require_once app_path . 'include/status.php';
 
-$language = strtolower(get_config('language'));
-$languageFile = app_path . 'language/' . $language . '.php';
+$languageName = strtolower(get_config('language'));
+$languageFile = app_path . 'language/' . $languageName . '.php';
+$language = [];
 
-if (!preg_match('/^([a-z-]+)$/i', $language) || !file_exists($languageFile)) {
+if (!preg_match('/^([a-z-]+)$/i', $languageName) || !file_exists($languageFile)) {
     exit('Language is not valid!');
 }
 
