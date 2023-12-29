@@ -82,6 +82,7 @@ Here’s how to enable debug mode:
     - 🇪🇸 Spanish
     - 🇰🇷 Korean
     - 🇷🇺 Russian
+    - 🇵🇹 Portuguese
 
 ## Changelog
 
