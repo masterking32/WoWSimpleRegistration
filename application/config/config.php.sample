@@ -1,26 +1,18 @@
 <?php
 /**
+ * Configuration for the web interface of a World of Warcraft private server.
+ * 
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright    Copyright (c) 2019 - 2021, MasterkinG32. (https://masterking32.com)
- * @link    https://masterking32.com
- * @Description : It's not masterking32 framework !
+ * @copyright Copyright (c) 2019 - 2024, MasterkinG32. (https://masterking32.com)
+ * @link https://masterking32.com
  **/
 
-/*===================================================================
-baseurl
-    That's your website URL. Example: "https://DOMAIN.COM"
-page_title
-    That's your website title. Example: "My WOW Private server!"
-language
-    Default website language (english/persian/italian/chinese-simplified/chinese-traditional/swedish/french/german/spanish/korean/russian)
-supported_langs
-	List of languages supported, You can remove each language you don't want!
-	if you want to disable language changer, Change it to: $config['supported_langs'] = false;
-=====================================================================*/
-$config['baseurl'] = "http://localhost"; // MAKE SURE USE VALID URL, If you have any issue loading images and template please check this field
-$config['page_title'] = "Simple Register";
-$config['language'] = "english";
-$config['supported_langs'] = [
+// Basic Configuration - Adjust to match your website's details.
+$config['baseurl'] = "http://localhost"; //  Must be a valid URL to prevent issues with loading images and templates.
+$config['page_title'] = "Simple Register"; // The title of your website as displayed in the browser tab.
+$config['language'] = "english"; // The default language for your website.
+$config['supported_langs'] = [ // Define supported languages here. You can remove any language you do not support.
+	// To disable the language changer, set as: $config['supported_langs'] = false;
 	'english' => 'English',
 	'persian' => 'Persian',
 	'italian' => 'Italian',
@@ -31,28 +23,20 @@ $config['supported_langs'] = [
 	'german' => 'German',
 	'spanish' => 'Spanish',
 	'korean' => 'Korean',
-	'russian' => 'Russian'
+	'russian' => 'Russian',
+	'portugues' => 'Portuguese'
 ];
-/*===================================================================
-If you see a white screen or have an issue, you can enable it to see the errors.
-Note that after testing, be sure to disable this option.
-=====================================================================*/
-$config['debug_mode'] = false; // ENABLE Debug mode if you got blank screen or 503 error, to see what happen?
-/*===================================================================
-Your server information.
-realmlist
-    Server Realmlist
-patch_location
-    If have patch set URL to download our patch here or make that empty
-game_version
-    Your game version
-=====================================================================*/
-$config['realmlist'] = 'logon.myserver.com';
-$config['patch_location'] = 'http://mypatch.com/patch.mpq';
-$config['game_version'] = '3.3.5a (12340)';
-/*===================================================================
-Select your server expansion.
-If you want to use advance template, Your images and backgrounds will be changed for your expansion.
+
+// Debug Mode - Enable it to display errors during troubleshooting.
+$config['debug_mode'] = true; // Set to true to enable debug mode if you encounter blank screens or errors.
+// ⚠️ **Important: Remember to disable debug mode** once you have resolved the issues. Debug mode should be set to `false` before deploying the website in a production environment or going live. This helps to ensure security and performance are not compromised.
+
+// Server Information - Customize this with your server's specific details.
+$config['realmlist'] = 'logon.myserver.com'; // The Realmlist of your server.
+$config['patch_location'] = 'http://mypatch.com/patch.mpq'; // URL to download the patch if available. Leave empty if not applicable.
+$config['game_version'] = '3.3.5a (12340)'; // The version of the game that your server is running.
+
+/* Server Expansion Settings - Choose your server's expansion by setting the corresponding number.
 0 = Classic
 1 = The Burning Crusade (TBC)
 2 = Wrath of the Lich King (WotLK)
@@ -61,9 +45,10 @@ If you want to use advance template, Your images and backgrounds will be changed
 5 = Warlords of Draenor (WOD)
 6 = Legion
 7 = BFA (I'm not sure about this one!)
-=====================================================================*/
-$config['expansion'] = '2';
-/*===================================================================
+*/
+$config['expansion'] = '2'; // '2' corresponds to "Wrath of the Lich King" (WotLK).
+
+/* Server Core Type - Choose the server core your server is using.
 Core Type:
 0 = TrinityCore
 1 = AzerothCore
@@ -72,213 +57,86 @@ Core Type:
 4 = OregonCore
 5 = CMangos
 10 = etc
-=====================================================================*/
-$config['server_core'] = 0;
-/*===================================================================
-If your server is WoD/Legion/BFA you should enable it!
-=====================================================================*/
+*/
+$config['server_core'] = 0; // '0' corresponds to TrinityCore.
+
+// Battle.net Support - Enable this if your server supports the Battle.net feature for auth (WoD/Legion/BFA cores).
 $config['battlenet_support'] = false;
-/*===================================================================
-If your core password encryption is SRP6, you need to enable it.
-For the last versions of the TrinityCore(3.3.5/master)/AzerothCore, you need to enable it. https://git.io/JJRH4 and https://git.io/JJrxq
-Enable that if you use the last version of TC.
-For old versions, Make sure this feature is disabled.
-You need to enable the GMP extension for PHP.
-=====================================================================
-***************** GMP REQUIRED ********************
-******Uncomment extension=gmp in your php.ini******
-=====================================================================*/
-$config['srp6_support'] = true; // READ COMMENTS, [Please ENABLE GMP]
-/*===================================================================
-If you have an issue with top players or online players you can disable them!
-disable_top_players
-    Disable server top players page [true: Hide top players page]
-disable_online_players
-    Disable online players page [true: Hide online players page]
-disable_changepassword
-    Disable change password
-    Change this to true, If you are using SOAP for registration.
-=====================================================================*/
-$config['disable_top_players'] = false;
-$config['disable_online_players'] = false;
-$config['disable_changepassword'] = false;
-/*===================================================================
-Allow to users make account with an email for several accounts (Just work for non-battle.net servers)
-=====================================================================*/
-$config['multiple_email_use'] = false;
-/*===================================================================
-Template name, You can change it to:
-light
-advance
-icecrown
-kaelthas
-battleforazeroth
-=====================================================================*/
-$config['template'] = 'light';
-/*===================================================================
-SMTP config.
-We need this part to send an email. (used for restore password and 2FA)
-You can use your own SMTP or Gmail/Yahoo/Hotmail and etc
-smtp_host
-    Specify main and backup SMTP servers
-smtp_port
-    TCP port to connect to
-smtp_auth
-    Enable SMTP authentication
-smtp_user
-    SMTP username
-smtp_pass
-    SMTP password
-smtp_secure
-    Enable TLS encryption, `ssl` also accepted
-smtp_mail
-    Send emails by ...
-=====================================================================*/
-$config['smtp_host'] = 'smtp1.example.com';
-$config['smtp_port'] = 587;
-$config['smtp_auth'] = true;
-$config['smtp_user'] = 'user@example.com';
-$config['smtp_pass'] = 'SECRET';
-$config['smtp_secure'] = 'tls';
-$config['smtp_mail'] = 'no-reply@example.com';
-/*===================================================================
-vote_system
-    You can enable/disable vote system.
-    Vote system is a simple and don't have postback or something like that to verify the votes
-    If you use Cloudflare and you have issue with IPs and voting, Read this: https://support.cloudflare.com/hc/en-us/articles/200170786
-vote_sites
-    Your vote sites and images, must be array.
-=====================================================================*/
-$config['vote_system'] = true;
+
+// SRP6 Password Encryption - Enable if your password encryption is of the SRP6 type, for last version of TC/AC you need to enable this.
+$config['srp6_support'] = true; // Important: Enable the GMP extension for PHP in your php.ini.
+
+// Feature Toggles - Control whether certain pages or features should be disabled.
+$config['disable_top_players'] = false; // Set to true to hide the top players page.
+$config['disable_online_players'] = false; // Set to true to hide the online players page.
+$config['disable_changepassword'] = false; // Set to true to disable password changes.
+
+// Multiple Email Account Creation - Configure whether to allow multiple accounts to be created with the same email address.
+$config['multiple_email_use'] = false; // Change to true to allow creation of multiple accounts with the same email.
+
+// Template Selection - Choose which template to use for the appearance of your website.
+$config['template'] = 'light'; // Available templates: light, advance, icecrown, kaelthas, battleforazeroth.
+
+// SMTP Configuration - Required for sending out emails (e.g., password recovery).
+$config['smtp_host'] = 'smtp1.example.com'; // SMTP host address.
+$config['smtp_port'] = 587; // SMTP port.
+$config['smtp_auth'] = true; // Toggle SMTP authentication.
+$config['smtp_user'] = 'user@example.com'; // SMTP username.
+$config['smtp_pass'] = 'SECRET'; // SMTP password.
+$config['smtp_secure'] = 'tls'; // Encryption method: 'tls' or 'ssl'.
+$config['smtp_mail'] = 'no-reply@example.com'; // The email address emails are sent from.
+
+// Vote System Configuration - Enable or disable the voting system for server promotion.
+$config['vote_system'] = true; // Set to true to enable the vote system.
 $config['vote_sites'] = array(
-    array(
-        'image' => 'http://www.top100arena.com/hit.asp?id=93137&c=WoW&t=2',
-        'site_url' => 'http://www.top100arena.com/in.asp?id=93137'
-    ),
-    array(
-        'image' => 'https://topg.org/topg.gif',
-        'site_url' => 'https://topg.org/wow-private-servers/in-479394'
-    ),
-    array(
-        'image' => 'http://www.xtremeTop100.com/votenew.jpg',
-        'site_url' => 'http://www.xtremetop100.com/in.php?site=1132364316'
-    )
+	// Define vote sites and their corresponding images.
+    // array(
+    //     'image' => 'http://www.top100arena.com/hit.asp?id=93137&c=WoW&t=2',
+    //     'site_url' => 'http://www.top100arena.com/in.asp?id=93137'
+    // ),
+    // array(
+    //     'image' => 'https://topg.org/topg.gif',
+    //     'site_url' => 'https://topg.org/wow-private-servers/in-479394'
+    // ),
+    // array(
+    //     'image' => 'http://www.xtremeTop100.com/votenew.jpg',
+    //     'site_url' => 'http://www.xtremetop100.com/in.php?site=1132364316'
+    // )
 );
-/*===================================================================
-You can use Image captcha or HCaptcha or Recaptcha v2.
-If you want to use Recaptcha v2 or HCaptcha required to enable cURL in your PHP.
-** We recommend using HCaptcha. **
-captcha_type
-    0) Image Captcha
-    1) HCaptcha
-    2) ReCaptcha v2
-    +2) Disable captcha. (DON'T DO THAT!)
-For image captcha, you don't need to put anything for captcha_key captcha_secret or captcha_language.
-captcha_secret/captcha_secret
-    To get key and secret for HCaptcha go to https://hCaptcha.com/?r=6d4f9117ba12
-    To get key and secret for Recaptcha go to https://www.google.com/recaptcha
-captcha_language
-    https://docs.hcaptcha.com/languages
-    https://developers.google.com/recaptcha/docs/language
-=====================================================================
-******Uncomment extension=gd2 in your php.ini******
-=====================================================================*/
-$config['captcha_type'] = 0;
-$config['captcha_key'] = '';
-$config['captcha_secret'] = '';
-$config['captcha_language'] = 'en';
-/*===================================================================
-soap_for_register
-    Don't Enable it for AzerothCore/TrinityCore/SkyFire and AshamaneCore.
-    If you enable that you need to disabled change password feature.
-    If you want to enable Two-Factor Authentication (2FA) you don't need to enable this option.
-    For Two-Factor Authentication (2FA)  just need to config other parts of the SOAP.
 
-SOAP features need to enable soap in your PHP.
+// Captcha Configuration - Choose the type of captcha to use for security purposes.
+$config['captcha_type'] = 0; // Options: 0 (Image Captcha), 1 (HCaptcha), 2 (ReCaptcha v2), or >2 (Disable captcha).
+$config['captcha_key'] = ''; // The key for HCaptcha or Recaptcha. Leave empty for image captcha.
+$config['captcha_secret'] = ''; // The secret for HCaptcha or Recaptcha. Leave empty for image captcha.
+$config['captcha_language'] = 'en'; // Language for captcha. Documentation links provided in the original comments.
 
-soap_host
-    SOAP server address
-soap_port
-    SOAP server port.
-soap_uri
-    urn:TC for TrinityCore
-    urn:AC for AzerothCore
-    urn:MaNGOS for Mangos
-soap_style
-    SOAP style
-soap_username
-    SOAP account username
-soap_password
-    SOAP account password
-soap_ca_command
-    Create account command
-    You can use it like this too: '.account create {USERNAME} {PASSWORD} {PASSWORD} {EMAIL}'
-    Check create account command in your server!
-soap_cp_command
-    Change password command
-    account set password {USERNAME} {PASSWORD} {PASSWORD}
-    Check change password command in your server
-soap_asa_command
-    If you use soap_for_register, You need to set this command.
-    This command will be run after soap_ca_command.
-    If you don't want to run any command after soap_ca_command you can make it empty like this: ''
-    account set addon {USERNAME} {EXPANSION}
-=====================================================================
-******Uncomment extension=soap in your php.ini******
-=====================================================================*/
-$config['soap_for_register'] = false;
-$config['soap_host'] = '127.0.0.1';
-$config['soap_port'] = '7878';
-$config['soap_uri'] = 'urn:MaNGOS';
-$config['soap_style'] = 'SOAP_RPC';
-$config['soap_username'] = 'admin_soap';
-$config['soap_password'] = 'admin_soap';
-$config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}';
-$config['soap_cp_command'] = 'account set password {USERNAME} {PASSWORD} {PASSWORD}';
-$config['soap_asa_command'] = 'account set addon {USERNAME} {EXPANSION}';
-/*===================================================================
-Two-Factor Authentication (2FA)
-Your core must support 2fa.
-This feature just works for cores that have 2fa command.
-If your core support 2fa but don't have any command, you can check this: https://github.com/masterking32/WoWSimpleRegistration/pull/20 (Support some of the cores, Required to use 2fa for registration.)
+// SOAP Interface for Account Registration - Configure if you prefer to handle account creation through the SOAP interface.
+// You don't need to enable this if you are using the default account creation method or new type of cores.
+$config['soap_for_register'] = false; // Enable this only if you are certain of your SOAP configuration.
+$config['soap_host'] = '127.0.0.1'; // The SOAP service address.
+$config['soap_port'] = '7878'; // The SOAP service port.
+$config['soap_uri'] = 'urn:MaNGOS'; // The SOAP URI, change as per your core's SOAP implementation.
+$config['soap_style'] = 'SOAP_RPC'; // The SOAP style.
+$config['soap_username'] = 'admin_soap'; // The username for SOAP authentication.
+$config['soap_password'] = 'admin_soap'; // The password for SOAP authentication.
+$config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}'; // The SOAP command for creating an account.
 
-You need to config SOAP too but you don't need to enable 'soap_for_register'.
-For security reasons, We used email to enable 2fa, You need to enable SMTP config.
+// Two-Factor Authentication (2FA) - Configure 2FA if your core supports it.
+// Although configuring SOAP is necessary for certain operations, you do not need to enable the 'soap_for_register' option 
+// if you are setting up Two-Factor Authentication (2FA). This adds a layer of security by utilizing email verification.
+// To support this email-based verification for 2FA, ensure that your SMTP settings are correctly configured.
+$config['2fa_support'] = false; // Toggle to enable or disable 2FA.
+$config['soap_2d_command'] = 'account set 2fa {USERNAME} off'; // SOAP command to disable 2FA.
+$config['soap_2e_command'] = 'account set 2fa {USERNAME} {SECRET}'; // SOAP command to enable 2FA.
 
-2fa_support
-    You can enable or disable it. (true/false)
-soap_2d_command
-    Command to disable 2fa.
-    account set 2fa {USERNAME} off
-soap_2e_command
-    Command to enable 2fa.
-    account set 2fa {USERNAME} {SECRET}
-=====================================================================*/
-$config['2fa_support'] = false;
-$config['soap_2d_command'] = 'account set 2fa {USERNAME} off';
-$config['soap_2e_command'] = 'account set 2fa {USERNAME} {SECRET}';
-/*===================================================================
-You Auth/Realmd MySQL information.
-db_auth_host
-    Auth Database Host
-db_auth_port
-    Auth Database Port
-db_auth_user
-    Auth Database Username
-db_auth_pass
-    Auth Database Password
-db_auth_dbname
-    Auth Database DBName
-=====================================================================*/
-$config['db_auth_host'] = '127.0.0.1';
-$config['db_auth_port'] = '3306';
-$config['db_auth_user'] = 'root';
-$config['db_auth_pass'] = 'root';
-$config['db_auth_dbname'] = 'realmd';
-/*===================================================================
-Your character's databases.
-If your server has a lot of realms you can check the example at the bottom of the file.
-=====================================================================*/
+// Database Information - Configure the connection details for your Auth/Realmd database.
+$config['db_auth_host'] = '127.0.0.1'; // Database host address.
+$config['db_auth_port'] = '3306'; // Database port.
+$config['db_auth_user'] = 'root'; // Database username.
+$config['db_auth_pass'] = 'root'; // Database password.
+$config['db_auth_dbname'] = 'realmd'; // Database name for your auth/realmd database.
+
+// Realmlist Configuration - Configure the connection details for each realm's character database.
 $config['realmlists'] = array(
     "1" => array(
         'realmid' => 1, // Realm ID
@@ -292,41 +150,38 @@ $config['realmlists'] = array(
 );
 
 /*
- **********************************
- * EXMAPLE OF MORE THAN ONE REALM *
- **********************************
-
-$config['realmlists'] = array( // Add your realmlist here
-    "1" => array(
-        'realmid' => 1,
-        'realmname' => "Realm 1",
-        'db_host' => "127.0.0.1",
-        'db_port' => "3306",
-        'db_user' => "root",
-        'db_pass' => "root",
-        'db_name' => "rm1_chars"
-    ),
-    "2" => array(
-        'realmid' => 2,
-        'realmname' => "Realm 2",
-        'db_host' => "127.0.0.1",
-        'db_port' => "3306",
-        'db_user' => "root",
-        'db_pass' => "root",
-        'db_name' => "rm2_chars"
-    ),
-    "3" => array(
-        'realmid' => 3,
-        'realmname' => "Realm 3",
-        'db_host' => "127.0.0.1",
-        'db_port' => "3306",
-        'db_user' => "root",
-        'db_pass' => "root",
-        'db_name' => "rm3_chars"
-    )
-);
-*/
+ * EXAMPLE OF CONFIGURING MORE THAN ONE REALM
+    $config['realmlists'] = array( // Add your realmlist here
+        "1" => array(
+            'realmid' => 1,
+            'realmname' => "Realm 1",
+            'db_host' => "127.0.0.1",
+            'db_port' => "3306",
+            'db_user' => "root",
+            'db_pass' => "root",
+            'db_name' => "rm1_chars"
+        ),
+        "2" => array(
+            'realmid' => 2,
+            'realmname' => "Realm 2",
+            'db_host' => "127.0.0.1",
+            'db_port' => "3306",
+            'db_user' => "root",
+            'db_pass' => "root",
+            'db_name' => "rm2_chars"
+        ),
+        "3" => array(
+            'realmid' => 3,
+            'realmname' => "Realm 3",
+            'db_host' => "127.0.0.1",
+            'db_port' => "3306",
+            'db_user' => "root",
+            'db_pass' => "root",
+            'db_name' => "rm3_chars"
+        )
+    );
+ */
 
 
-
+// Script version - Denotes the version of this configuration script.
 $config['script_version'] = '2.0.2';
