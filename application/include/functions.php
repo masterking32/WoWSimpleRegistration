@@ -1,9 +1,8 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright    Copyright (c) 2019 - 2021, MasterkinG32. (https://masterking32.com)
+ * @copyright    Copyright (c) 2019 - 2024, MasterkinG32. (https://masterking32.com)
  * @link    https://masterking32.com
- * @Description : It's not masterking32 framework !
  **/
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -14,7 +13,10 @@ $success_msg = "";
 
 function getIP()
 {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+        // IP passed from Cloudflare
+        $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         //ip from share internet
         $ip = $_SERVER['HTTP_CLIENT_IP'];
     } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -180,8 +182,6 @@ function generateRandomString($length = 10)
 
 function RemoteCommandWithSOAP($COMMAND)
 {
-    global $soap_connection_info;
-
     if (empty($COMMAND)) {
         return false;
     }
@@ -202,8 +202,12 @@ function RemoteCommandWithSOAP($COMMAND)
     }
 }
 
-function validate_hcaptcha($value)
+function validate_hcaptcha()
 {
+    if (empty($_POST['h-captcha-response'])) {
+        return false;
+    }
+
     try {
         $data = array(
             'secret' => get_config('captcha_secret'),
@@ -225,8 +229,12 @@ function validate_hcaptcha($value)
     return false;
 }
 
-function validate_recaptcha($value)
+function validate_recaptcha()
 {
+    if (empty($_POST['g-recaptcha-response'])) {
+        return false;
+    }
+
     try {
         $verify = curl_init();
         curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify?secret=" . get_config('captcha_secret') . "&response=" . $_POST['g-recaptcha-response']);
@@ -253,12 +261,12 @@ function captcha_validation()
     } else if (!empty(get_config('captcha_type')) && get_config('captcha_type') > 2) {
         return true;
     } elseif (!empty(get_config('captcha_type')) && get_config('captcha_type') == 1 && !empty($_POST['h-captcha-response'])) {
-        if (!validate_hcaptcha($_POST['h-captcha-response'])) {
+        if (!validate_hcaptcha()) {
             error_msg(lang('hcaptcha_not_valid'));
             return false;
         }
     } elseif (!empty(get_config('captcha_type')) && get_config('captcha_type') == 2 && !empty($_POST['g-recaptcha-response'])) {
-        if (!validate_recaptcha($_POST['g-recaptcha-response'])) {
+        if (!validate_recaptcha()) {
             error_msg(lang('recaptcha_not_valid'));
             return false;
         }
@@ -303,7 +311,7 @@ function GetCaptchaHTML($bootstrap = true)
     return '<div class="input-group"><span class="input-group">' . lang('captcha') . '</span><input type="text" class="form-control" placeholder="' . lang('captcha') . '" name="captcha"></div><p style="text-align: center;margin-top: 10px;"><img src="' . user::$captcha->inline() . '" style="border - radius: 5px;"/></p>';
 }
 
-// Its from Trinitycore/account-creator
+// Its from TrinityCore/account-creator
 function calculateSRP6Verifier($username, $password, $salt)
 {
     // algorithm constants
