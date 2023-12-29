@@ -1,18 +1,14 @@
 <?php
 /**
  * @author Amin Mahmoudi (MasterkinG)
- * @copyright    Copyright (c) 2019 - 2022, MsaterkinG32 Team, Inc. (https://masterking32.com)
+ * @copyright    Copyright (c) 2019 - 2024, MasterkinG32 (https://masterking32.com)
  * @link    https://masterking32.com
- * @Description : It's not masterking32 framework !
  **/
-
-use SebastianBergmann\Timer\Timer;
-
 ?>
 </div>
 <footer class="text-center">
     Developed by <a href="http://masterking32.com">MasterkinG32.CoM</a>
-    - <?php echo "Load " . Timer::resourceUsage(); ?>
+    - <?php echo "Load " . (new SebastianBergmann\Timer\ResourceUsageFormatter)->resourceUsageSinceStartOfRequest(); ?>
 </footer>
 </body>
 </html>
