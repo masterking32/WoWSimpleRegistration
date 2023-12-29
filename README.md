@@ -1,4 +1,4 @@
-# Simple Registration Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
+# 🌍 Simple Registration Page for TrinityCore/AzerothCore/AshamaneCore/CMangos
 
 Create a versatile website for your game server with this easy-to-use script, featuring compatibility with major server cores.
 
@@ -8,9 +8,17 @@ Supported Cores:
 - [AshamaneCore](https://github.com/AshamaneProject/AshamaneCore/)
 - [CMangos](https://github.com/cmangos/)
 
-⭐ If you liked the project, feel free to give it a shining star. ⭐
+### ⭐ If you liked the project, feel free to give it a shining star. ⭐
 
-## Prerequisites
+<a href="https://github.com/masterking32/WoWSimpleRegistration">
+   <img title="Star on GitHub" src="https://img.shields.io/github/stars/masterking32/WoWSimpleRegistration.svg?style=social&label=Star">
+</a>
+<a href="https://github.com/masterking32/WoWSimpleRegistration/fork">
+   <img title="Fork on GitHub" src="https://img.shields.io/github/forks/masterking32/WoWSimpleRegistration.svg?style=social&label=Fork">
+</a>
+
+
+## 🖱️ Prerequisites
 
 Ensure PHP version 8.0 or higher is installed and the following extensions are enabled:
 
@@ -21,7 +29,7 @@ Ensure PHP version 8.0 or higher is installed and the following extensions are e
 - [PDO Extension](https://www.php.net/manual/en/book.pdo.php)
 - [PDO-MySQL Extension](https://www.php.net/manual/en/ref.pdo-mysql.php)
 
-## Installation Guide (Last version - PHP 8)
+## ⚙️ Installation Guide (Last version - PHP 8)
 
 1. Fulfill the above prerequisites on your server.
 
@@ -37,7 +45,7 @@ Ensure PHP version 8.0 or higher is installed and the following extensions are e
 
 5. Once configuration is complete, your registration page should be operational.
 
-## PHP 7 Version Download
+## 🔧 PHP 7 Version Download
 
 For those requiring PHP 7 support, please use the [last compatible commit for PHP 7](https://github.com/masterking32/WoWSimpleRegistration/tree/32a1e7e6bc31f2ed6ed1d83f64d1ae62aeab9d32). Follow these steps to clone the repository at the specific commit:
 
@@ -47,7 +55,7 @@ cd WoWSimpleRegistration
 git checkout 32a1e7e6bc31f2ed6ed1d83f64d1ae62aeab9d32
 ```
 
-# Debugging
+# 🪛 Debugging
 
 Encountering a blank page can be a common issue, typically indicating a hidden error that needs to be diagnosed. To facilitate troubleshooting, enable `debug_mode` in the configuration file.
 
@@ -58,7 +66,7 @@ Here’s how to enable debug mode:
 
 ⚠️ **Important: Remember to disable debug mode** once you have resolved the issues. Debug mode should be set to `false` before deploying the website in a production environment or going live. This helps to ensure security and performance are not compromised.
 
-## Features
+## ✅ Features
 
 1. **Registration Page**: Accommodating a wide range of game versions including Vanilla, TBC, WotLK, MoP, WoD, Legion, and BFA.
 2. **Online Players Status**: Check who's online at the server, with support for multiple realms.
@@ -84,7 +92,7 @@ Here’s how to enable debug mode:
     - 🇷🇺 Russian
     - 🇵🇹 Portuguese
 
-## Changelog
+## 🗒️ Changelog
 
 ### 2.0.2 (2/24/2021)
 - Added a language changer feature. (Thanks to [DuelistRag3](https://github.com/DuelistRag3))
@@ -133,7 +141,7 @@ Here’s how to enable debug mode:
 - Changed the user identification method from email to username for password change and restoration features on non-battle.net servers.
 - Added the option to enable or disable the display of top players and online players.
 
-## Screenshots
+## 🖼️ Screenshots
 
 ### Advance Template
 ![Advance Template Screenshot](https://raw.githubusercontent.com/masterking32/WoWSimpleRegistration/master/screenshots/a-bfa-min.jpg)
@@ -152,12 +160,12 @@ Here’s how to enable debug mode:
 
 Looking for more visuals? [Browse additional screenshots here.](https://github.com/masterking32/WoWSimpleRegistration/tree/master/screenshots)
 
-## Credits
+## ⬇️ Credits
 
-### Programming
+### 🧑‍💻 Programming
 - **Lead Developer**: [Amin.MasterkinG](https://masterking32.com)
 
-### Translations
+### 🫂 Translations
 - **English/Persian**: [Amin.MasterkinG](https://github.com/masterking32)
 - **Italian**: [Helias](https://github.com/helias)
 - **Chinese Simplified/Traditional**: [Coolzoom](https://github.com/coolzoom), [oiuv](https://github.com/oiuv)
