@@ -61,6 +61,10 @@
                 "sql",
                 "sqlite"
             ],
+            "support": {
+                "issues": "https://github.com/catfan/Medoo/issues",
+                "source": "https://github.com/catfan/Medoo"
+            },
             "install-path": "../catfan/medoo"
         },
         {
@@ -142,6 +146,7 @@
                 "php": ">=5.3"
             },
             "time": "2019-03-20T00:55:58+00:00",
+            "default-branch": true,
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -167,6 +172,10 @@
                 "rfc6238",
                 "totp"
             ],
+            "support": {
+                "issues": "https://github.com/PHPGangsta/GoogleAuthenticator/issues",
+                "source": "https://github.com/PHPGangsta/GoogleAuthenticator"
+            },
             "install-path": "../phpgangsta/googleauthenticator"
         },
         {
