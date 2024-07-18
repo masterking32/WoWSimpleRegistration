@@ -238,6 +238,62 @@ class WhereTest extends MedooTestCase
      * @covers ::whereClause()
      * @dataProvider typesProvider
      */
+    public function testRawArrayValuesWhere($type)
+    {
+        $this->setType($type);
+
+        $this->database->select("account", "user_name", [
+            'id' => [
+                Medoo::raw('LOWER("FOO")'),
+                Medoo::raw('LOWER("BAR")')
+            ]
+        ]);
+
+        $this->assertQuery(
+            <<<EOD
+            SELECT "user_name"
+            FROM "account"
+            WHERE
+            "id" IN (LOWER("FOO"), LOWER("BAR"))
+            EOD,
+            $this->database->queryString
+        );
+    }
+
+    /**
+     * @covers ::select()
+     * @covers ::dataImplode()
+     * @covers ::whereClause()
+     * @dataProvider typesProvider
+     */
+    public function testRawNotInArrayValuesWhere($type)
+    {
+        $this->setType($type);
+
+        $this->database->select("account", "user_name", [
+            'id[!]' => [
+                Medoo::raw('LOWER("FOO")'),
+                Medoo::raw('LOWER("BAR")')
+            ]
+        ]);
+
+        $this->assertQuery(
+            <<<EOD
+            SELECT "user_name"
+            FROM "account"
+            WHERE
+            "id" NOT IN (LOWER("FOO"), LOWER("BAR"))
+            EOD,
+            $this->database->queryString
+        );
+    }
+
+    /**
+     * @covers ::select()
+     * @covers ::dataImplode()
+     * @covers ::whereClause()
+     * @dataProvider typesProvider
+     */
     public function testNegativeWhere($type)
     {
         $this->setType($type);
@@ -623,6 +679,7 @@ class WhereTest extends MedooTestCase
 
         $this->database->select("account", "user_name", [
             "city[~]" => "%stan",
+            "company[~]" => "Goo%",
             "location[~]" => "Londo_",
             "name[~]" => "[BCR]at",
             "nickname[~]" => "[!BCR]at"
@@ -634,9 +691,48 @@ class WhereTest extends MedooTestCase
             FROM "account"
             WHERE
             ("city" LIKE '%stan') AND
+            ("company" LIKE 'Goo%') AND
             ("location" LIKE 'Londo_') AND
             ("name" LIKE '[BCR]at') AND
             ("nickname" LIKE '[!BCR]at')
+            EOD,
+            $this->database->queryString
+        );
+    }
+
+    /**
+     * @covers ::select()
+     * @covers ::dataImplode()
+     * @covers ::whereClause()
+     * @dataProvider typesProvider
+     */
+    public function testMultipleLikeWhere($type)
+    {
+        $this->setType($type);
+
+        $words = [
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve"
+        ];
+
+        $this->database->select("account", ["title"], ["title[~]" => $words]);
+
+        $this->assertQuery(
+            <<<EOD
+            SELECT "title"
+            FROM "account"
+            WHERE
+            ("title" LIKE '%one%' OR "title" LIKE '%two%' OR "title" LIKE '%three%' OR "title" LIKE '%four%' OR "title" LIKE '%five%' OR "title" LIKE '%six%' OR "title" LIKE '%seven%' OR "title" LIKE '%eight%' OR "title" LIKE '%nine%' OR "title" LIKE '%ten%' OR "title" LIKE '%eleven%' OR "title" LIKE '%twelve%')
             EOD,
             $this->database->queryString
         );

@@ -1,11 +1,11 @@
 {
-    "require": {
-        "voku/anti-xss": "^4.1",
-        "phpunit/php-timer": "^6.0",
-        "rmccue/requests": "^2.0",
-        "phpmailer/phpmailer": "^6.9",
-        "gregwar/captcha": "^1.2",
-        "catfan/medoo": "^2.1",
-        "phpgangsta/googleauthenticator": "dev-master"
-    }
+  "require": {
+    "voku/anti-xss": "^4.1",
+    "phpunit/php-timer": "^7.0",
+    "rmccue/requests": "^2.0",
+    "phpmailer/phpmailer": "^6.9",
+    "gregwar/captcha": "^1.2",
+    "catfan/medoo": "^2.1",
+    "phpgangsta/googleauthenticator": "dev-master"
+  }
 }

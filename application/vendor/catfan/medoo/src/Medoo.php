@@ -6,10 +6,10 @@ declare(strict_types=1);
  *
  * The Lightweight PHP Database Framework to Accelerate Development.
  *
- * @version 2.1.10
+ * @version 2.1.12
  * @author Angel Lai
  * @package Medoo
- * @copyright Copyright 2023 Medoo Project, Angel Lai.
+ * @copyright Copyright 2024 Medoo Project, Angel Lai.
  * @license https://opensource.org/licenses/MIT
  * @link https://medoo.in
  */
@@ -604,7 +604,7 @@ class Medoo
 
         foreach ($map as $key => $value) {
             if ($value[1] === PDO::PARAM_STR) {
-                $replace = $this->quote($value[0]);
+                $replace = $this->quote("{$value[0]}");
             } elseif ($value[1] === PDO::PARAM_NULL) {
                 $replace = 'NULL';
             } elseif ($value[1] === PDO::PARAM_LOB) {
@@ -661,7 +661,7 @@ class Medoo
         }
 
         $query = preg_replace_callback(
-            '/(([`\']).*?)?((FROM|TABLE|INTO|UPDATE|JOIN|TABLE IF EXISTS)\s*)?\<(([\p{L}_][\p{L}\p{N}@$#\-_]*)(\.[\p{L}_][\p{L}\p{N}@$#\-_]*)?)\>([^,]*?\2)?/u',
+            '/(([`\'])[\<]*?)?((FROM|TABLE|INTO|UPDATE|JOIN|TABLE IF EXISTS)\s*)?\<(([\p{L}_][\p{L}\p{N}@$#\-_]*)(\.[\p{L}_][\p{L}\p{N}@$#\-_]*)?)\>([^,]*?\2)?/',
             function ($matches) {
                 if (!empty($matches[2]) && isset($matches[8])) {
                     return $matches[0];
@@ -894,15 +894,20 @@ class Medoo
                             break;
 
                         case 'array':
-                            $placeholders = [];
+                            $values = [];
 
                             foreach ($value as $index => $item) {
-                                $stackKey = $mapKey . $index . '_i';
-                                $placeholders[] = $stackKey;
-                                $map[$stackKey] = $this->typeMap($item, gettype($item));
+                                if ($raw = $this->buildRaw($item, $map)) {
+                                    $values[] = $raw;
+                                } else {
+                                    $stackKey = $mapKey . $index . '_i';
+
+                                    $values[] = $stackKey;
+                                    $map[$stackKey] = $this->typeMap($item, gettype($item));
+                                }
                             }
 
-                            $stack[] = $column . ' NOT IN (' . implode(', ', $placeholders) . ')';
+                            $stack[] = $column . ' NOT IN (' . implode(', ', $values) . ')';
                             break;
 
                         case 'object':
@@ -937,14 +942,15 @@ class Medoo
                     $likeClauses = [];
 
                     foreach ($value as $index => $item) {
+                        $likeKey = "{$mapKey}_{$index}_i";
                         $item = strval($item);
 
                         if (!preg_match('/((?<!\\\)\[.+(?<!\\\)\]|(?<!\\\)[\*\?\!\%#^_]|%.+|.+%)/', $item)) {
                             $item = '%' . $item . '%';
                         }
 
-                        $likeClauses[] = $column . ($operator === '!~' ? ' NOT' : '') . " LIKE {$mapKey}L{$index}";
-                        $map["{$mapKey}L{$index}"] = [$item, PDO::PARAM_STR];
+                        $likeClauses[] = $column . ($operator === '!~' ? ' NOT' : '') . " LIKE {$likeKey}";
+                        $map[$likeKey] = [$item, PDO::PARAM_STR];
                     }
 
                     $stack[] = '(' . implode($connector, $likeClauses) . ')';
@@ -981,16 +987,20 @@ class Medoo
                     break;
 
                 case 'array':
-                    $placeholders = [];
+                    $values = [];
 
                     foreach ($value as $index => $item) {
-                        $stackKey = $mapKey . $index . '_i';
+                        if ($raw = $this->buildRaw($item, $map)) {
+                            $values[] = $raw;
+                        } else {
+                            $stackKey = $mapKey . $index . '_i';
 
-                        $placeholders[] = $stackKey;
-                        $map[$stackKey] = $this->typeMap($item, gettype($item));
+                            $values[] = $stackKey;
+                            $map[$stackKey] = $this->typeMap($item, gettype($item));
+                        }
                     }
 
-                    $stack[] = $column . ' IN (' . implode(', ', $placeholders) . ')';
+                    $stack[] = $column . ' IN (' . implode(', ', $values) . ')';
                     break;
 
                 case 'object':
