@@ -1,7 +1,7 @@
 <?php
 /**
  * Configuration for the web interface of a World of Warcraft private server.
- * 
+ *
  * @author Amin Mahmoudi (MasterkinG)
  * @copyright Copyright (c) 2019 - 2024, MasterkinG32. (https://masterking32.com)
  * @link https://masterking32.com
@@ -12,19 +12,19 @@ $config['baseurl'] = "http://localhost"; //  Must be a valid URL to prevent issu
 $config['page_title'] = "Simple Register"; // The title of your website as displayed in the browser tab.
 $config['language'] = "english"; // The default language for your website.
 $config['supported_langs'] = [ // Define supported languages here. You can remove any language you do not support.
-	// To disable the language changer, set as: $config['supported_langs'] = false;
-	'english' => 'English',
-	'persian' => 'Persian',
-	'italian' => 'Italian',
-	'chinese-simplified' => 'Chinese Simplified',
-	'chinese-traditional' => 'Chinese Traditional',
-	'swedish' => 'Swedish',
-	'french' => 'French',
-	'german' => 'German',
-	'spanish' => 'Spanish',
-	'korean' => 'Korean',
-	'russian' => 'Russian',
-	'portugues' => 'Portuguese'
+    // To disable the language changer, set as: $config['supported_langs'] = false;
+    'english' => 'English',
+    'persian' => 'Persian',
+    'italian' => 'Italian',
+    'chinese-simplified' => 'Chinese Simplified',
+    'chinese-traditional' => 'Chinese Traditional',
+    'swedish' => 'Swedish',
+    'french' => 'French',
+    'german' => 'German',
+    'spanish' => 'Spanish',
+    'korean' => 'Korean',
+    'russian' => 'Russian',
+    'portugues' => 'Portuguese',
 ];
 
 // Debug Mode - Enable it to display errors during troubleshooting.
@@ -45,7 +45,7 @@ $config['game_version'] = '3.3.5a (12340)'; // The version of the game that your
 5 = Warlords of Draenor (WOD)
 6 = Legion
 7 = BFA (I'm not sure about this one!)
-*/
+ */
 $config['expansion'] = '2'; // '2' corresponds to "Wrath of the Lich King" (WotLK).
 
 /* Server Core Type - Choose the server core your server is using.
@@ -57,7 +57,7 @@ Core Type:
 4 = OregonCore
 5 = CMangos
 10 = etc
-*/
+ */
 $config['server_core'] = 0; // '0' corresponds to TrinityCore.
 
 // Battle.net Support - Enable this if your server supports the Battle.net feature for auth (WoD/Legion/BFA cores).
@@ -89,7 +89,7 @@ $config['smtp_mail'] = 'no-reply@example.com'; // The email address emails are s
 // Vote System Configuration - Enable or disable the voting system for server promotion.
 $config['vote_system'] = true; // Set to true to enable the vote system.
 $config['vote_sites'] = array(
-	// Define vote sites and their corresponding images.
+    // Define vote sites and their corresponding images.
     // array(
     //     'image' => 'http://www.top100arena.com/hit.asp?id=93137&c=WoW&t=2',
     //     'site_url' => 'http://www.top100arena.com/in.asp?id=93137'
@@ -122,7 +122,7 @@ $config['soap_password'] = 'admin_soap'; // The password for SOAP authentication
 $config['soap_ca_command'] = 'account create {USERNAME} {PASSWORD}'; // The SOAP command for creating an account.
 
 // Two-Factor Authentication (2FA) - Configure 2FA if your core supports it.
-// Although configuring SOAP is necessary for certain operations, you do not need to enable the 'soap_for_register' option 
+// Although configuring SOAP is necessary for certain operations, you do not need to enable the 'soap_for_register' option
 // if you are setting up Two-Factor Authentication (2FA). This adds a layer of security by utilizing email verification.
 // To support this email-based verification for 2FA, ensure that your SMTP settings are correctly configured.
 $config['2fa_support'] = false; // Toggle to enable or disable 2FA.
@@ -145,43 +145,42 @@ $config['realmlists'] = array(
         'db_port' => "3306", // MySQL Host Port
         'db_user' => "root", // MySQL username
         'db_pass' => 'root', // MySQL password
-        'db_name' => "characters" // Characters database name
-    )
+        'db_name' => "characters", // Characters database name
+    ),
 );
 
 /*
  * EXAMPLE OF CONFIGURING MORE THAN ONE REALM
-    $config['realmlists'] = array( // Add your realmlist here
-        "1" => array(
-            'realmid' => 1,
-            'realmname' => "Realm 1",
-            'db_host' => "127.0.0.1",
-            'db_port' => "3306",
-            'db_user' => "root",
-            'db_pass' => "root",
-            'db_name' => "rm1_chars"
-        ),
-        "2" => array(
-            'realmid' => 2,
-            'realmname' => "Realm 2",
-            'db_host' => "127.0.0.1",
-            'db_port' => "3306",
-            'db_user' => "root",
-            'db_pass' => "root",
-            'db_name' => "rm2_chars"
-        ),
-        "3" => array(
-            'realmid' => 3,
-            'realmname' => "Realm 3",
-            'db_host' => "127.0.0.1",
-            'db_port' => "3306",
-            'db_user' => "root",
-            'db_pass' => "root",
-            'db_name' => "rm3_chars"
-        )
-    );
+$config['realmlists'] = array( // Add your realmlist here
+"1" => array(
+'realmid' => 1,
+'realmname' => "Realm 1",
+'db_host' => "127.0.0.1",
+'db_port' => "3306",
+'db_user' => "root",
+'db_pass' => "root",
+'db_name' => "rm1_chars"
+),
+"2" => array(
+'realmid' => 2,
+'realmname' => "Realm 2",
+'db_host' => "127.0.0.1",
+'db_port' => "3306",
+'db_user' => "root",
+'db_pass' => "root",
+'db_name' => "rm2_chars"
+),
+"3" => array(
+'realmid' => 3,
+'realmname' => "Realm 3",
+'db_host' => "127.0.0.1",
+'db_port' => "3306",
+'db_user' => "root",
+'db_pass' => "root",
+'db_name' => "rm3_chars"
+)
+);
  */
-
 
 // Script version - Denotes the version of this configuration script.
 $config['script_version'] = '2.0.2';

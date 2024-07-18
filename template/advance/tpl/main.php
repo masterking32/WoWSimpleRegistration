@@ -20,143 +20,138 @@ require_once 'rules.php';
         <div class="row">
             <div class="col-lg-6 order-2 order-lg-1">
                 <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
-                      method="post">
+                    method="post">
                     <div style="padding: 10px;" data-aos="fade-right" data-aos-delay="100">
                         <?php error_msg();
                         success_msg(); //Display message. ?>
                         <div class="input-group">
                             <span class="input-group"><?php elang('email'); ?></span>
                             <input type="email" class="form-control" required placeholder="<?php elang('email'); ?>"
-                                   name="email">
+                                name="email">
                         </div>
                         <?php if (!get_config('battlenet_support')) { ?>
-                            <div class="input-group">
-                                <span class="input-group"><?php elang('username'); ?></span>
-                                <input type="text" class="form-control" pattern="[A-Za-z]{2,16}" required placeholder="<?php elang('username'); ?>"
-                                       name="username">
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group"><?php elang('username'); ?></span>
+                            <input type="text" class="form-control" pattern="[A-Za-z0-9]{2,16}" required
+                                placeholder="<?php elang('username'); ?>" name="username">
+                        </div>
                         <?php } ?>
                         <div class="input-group">
                             <span class="input-group"><?php elang('password'); ?></span>
-                            <input type="password" class="form-control" minlength="4" maxlength="16" required placeholder="<?php elang('password'); ?>"
-                                   name="password">
+                            <input type="password" class="form-control" minlength="4" maxlength="16" required
+                                placeholder="<?php elang('password'); ?>" name="password">
                         </div>
                         <div class="input-group">
                             <span class="input-group"><?php elang('retype_password'); ?></span>
-                            <input type="password" class="form-control" minlength="4" maxlength="16" required placeholder="<?php elang('retype_password'); ?>"
-                                   name="repassword">
+                            <input type="password" class="form-control" minlength="4" maxlength="16" required
+                                placeholder="<?php elang('retype_password'); ?>" name="repassword">
                         </div>
                         <?php echo GetCaptchaHTML(); ?>
                         <input name="submit" type="hidden" value="register">
-                        <div class="text-center" style="margin-top: 10px;"><input type="submit"
-                                                                                  class="btn btn-success"
-                                                                                  value="<?php elang('register'); ?>">
+                        <div class="text-center" style="margin-top: 10px;"><input type="submit" class="btn btn-success"
+                                value="<?php elang('register'); ?>">
                         </div>
                     </div>
                 </form>
                 <div class="text-center" data-aos="fade-up" data-aos-delay="100">
                     <?php if (empty(get_config('disable_changepassword'))) { ?>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#changepassword-modal">
-                            <?php elang('change_password'); ?>
-                        </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#changepassword-modal">
+                        <?php elang('change_password'); ?>
+                    </button>
                     <?php } ?>
-                    <button type="button" class="btn btn-info" data-toggle="modal"
-                            data-target="#restorepassword-modal">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#restorepassword-modal">
                         <?php elang('restore_password'); ?>
                     </button>
                 </div>
                 <?php if (get_config('2fa_support')) { ?>
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="100" style="margin-top: 5px;">
-                        <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                data-target="#e2fa-modal">
-                            <?php elang('two_factor_authentication'); ?>
-                        </button>
-                    </div>
-                    <div class="modal" id="e2fa-modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title"><?php elang('two_factor_authentication'); ?></h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
-                                          method="post">
-                                        <div>
-                                            <ul>
-                                                <li><?php elang('two_factor_authentication_tip1'); ?> <a
-                                                            href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
-                                                            target="_blank">Google Store</a> - <a
-                                                            href="https://apps.apple.com/app/google-authenticator/id388497605"
-                                                            target="_blank">Apple Store</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="input-group">
-                                            <span class="input-group"><?php elang('email'); ?></span>
-                                            <input type="email" class="form-control"
-                                                   placeholder="<?php elang('email'); ?>"
-                                                   name="email">
-                                        </div>
-                                        <?php if (empty(get_config('battlenet_support'))) { ?>
-                                            <div class="input-group">
-                                                <span class="input-group"><?php elang('username'); ?></span>
-                                                <input type="text" class="form-control"
-                                                       placeholder="<?php elang('username'); ?>"
-                                                       name="username">
-                                            </div>
-                                        <?php }
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100" style="margin-top: 5px;">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#e2fa-modal">
+                        <?php elang('two_factor_authentication'); ?>
+                    </button>
+                </div>
+                <div class="modal" id="e2fa-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><?php elang('two_factor_authentication'); ?></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form
+                                    action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
+                                    method="post">
+                                    <div>
+                                        <ul>
+                                            <li><?php elang('two_factor_authentication_tip1'); ?> <a
+                                                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                                                    target="_blank">Google Store</a> - <a
+                                                    href="https://apps.apple.com/app/google-authenticator/id388497605"
+                                                    target="_blank">Apple Store</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('email'); ?></span>
+                                        <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
+                                            name="email">
+                                    </div>
+                                    <?php if (empty(get_config('battlenet_support'))) { ?>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('username'); ?></span>
+                                        <input type="text" class="form-control"
+                                            placeholder="<?php elang('username'); ?>" name="username">
+                                    </div>
+                                    <?php }
                                         echo GetCaptchaHTML(); ?>
-                                        <input name="submit" type="hidden" value="etfa">
-                                        <div class="text-center" style="margin-top: 10px;"><input
-                                                    type="submit"
-                                                    class="btn btn-primary"
-                                                    value="<?php elang('two_factor_authentication_enable'); ?>"></div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                        <?php elang('close'); ?>
-                                    </button>
-                                </div>
+                                    <input name="submit" type="hidden" value="etfa">
+                                    <div class="text-center" style="margin-top: 10px;"><input type="submit"
+                                            class="btn btn-primary"
+                                            value="<?php elang('two_factor_authentication_enable'); ?>"></div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <?php elang('close'); ?>
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php }
                 if (get_config('vote_system')) { ?>
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="100" style="margin-top: 5px;">
-                        <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#vote-modal">
-                            <?php elang('vote_for_us'); ?>
-                        </button>
-                    </div>
-                    <div class="modal" id="vote-modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title"><?php elang('vote'); ?></h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
-                                          method="post" target="_blank">
-                                        <?php if (get_config('battlenet_support')) { ?>
-                                            <div class="input-group">
-                                                <span class="input-group"><?php elang('email'); ?></span>
-                                                <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
-                                                       name="account">
-                                            </div>
-                                        <?php } else { ?>
-                                            <div class="input-group">
-                                                <span class="input-group"><?php elang('username'); ?></span>
-                                                <input type="text" class="form-control" placeholder="<?php elang('username'); ?>"
-                                                       name="account">
-                                            </div>
-                                        <?php } ?>
-                                        <div class="text-center" style="margin-top: 10px;">
-                                            <?php
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100" style="margin-top: 5px;">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#vote-modal">
+                        <?php elang('vote_for_us'); ?>
+                    </button>
+                </div>
+                <div class="modal" id="vote-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><?php elang('vote'); ?></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form
+                                    action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
+                                    method="post" target="_blank">
+                                    <?php if (get_config('battlenet_support')) { ?>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('email'); ?></span>
+                                        <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
+                                            name="account">
+                                    </div>
+                                    <?php } else { ?>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('username'); ?></span>
+                                        <input type="text" class="form-control"
+                                            placeholder="<?php elang('username'); ?>" name="account">
+                                    </div>
+                                    <?php } ?>
+                                    <div class="text-center" style="margin-top: 10px;">
+                                        <?php
                                             $vote_sites = get_config('vote_sites');
                                             if (!empty($vote_sites)) {
                                                 foreach ($vote_sites as $siteID => $vote_site) {
@@ -165,17 +160,17 @@ require_once 'rules.php';
                                                 }
                                             }
                                             ?>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                        <?php elang('close'); ?>
-                                    </button>
-                                </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <?php elang('close'); ?>
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php } ?>
                 <div class="modal" id="restorepassword-modal">
                     <div class="modal-dialog">
@@ -186,27 +181,26 @@ require_once 'rules.php';
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
-                                      method="post">
+                                <form
+                                    action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
+                                    method="post">
                                     <?php if (get_config('battlenet_support')) { ?>
-                                        <div class="input-group">
-                                            <span class="input-group"><?php elang('email'); ?></span>
-                                            <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
-                                                   name="email">
-                                        </div>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('email'); ?></span>
+                                        <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
+                                            name="email">
+                                    </div>
                                     <?php } else { ?>
-                                        <div class="input-group">
-                                            <span class="input-group"><?php elang('username'); ?></span>
-                                            <input type="text" class="form-control" placeholder="<?php elang('username'); ?>"
-                                                   name="username">
-                                        </div>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('username'); ?></span>
+                                        <input type="text" class="form-control"
+                                            placeholder="<?php elang('username'); ?>" name="username">
+                                    </div>
                                     <?php }
                                     echo GetCaptchaHTML(); ?>
                                     <input name="submit" type="hidden" value="restorepassword">
-                                    <div class="text-center" style="margin-top: 10px;"><input
-                                                type="submit"
-                                                class="btn btn-primary"
-                                                value="<?php elang('restore_password'); ?>"></div>
+                                    <div class="text-center" style="margin-top: 10px;"><input type="submit"
+                                            class="btn btn-primary" value="<?php elang('restore_password'); ?>"></div>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -226,45 +220,41 @@ require_once 'rules.php';
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
-                                      method="post">
+                                <form
+                                    action="<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/index.php#register"
+                                    method="post">
                                     <?php if (get_config('battlenet_support')) { ?>
-                                        <div class="input-group">
-                                            <span class="input-group"><?php elang('email'); ?></span>
-                                            <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
-                                                   name="email">
-                                        </div>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('email'); ?></span>
+                                        <input type="email" class="form-control" placeholder="<?php elang('email'); ?>"
+                                            name="email">
+                                    </div>
                                     <?php } else { ?>
-                                        <div class="input-group">
-                                            <span class="input-group"><?php elang('username'); ?></span>
-                                            <input type="text" class="form-control" placeholder="<?php elang('username'); ?>"
-                                                   name="username">
-                                        </div>
+                                    <div class="input-group">
+                                        <span class="input-group"><?php elang('username'); ?></span>
+                                        <input type="text" class="form-control"
+                                            placeholder="<?php elang('username'); ?>" name="username">
+                                    </div>
                                     <?php } ?>
                                     <div class="input-group">
                                         <span class="input-group"><?php elang('old_password'); ?></span>
                                         <input type="password" class="form-control"
-                                               placeholder=<?php elang('old_password'); ?>"
-                                               name="old_password">
+                                            placeholder=<?php elang('old_password'); ?>" name="old_password">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group"><?php elang('password'); ?></span>
                                         <input type="password" class="form-control"
-                                               placeholder="<?php elang('password'); ?>"
-                                               name="password">
+                                            placeholder="<?php elang('password'); ?>" name="password">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group"><?php elang('retype_password'); ?></span>
                                         <input type="password" class="form-control"
-                                               placeholder="<?php elang('retype_password'); ?>"
-                                               name="repassword">
+                                            placeholder="<?php elang('retype_password'); ?>" name="repassword">
                                     </div>
                                     <?php echo GetCaptchaHTML(); ?>
                                     <input name="submit" type="hidden" value="changepass">
-                                    <div class="text-center" style="margin-top: 10px;"><input
-                                                type="submit"
-                                                class="btn btn-primary"
-                                                value="<?php elang('change_password'); ?>"></div>
+                                    <div class="text-center" style="margin-top: 10px;"><input type="submit"
+                                            class="btn btn-primary" value="<?php elang('change_password'); ?>"></div>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -277,8 +267,8 @@ require_once 'rules.php';
                 </div>
             </div>
             <div class="image col-lg-6 order-1 order-lg-2"
-                 style='background-image: url("<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/demonhunter.png");background-size: auto 100%;background-position: center;background-repeat: no-repeat;'
-                 data-aos="fade-left" data-aos-delay="100"></div>
+                style='background-image: url("<?php echo $antiXss->xss_clean(get_config("baseurl")); ?>/template/<?php echo $antiXss->xss_clean(get_config("template")); ?>/assets/img/demonhunter.png");background-size: auto 100%;background-position: center;background-repeat: no-repeat;'
+                data-aos="fade-left" data-aos-delay="100"></div>
         </div>
     </div>
 </section>

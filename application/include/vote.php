@@ -6,8 +6,6 @@
  * @TODO: Add vote verify system.
  **/
 
-use Medoo\Medoo;
-
 class vote
 {
     public static function post_handler()
@@ -55,7 +53,7 @@ class vote
             self::setup_vote_table();
         }
         $siteID--;
-        database::$auth->delete('votes', ['votedate[<]' => date("Y-m-d H:i:s", time() - 43200)]);
+        database::$auth->executeStatement("DELETE FROM `votes` WHERE `votedate` < ? AND `done` = 0", [date("Y-m-d H:i:s", time() - 43200)]);
 
         if (!empty(self::get_vote_by_IP($siteID)) || !empty(self::get_vote_by_account($siteID, $acc_data['id']))) {
             error_msg(lang('you_already_voted'));
@@ -65,14 +63,16 @@ class vote
         database::$auth->insert('votes', [
             'ip' => $antiXss->xss_clean(strtoupper(getIP())),
             'vote_site' => $antiXss->xss_clean($siteID),
-            'accountid' => $antiXss->xss_clean($acc_data['id'])
+            'accountid' => $antiXss->xss_clean($acc_data['id']),
         ]);
 
-        database::$auth->update('account', [
-            'votePoints' => $antiXss->xss_clean($acc_data['votePoints'] + 1)
-        ], [
-            'id[=]' => $acc_data['id']
-        ]);
+        $queryBuilder = database::$auth->createQueryBuilder();
+        $queryBuilder->update('account')
+            ->set('votePoints', 'votePoints + 1')
+            ->where('id = :id')
+            ->setParameter('id', $acc_data['id']);
+
+        $queryBuilder->executeQuery();
 
         header('location: ' . $vote_sites[$siteID]['site_url']);
         exit();
@@ -80,7 +80,17 @@ class vote
 
     public static function get_vote_by_IP($siteID)
     {
-        $datas = database::$auth->select('votes', '*', ["AND" => ['ip' => Medoo::raw('UPPER(:ip)', [':ip' => strtoupper(getIP())]), 'vote_site[=]' => $siteID]]);
+        $queryBuilder = database::$auth->createQueryBuilder();
+        $queryBuilder->select('*')
+            ->from('votes')
+            ->where('ip = :ip')
+            ->andWhere('vote_site = :siteid')
+            ->setParameter('ip', strtoupper(getIP()))
+            ->setParameter('siteid', $siteID);
+
+        $statement = $queryBuilder->executeQuery();
+        $datas = $statement->fetchAllAssociative();
+
         if (!empty($datas[0]['id'])) {
             return $datas;
         }
@@ -90,7 +100,17 @@ class vote
 
     public static function get_vote_by_account($siteID, $accountID)
     {
-        $datas = database::$auth->select('votes', '*', ["AND" => ['accountid[=]' => $accountID, 'vote_site[=]' => $siteID]]);
+        $queryBuilder = database::$auth->createQueryBuilder();
+        $queryBuilder->select('*')
+            ->from('votes')
+            ->where('accountid = :accountid')
+            ->andWhere('vote_site = :siteid')
+            ->setParameter('accountid', $accountID)
+            ->setParameter('siteid', $siteID);
+
+        $statement = $queryBuilder->executeQuery();
+        $datas = $statement->fetchAllAssociative();
+
         if (!empty($datas[0]['id'])) {
             return $datas;
         }
@@ -100,16 +120,16 @@ class vote
 
     public static function setup_vote_table()
     {
-        database::$auth->query("ALTER TABLE `account` ADD COLUMN `votePoints` varchar(255) NULL DEFAULT '0';");
-        database::$auth->query("
+        database::$auth->executeQuery("ALTER TABLE `account` ADD COLUMN `votePoints` varchar(255) NULL DEFAULT '0';");
+        database::$auth->executeQuery("
             CREATE TABLE `votes` (
-              `id` bigint(255) NOT NULL AUTO_INCREMENT,
-              `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-              `vote_site` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-              `accountid` bigint(255) NULL DEFAULT 0,
-              `votedate` timestamp(0) NULL DEFAULT current_timestamp(0),
-              `done` int(10) NOT NULL DEFAULT 0,
-              PRIMARY KEY (`id`) USING BTREE
+                `id` bigint(255) NOT NULL AUTO_INCREMENT,
+                `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                `vote_site` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                `accountid` bigint(255) NULL DEFAULT 0,
+                `votedate` timestamp(0) NULL DEFAULT current_timestamp(0),
+                `done` int(10) NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`) USING BTREE
             ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
         ");
 

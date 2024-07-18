@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6
+class ComposerStaticInit8d77d4c44f4829cce59fb8ad6898201a
 {
     public static $files = array (
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
@@ -37,15 +37,18 @@ class ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Cache\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
-        ),
-        'M' => 
-        array (
-            'Medoo\\' => 6,
         ),
         'G' => 
         array (
             'Gregwar\\' => 8,
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Deprecations\\' => 22,
+            'Doctrine\\DBAL\\' => 14,
         ),
     );
 
@@ -87,17 +90,29 @@ class ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'Medoo\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/catfan/medoo/src',
-        ),
         'Gregwar\\' => 
         array (
             0 => __DIR__ . '/..' . '/gregwar/captcha/src/Gregwar',
+        ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
+        'Doctrine\\DBAL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/dbal/src',
         ),
     );
 
@@ -117,9 +132,9 @@ class ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd1dce54eaf50370a23018d6770e04ce6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8d77d4c44f4829cce59fb8ad6898201a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8d77d4c44f4829cce59fb8ad6898201a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8d77d4c44f4829cce59fb8ad6898201a::$classMap;
 
         }, null, ClassLoader::class);
     }

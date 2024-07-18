@@ -5,7 +5,8 @@
  * @link    https://masterking32.com
  **/
 
-use Medoo\Medoo;
+use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\DriverManager;
 
 class database
 {
@@ -14,32 +15,34 @@ class database
 
     public static function db_connect()
     {
-        self::$auth = new Medoo([
-            'database_type' => 'mysql',
-            'database_name' => get_config('db_auth_dbname'),
-            'server' => get_config('db_auth_host'),
-            'username' => get_config('db_auth_user'),
+        self::$auth = DriverManager::getConnection([
+            'dbname' => get_config('db_auth_dbname'),
+            'user' => get_config('db_auth_user'),
             'password' => get_config('db_auth_pass'),
+            'host' => get_config('db_auth_host'),
+            'driver' => 'pdo_mysql',
             'charset' => 'utf8',
-            'collation' => 'utf8_general_ci',
-            'port' => get_config('db_auth_port')
-        ]);
+        ], new Configuration());
 
-        foreach (get_config("realmlists") as $realm) {
-            if (!empty($realm["realmid"]) && !empty($realm["db_host"]) && !empty($realm["db_port"]) && !empty($realm["db_user"]) && !empty($realm["db_pass"]) && !empty($realm["db_name"])) {
-                self::$chars[$realm["realmid"]] = new Medoo([
-                    'database_type' => 'mysql',
-                    'database_name' => $realm["db_name"],
-                    'server' => $realm["db_host"],
-                    'username' => $realm["db_user"],
-                    'password' => $realm["db_pass"],
-                    'charset' => 'utf8',
-                    'collation' => 'utf8_general_ci',
-                    'port' => $realm["db_port"]
-                ]);
-            } else {
-                die("Missing char database required field.");
+        $realmlists = get_config("realmlists");
+        if (is_iterable($realmlists) || is_object($realmlists)) {
+            foreach ($realmlists as $realm) {
+                if (!empty($realm["realmid"]) && !empty($realm["db_host"]) && !empty($realm["db_port"]) && !empty($realm["db_user"]) && !empty($realm["db_pass"]) && !empty($realm["db_name"])) {
+                    self::$chars[$realm["realmid"]] = DriverManager::getConnection([
+                        'dbname' => $realm["db_name"],
+                        'user' => $realm["db_user"],
+                        'password' => $realm["db_pass"],
+                        'host' => $realm["db_host"],
+                        'driver' => 'pdo_mysql',
+                        'charset' => 'utf8',
+                    ], new Configuration());
+                } else {
+                    die("Missing char database required field.");
+                }
             }
+        } else {
+            // Handle the case when 'realmlists' is not iterable or an object
+            die("Invalid 'realmlists' configuration.");
         }
     }
 }
