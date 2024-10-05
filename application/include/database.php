@@ -20,6 +20,7 @@ class database
             'user' => get_config('db_auth_user'),
             'password' => get_config('db_auth_pass'),
             'host' => get_config('db_auth_host'),
+            'port' => get_config('db_auth_port'),
             'driver' => 'pdo_mysql',
             'charset' => 'utf8',
         ], new Configuration());
@@ -33,6 +34,7 @@ class database
                         'user' => $realm["db_user"],
                         'password' => $realm["db_pass"],
                         'host' => $realm["db_host"],
+                        'port' => $realm["db_port"],
                         'driver' => 'pdo_mysql',
                         'charset' => 'utf8',
                     ], new Configuration());
