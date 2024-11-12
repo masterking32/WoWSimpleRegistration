@@ -154,7 +154,7 @@ function send_phpmailer($email, $subject, $message)
         $mail->addReplyTo(get_config('smtp_mail'));
 
         // Content
-	$mail->CharSet = 'UTF-8';
+        $mail->CharSet = 'UTF-8';
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $message;
@@ -322,12 +322,12 @@ function calculateSRP6Verifier($username, $password, $salt)
     $h1 = sha1(strtoupper($username . ':' . $password), TRUE);
 
     // calculate second hash
-	if(get_config('server_core') == 5)
-	{
-		$h2 = sha1(strrev($salt) . $h1, TRUE);  // From haukw
-	} else {
-		$h2 = sha1($salt . $h1, TRUE);
-	}
+    if(get_config('server_core') == 5)
+    {
+        $h2 = sha1(strrev($salt) . $h1, TRUE);  // From haukw
+    } else {
+        $h2 = sha1($salt . $h1, TRUE);
+    }
 
     // convert to integer (little-endian)
     $h2 = gmp_import($h2, 1, GMP_LSW_FIRST);
@@ -342,12 +342,66 @@ function calculateSRP6Verifier($username, $password, $salt)
     $verifier = str_pad($verifier, 32, chr(0), STR_PAD_RIGHT);
 
     // done!
-	if(get_config('server_core') == 5)
-	{
-		return strrev($verifier);  // From haukw
-	} else {
-		return $verifier;
-	}
+    if(get_config('server_core') == 5)
+    {
+        return strrev($verifier);  // From haukw
+    } else {
+        return $verifier;
+    }
+}
+
+function calculateSRP6VerifierBnetV1($email, $password, $salt)
+{
+    // algorithm constants
+    $g = gmp_init(2);
+    $N = gmp_init('86A7F6DEEB306CE519770FE37D556F29944132554DED0BD68205E27F3231FEF5A10108238A3150C59CAF7B0B6478691C13A6ACF5E1B5ADAFD4A943D4A21A142B800E8A55F8BFBAC700EB77A7235EE5A609E350EA9FC19F10D921C2FA832E4461B7125D38D254A0BE873DFC27858ACB3F8B9F258461E4373BC3A6C2A9634324AB', 16);
+
+    // calculate x
+    $srpPassword = hash('sha256',strtoupper($username . ':' . $password), TRUE);    
+    $x = hash('sha256', $salt . $srpPassword, TRUE);
+
+    // g^h2 mod N
+    $verifier = gmp_powm($g, $x, $N);
+
+    // convert back to a byte array (little-endian)
+    $verifier = gmp_export($verifier, 1, GMP_LSW_FIRST);
+
+    // pad to 256 bytes, remember that zeros go on the end in little-endian!
+    $verifier = str_pad($verifier, 256, chr(0), STR_PAD_RIGHT);
+
+    // done!
+    return $verifier;
+}
+
+function calculateSRP6VerifierBnetV2($email, $password, $salt)
+{
+    // algorithm constants
+    $g = gmp_init(2);
+    $N = gmp_init('AC6BDB41324A9A9BF166DE5E1389582FAF72B6651987EE07FC3192943DB56050A37329CBB4A099ED8193E0757767A13DD52312AB4B03310DCD7F48A9DA04FD50E8083969EDB767B0CF6095179A163AB3661A05FBD5FAAAE82918A9962F0B93B855F97993EC975EEAA80D740ADBF4FF747359D041D5C33EA71D281E446B14773BCA97B43A23FB801676BD207A436C6481F1D2B9078717461A5B9D32E688F87748544523B524B0D57D5EA77A2775D2ECFA032CFBDBF52FB3786160279004E57AE6AF874E7303CE53299CCC041C7BC308D82A5698F3A8D0C38271AE35F8E9DBFBB694B5C803D89F7AE435DE236D525F54759B65E372FCD68EF20FA7111F9E4AFF73', 16);
+
+    $srpPassword = strtoupper(hash('sha256', strtoupper($email), false)) . ":" . $password;
+
+    // calculate x
+    $xBytes = hash_pbkdf2("sha512", $srpPassword, $salt, 15000, 64, true);
+    $x = gmp_import($xBytes, 1, GMP_MSW_FIRST);
+    if (ord($xBytes[0]) & 0x80)
+    {
+        $fix = gmp_init('100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 16);
+        $x = gmp_sub($x, $fix);
+    }
+    $x = gmp_mod($x, gmp_sub($N, 1));
+
+    // g^h2 mod N
+    $verifier = gmp_powm($g, $x, $N);
+
+    // convert back to a byte array (little-endian)
+    $verifier = gmp_export($verifier, 1, GMP_LSW_FIRST);
+
+    // pad to 256 bytes, remember that zeros go on the end in little-endian!
+    $verifier = str_pad($verifier, 256, chr(0), STR_PAD_RIGHT);
+
+    // done!
+    return $verifier;
 }
 
 // Returns SRP6 parameters to register this username/password combination with
@@ -360,12 +414,36 @@ function getRegistrationData($username, $password)
     $verifier = calculateSRP6Verifier($username, $password, $salt);
 
     // done - this is what you put in the account table!
-	if(get_config('server_core') == 5)
-	{
-		$salt = strtoupper(bin2hex($salt));         	// From haukw
-		$verifier = strtoupper(bin2hex($verifier));     // From haukw
-	}
-	
+    if(get_config('server_core') == 5)
+    {
+        $salt = strtoupper(bin2hex($salt));             // From haukw
+        $verifier = strtoupper(bin2hex($verifier));     // From haukw
+    }
+    
+    return array($salt, $verifier);
+}
+
+function getRegistrationDataBnetV1($email, $password)
+{
+    // generate a random salt
+    $salt = random_bytes(32);
+
+    // calculate verifier using this salt
+    $verifier = calculateSRP6VerifierBnetV1($email, $password, $salt);
+
+    // done - this is what you put in the battlenet_accounts table!
+    return array($salt, $verifier);
+}
+
+function getRegistrationDataBnetV2($email, $password)
+{
+    // generate a random salt
+    $salt = random_bytes(32);
+
+    // calculate verifier using this salt
+    $verifier = calculateSRP6VerifierBnetV2($email, $password, $salt);
+
+    // done - this is what you put in the battlenet_accounts table!
     return array($salt, $verifier);
 }
 
@@ -381,6 +459,16 @@ function verifySRP6($user, $pass, $salt, $verifier)
     );
     $v = gmp_powm($g, $x, $N);
     return ($verifier === str_pad(gmp_export($v, 1, GMP_LSW_FIRST), 32, chr(0), STR_PAD_RIGHT));
+}
+
+function verifySRP6BnetV1($email, $pass, $salt, $verifier)
+{
+    return ($verifier === calculateSRP6VerifierBnetV1($email, $pass, $salt));
+}
+
+function verifySRP6BnetV2($email, $pass, $salt, $verifier)
+{
+    return ($verifier === calculateSRP6VerifierBnetV2($email, $pass, $salt));
 }
 
 // Get language text

@@ -89,9 +89,17 @@ class user
             return false;
         }
 
-        if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
-            error_msg(lang('passwords_length'));
-            return false;
+        if(get_config('srp6_support') && get_config('srp6_version') == 2) {
+            if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 128)) {
+                error_msg(lang('passwords_length'));
+                return false;
+            }
+        }
+        else {
+            if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
+                error_msg(lang('passwords_length'));
+                return false;
+            }
         }
 
         if (!self::check_email_exists(strtoupper($_POST["email"]))) {
@@ -99,47 +107,110 @@ class user
             return false;
         }
 
-        if (empty(get_config('srp6_support'))) {
-            $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($_POST['email'])) . ':' . strtoupper($_POST['password']))))))));
-            database::$auth->insert('battlenet_accounts', [
-                'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-                'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass),
-            ]);
+        if (empty(get_config('soap_for_register'))) {
+            if (empty(get_config('srp6_support'))) {
+                $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($_POST['email'])) . ':' . strtoupper($_POST['password']))))))));
+                database::$auth->insert('battlenet_accounts', [
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass),
+                ]);
 
-            $bnet_account_id = database::$auth->lastInsertId();
-            $username = $bnet_account_id . '#1';
-            $hashed_pass = strtoupper(sha1(strtoupper($username . ':' . $_POST['password'])));
-            database::$auth->insert('account', [
-                'username' => $antiXss->xss_clean(strtoupper($username)),
-                'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
-                'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-                'expansion' => $antiXss->xss_clean(get_config('expansion')),
-                'battlenet_account' => $bnet_account_id,
-                'battlenet_index' => 1,
-            ]);
-            success_msg(lang('account_created'));
-            return true;
+                $bnet_account_id = database::$auth->lastInsertId();
+                $username = $bnet_account_id . '#1';
+                $hashed_pass = strtoupper(sha1(strtoupper($username . ':' . $_POST['password'])));
+                database::$auth->insert('account', [
+                    'username' => $antiXss->xss_clean(strtoupper($username)),
+                    'sha_pass_hash' => $antiXss->xss_clean($hashed_pass),
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'expansion' => $antiXss->xss_clean(get_config('expansion')),
+                    'battlenet_account' => $bnet_account_id,
+                    'battlenet_index' => 1,
+                ]);
+                success_msg(lang('account_created'));
+                return true;
+            }
+            
+            if(get_config('srp6_version') == 0) {
+                list($salt, $verifier) = getRegistrationData(strtoupper($_POST['username']), $_POST['password']);
+                $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($_POST['email'])) . ':' . strtoupper($_POST['password']))))))));
+                database::$auth->insert('battlenet_accounts', [
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass),
+                ]);
+                
+                $bnet_account_id = database::$auth->lastInsertId();
+                $username = $bnet_account_id . '#1';
+                database::$auth->insert('account', [
+                    'username' => $antiXss->xss_clean(strtoupper($username)),
+                    get_core_config("salt_field") => $salt,
+                    get_core_config("verifier_field") => $verifier,
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'expansion' => $antiXss->xss_clean(get_config('expansion')),
+                    'battlenet_account' => $bnet_account_id,
+                    'battlenet_index' => 1,
+                ]);
+                success_msg(lang('account_created'));
+                return true;
+            }
+            
+            if(get_config('srp6_version') == 1) {
+                list($salt, $verifier) = getRegistrationDataBnetV1(strtoupper($_POST['email']), $_POST['password']);
+                database::$auth->insert('battlenet_accounts', [
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'srp_version' => 1,
+                    get_core_config("salt_field") => $salt,
+                    get_core_config("verifier_field") => $verifier,
+                ]);
+                
+                $bnet_account_id = database::$auth->lastInsertId();
+                $game_account_name = $bnet_account_id . '#1';
+                list($game_account_salt, $game_account_verifier) = getRegistrationData($game_account_name, $_POST['password']);
+                database::$auth->insert('account', [
+                    'username' => $antiXss->xss_clean($game_account_name),
+                    get_core_config("salt_field") => $game_account_salt,
+                    get_core_config("verifier_field") => $game_account_verifier,
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'expansion' => $antiXss->xss_clean(get_config('expansion')),
+                    'battlenet_account' => $bnet_account_id,
+                    'battlenet_index' => 1,
+                ]);
+                success_msg(lang('account_created'));
+                return true;
+            }
+            
+            if(get_config('srp6_version') == 2) {
+                list($salt, $verifier) = getRegistrationDataBnetV2(strtoupper($_POST['email']), $_POST['password']);
+                database::$auth->insert('battlenet_accounts', [
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'srp_version' => 2,
+                    get_core_config("salt_field") => $salt,
+                    get_core_config("verifier_field") => $verifier,
+                ]);
+                
+                $bnet_account_id = database::$auth->lastInsertId();
+                $game_account_name = $bnet_account_id . '#1';
+                list($game_account_salt, $game_account_verifier) = getRegistrationData($game_account_name, substr($_POST['password'], 0, 16));
+                database::$auth->insert('account', [
+                    'username' => $antiXss->xss_clean($game_account_name),
+                    get_core_config("salt_field") => $game_account_salt,
+                    get_core_config("verifier_field") => $game_account_verifier,
+                    'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
+                    'expansion' => $antiXss->xss_clean(get_config('expansion')),
+                    'battlenet_account' => $bnet_account_id,
+                    'battlenet_index' => 1,
+                ]);
+                success_msg(lang('account_created'));
+                return true;
+            }
         }
 
-        list($salt, $verifier) = getRegistrationData(strtoupper($_POST['username']), $_POST['password']);
-        $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($_POST['email'])) . ':' . strtoupper($_POST['password']))))))));
-        database::$auth->insert('battlenet_accounts', [
-            'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-            'sha_pass_hash' => $antiXss->xss_clean($bnet_hashed_pass),
-        ]);
-
-        $bnet_account_id = database::$auth->lastInsertId();
-        $username = $bnet_account_id . '#1';
-        database::$auth->insert('account', [
-            'username' => $antiXss->xss_clean(strtoupper($username)),
-            get_core_config("salt_field") => $salt,
-            get_core_config("verifier_field") => $verifier,
-            'email' => $antiXss->xss_clean(strtoupper($_POST['email'])),
-            'expansion' => $antiXss->xss_clean(get_config('expansion')),
-            'battlenet_account' => $bnet_account_id,
-            'battlenet_index' => 1,
-        ]);
-        success_msg(lang('account_created'));
+        $command = str_replace('{USERNAME}', $antiXss->xss_clean($_POST['email']), get_config('soap_ca_command'));
+        $command = str_replace('{PASSWORD}', $antiXss->xss_clean($_POST['password']), $command);
+        if (RemoteCommandWithSOAP($command)) {
+            success_msg(lang('account_created'));
+        } else {
+            error_msg(lang('error_try_again'));
+        }
         return true;
     }
 
@@ -277,13 +348,27 @@ class user
             return false;
         }
 
-        if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
-            error_msg(lang('passwords_length'));
-            return true;
+        if(get_config('srp6_support') && get_config('srp6_version') == 2) {
+            if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 128)) {
+                error_msg(lang('passwords_length'));
+                return false;
+            }
+        }
+        else {
+            if (!(strlen($_POST['password']) >= 4 && strlen($_POST['password']) <= 16)) {
+                error_msg(lang('passwords_length'));
+                return false;
+            }
         }
 
         $userinfo = self::get_user_by_email(strtoupper($_POST['email']));
-        if (empty($userinfo['username'])) {
+        if ((empty(get_config('srp6_support')) && empty($userinfo['username'])) || (!empty(get_config('srp6_support')) && (get_config('srp6_version') == 0) && empty($userinfo['username']))) {
+            error_msg(lang('email_not_correct'));
+            return false;
+        }
+
+        $bnetAccountInfo = self::get_bnetaccount_by_email(strtoupper($_POST['email']));
+        if (empty($bnetAccountInfo['email']) && !empty(get_config('srp6_support')) && (get_config('srp6_version') > 0)) {
             error_msg(lang('email_not_correct'));
             return false;
         }
@@ -307,34 +392,103 @@ class user
                 ->setParameter('sha_pass_hash', $antiXss->xss_clean($hashed_pass))
                 ->setParameter('id', $userinfo['id']);
             $queryBuilder->executeQuery();
-        } else {
-            if (!verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo[get_core_config("salt_field")], $userinfo[get_core_config("verifier_field")])) {
-                error_msg(lang('old_password_not_valid'));
-                return false;
-            }
 
-            list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $_POST['password']);
+            $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($_POST['password']))))))));
 
             $queryBuilder = database::$auth->createQueryBuilder();
-            $queryBuilder->update('account')
-                ->set(get_core_config("salt_field"), ':salt')
-                ->set(get_core_config("verifier_field"), ':verifier')
+            $queryBuilder->update('battlenet_accounts')
+                ->set('sha_pass_hash', ':sha_pass_hash')
+                ->set('sessionkey', '')
+                ->set('v', '')
+                ->set('s', '')
                 ->where('id = :id')
-                ->setParameter('salt', $salt)
-                ->setParameter('verifier', $verifier)
-                ->setParameter('id', $userinfo['id']);
+                ->setParameter('sha_pass_hash', $antiXss->xss_clean($bnet_hashed_pass))
+                ->setParameter('id', $userinfo['battlenet_account']);
             $queryBuilder->executeQuery();
+        } else {
+            if (get_config('srp6_version') == 0) {
+                if (!verifySRP6($userinfo['username'], $_POST['old_password'], $userinfo[get_core_config("salt_field")], $userinfo[get_core_config("verifier_field")])) {
+                error_msg(lang('old_password_not_valid'));
+                return false;
+                }
+                
+                list($salt, $verifier) = getRegistrationData(strtoupper($userinfo['username']), $_POST['password']);
+                
+                $queryBuilder = database::$auth->createQueryBuilder();
+                $queryBuilder->update('account')
+                    ->set(get_core_config("salt_field"), ':salt')
+                    ->set(get_core_config("verifier_field"), ':verifier')
+                    ->where('id = :id')
+                    ->setParameter('salt', $salt)
+                    ->setParameter('verifier', $verifier)
+                    ->setParameter('id', $userinfo['id']);
+                $queryBuilder->executeQuery();
+            }
+            if (get_config('srp6_version') == 1) {
+                if (!verifySRP6BnetV1($bnetAccountInfo['email'], $_POST['old_password'], $bnetAccountInfo[get_core_config("salt_field")], $bnetAccountInfo[get_core_config("verifier_field")])) {
+                    error_msg(lang('old_password_not_valid'));
+                    return false;
+                }
+
+                $game_account_name = $bnetAccountInfo['id'] . '#1';
+                list($salt, $verifier) = getRegistrationData($game_account_name, substr($_POST['password'], 0, 16));
+                
+                $queryBuilder = database::$auth->createQueryBuilder();
+                $queryBuilder->update('account')
+                    ->set(get_core_config("salt_field"), ':salt')
+                    ->set(get_core_config("verifier_field"), ':verifier')
+                    ->where('email = :email')
+                    ->setParameter('salt', $salt)
+                    ->setParameter('verifier', $verifier)
+                    ->setParameter('email', $bnetAccountInfo['email']);
+                $queryBuilder->executeQuery();
+                
+                list($salt, $verifier) = getRegistrationDataBnetV1($bnetAccountInfo['email'], $_POST['password']);
+                
+                $queryBuilder = database::$auth->createQueryBuilder();
+                $queryBuilder->update('battlenet_accounts')
+                    ->set('srp_version', 1)
+                    ->set(get_core_config("salt_field"), ':salt')
+                    ->set(get_core_config("verifier_field"), ':verifier')
+                    ->where('id = :id')
+                    ->setParameter('salt', $salt)
+                    ->setParameter('verifier', $verifier)
+                    ->setParameter('id', $bnetAccountInfo['id']);
+                $queryBuilder->executeQuery();
+            }
+            if (get_config('srp6_version') == 2) {
+                if (!verifySRP6BnetV2($bnetAccountInfo['email'], $_POST['old_password'], $bnetAccountInfo[get_core_config("salt_field")], $bnetAccountInfo[get_core_config("verifier_field")])) {
+                    error_msg($bnetAccountInfo[get_core_config("salt_field")]);
+                    return false;
+                }
+                
+                $game_account_name = $bnetAccountInfo['id'] . '#1';
+                list($salt, $verifier) = getRegistrationData($game_account_name, substr($_POST['password'], 0, 16));
+                
+                $queryBuilder = database::$auth->createQueryBuilder();
+                $queryBuilder->update('account')
+                    ->set(get_core_config("salt_field"), ':salt')
+                    ->set(get_core_config("verifier_field"), ':verifier')
+                    ->where('email = :email')
+                    ->setParameter('salt', $salt)
+                    ->setParameter('verifier', $verifier)
+                    ->setParameter('email', $bnetAccountInfo['email']);
+                $queryBuilder->executeQuery();
+                
+                list($salt, $verifier) = getRegistrationDataBnetV2($bnetAccountInfo['email'], $_POST['password']);
+                
+                $queryBuilder = database::$auth->createQueryBuilder();
+                $queryBuilder->update('battlenet_accounts')
+                    ->set('srp_version', 2)
+                    ->set(get_core_config("salt_field"), ':salt')
+                    ->set(get_core_config("verifier_field"), ':verifier')
+                    ->where('id = :id')
+                    ->setParameter('salt', $salt)
+                    ->setParameter('verifier', $verifier)
+                    ->setParameter('id', $bnetAccountInfo['id']);
+                $queryBuilder->executeQuery();
+            }
         }
-
-        $bnet_hashed_pass = strtoupper(bin2hex(strrev(hex2bin(strtoupper(hash('sha256', strtoupper(hash('sha256', strtoupper($userinfo['email'])) . ':' . strtoupper($_POST['password']))))))));
-
-        $queryBuilder = database::$auth->createQueryBuilder();
-        $queryBuilder->update('battlenet_accounts')
-            ->set('sha_pass_hash', ':sha_pass_hash')
-            ->where('id = :id')
-            ->setParameter('sha_pass_hash', $antiXss->xss_clean($bnet_hashed_pass))
-            ->setParameter('id', $userinfo['battlenet_account']);
-        $queryBuilder->executeQuery();
 
         success_msg(lang('password_changed'));
         return true;
@@ -650,6 +804,25 @@ class user
             $datas = $statement->fetchAllAssociative();
 
             if (!empty($datas[0]['username'])) {
+                return $datas[0];
+            }
+        }
+        return false;
+    }
+
+    public static function get_bnetaccount_by_email($email)
+    {
+        if (!empty($email)) {
+            $queryBuilder = database::$auth->createQueryBuilder();
+            $queryBuilder->select('*')
+                ->from('battlenet_accounts')
+                ->where('email = :email')
+                ->setParameter('email', strtoupper($email));
+
+            $statement = $queryBuilder->executeQuery();
+            $datas = $statement->fetchAllAssociative();
+
+            if (!empty($datas[0]['email'])) {
                 return $datas[0];
             }
         }

@@ -66,6 +66,13 @@ $config['battlenet_support'] = false;
 // SRP6 Password Encryption - Enable if your password encryption is of the SRP6 type, for last version of TC/AC you need to enable this.
 $config['srp6_support'] = true; // Important: Enable the GMP extension for PHP in your php.ini.
 
+/* Choose SRP6 version from below.
+0 = SRP6 - no srp_version field in auth database battlenet_accounts table
+1 = SRP6v1
+2 = SRP6v2
+ */
+$config['srp6_version'] = 2;
+
 // Feature Toggles - Control whether certain pages or features should be disabled.
 $config['disable_top_players'] = false; // Set to true to hide the top players page.
 $config['disable_online_players'] = false; // Set to true to hide the online players page.
