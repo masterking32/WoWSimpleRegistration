@@ -44,7 +44,7 @@ Ensure PHP version 8.0 or higher is installed and the following extensions are e
 
 3. Install [Composer](https://getcomposer.org/download/).
 
-4. Navigate to the project directory and and then go to the `application/` directory.
+4. Navigate to the project directory and then go to the `application/` directory.
 
 5. Run the following command to install the required dependencies:
 
@@ -56,7 +56,7 @@ Ensure PHP version 8.0 or higher is installed and the following extensions are e
 
 7. Edit the newly renamed `config.php` file, inserting your server details. Note that if using the "Image Captcha" feature, PHP's GD2 module must be enabled.
 
-8. Once configuration is complete, your registration page should be operational.
+8. Once the configuration is complete, your registration page should be operational.
 
 ## 🔧 PHP 7 Version Download
 
@@ -82,8 +82,8 @@ Here’s how to enable debug mode:
 
 ## ✅ Features
 
-1. **Registration Page**: Accommodating a wide range of game versions including Vanilla, TBC, WotLK, MoP, WoD, Legion, and BFA.
-2. **Online Players Status**: Check who's online at the server, with support for multiple realms.
+1. **Registration Page**: Accommodating a wide range of game versions including Vanilla, TBC, WotLK, MoP, WoD, Legion, BFA, and TWW.
+2. **Online Players Status**: Check who's online on the server, with support for multiple realms.
 3. **Leaderboards**: Display top players based on Playtime, Kills, Honor Points, Arena Points, and Arena Teams across different realms.
 4. **Connection Guide**: Step-by-step ‘How to connect’ page for new players.
 5. **Contact Form**: Accessible ‘Contact us’ page for inquiries and support.
@@ -110,7 +110,7 @@ Here’s how to enable debug mode:
 
 ### 2.0.3 (11/12/2024)
 
-- Support SRP6 version 1 and 2 used by Modern WoW servers/clients. (Thanks to [funjoker](https://github.com/funjoker))
+- Support SRP6 versions 1 and 2 used by Modern WoW servers/clients. (Thanks to [funjoker](https://github.com/funjoker))
 
 ### 2.0.2 (2/24/2021)
 
@@ -126,7 +126,7 @@ Here’s how to enable debug mode:
 
 ### 1.9.9 (8/03/2020)
 
-- Multi-language support introduced.
+- Multi-language support was introduced.
 
 ### 1.9.8 (8/03/2020)
 
@@ -137,7 +137,7 @@ Here’s how to enable debug mode:
 - Added Two-Factor Authentication (2FA) support.
 - Patched a low-level security vulnerability. **(Important: Please upgrade to this version)**
 - Resolved various bugs.
-- Included the `account set addon` command as a post-registration step for SOAP registrations.
+- The `account set addon` command was included as a post-registration step for SOAP registrations.
 
 ### 1.9.6 (7/27/2020)
 
