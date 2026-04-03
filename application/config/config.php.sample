@@ -82,7 +82,7 @@ $config['disable_changepassword'] = false; // Set to true to disable password ch
 $config['multiple_email_use'] = false; // Change to true to allow creation of multiple accounts with the same email.
 
 // Template Selection - Choose which template to use for the appearance of your website.
-$config['template'] = 'light'; // Available templates: light, advance, icecrown, kaelthas, battleforazeroth.
+$config['template'] = 'light'; // Available templates: light, advance, icecrown, kaelthas, battleforazeroth, Legion.
 
 // SMTP Configuration - Required for sending out emails (e.g., password recovery).
 $config['smtp_host'] = 'smtp1.example.com'; // SMTP host address.
